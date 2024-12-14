@@ -6,15 +6,17 @@ import 'package:flutter/material.dart';
 
  // Colors that used in tha App:
 class Constant{
+    
+    //Color.fromARGB(255, 63, 154, 152);
 
-
- static const Color mainColor = Color.fromARGB(255, 63, 154, 152);
+ static const Color mainColor = Color(0xFF126090);
  static const Color blackColorDark = Color(0xFF000000);
  static const Color blackColor = Color(0xFF222222);
  static const Color greyColor = Color(0xFF888888);
  static const Color greyColor2 = Color(0xFFB2B1B1);
  static const Color whiteColor = Color(0xFFFFFFFF);
  static const Color greyColor3 = Color(0xFF333333);
+ static const Color blueColor = Color(0xFF0056B3);
  
 //Color.fromARGB(255, 112, 182, 182)
 // Main color => Color.fromARGB(255, 63, 154, 152)

@@ -1,27 +1,116 @@
-
-
 import 'package:flutter/material.dart';
+import 'package:innovahub_app/Constants/Colors_Constant.dart';
+import 'package:innovahub_app/Models/Category_model.dart';
+import 'package:innovahub_app/home/cart_Tap.dart';
+import 'package:innovahub_app/home/favourite_Tap.dart';
+import 'package:innovahub_app/home/home_Tap_User.dart';
+import 'package:innovahub_app/home/profile_Tap.dart';
+import 'package:innovahub_app/home/search_Tap.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
-  static const String routeName = 'home_screen';
+  static const String routeName = 'home_screen';    // routeName of this screen:
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+
+   int select = 0;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        title: const Text(
+          'Innova',
+          style: TextStyle(
+              color: Constant.blackColorDark,
+              fontSize: 24,
+              fontWeight: FontWeight.bold),
+        ),
         centerTitle: true,
-        title: const Text('Home Screen'),
+        actions: const [
+          Padding(
+            padding: EdgeInsets.only(right: 16),
+            child: CircleAvatar(
+              radius: 24,
+              backgroundImage:
+                  AssetImage('assets/images/image-13.png'), // ضع الصورة هنا
+            ),
+          ),
+        ],
       ),
-      backgroundColor: Colors.white,
+
+      bottomNavigationBar: Theme(
+        data: Theme.of(context).copyWith(canvasColor: Colors.white),
+        child: BottomNavigationBar(
+          items:const [
+            BottomNavigationBarItem(
+              icon: Icon(
+                Icons.home_filled,
+              ),
+              label: "Home",
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(
+                Icons.favorite_border_outlined,
+              ),
+              label: "Wishlist",
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(
+                Icons.shopping_cart_outlined,
+              ),
+              label: "Cart",
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(
+                Icons.search_outlined,
+              ),
+              label: "Search",
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(
+                Icons.person_outline,
+              ),
+              label: "Profile",
+            ),
+          ],
+          currentIndex: select,
+          onTap: (index) {
+            select = index;
+            setState(() {});
+          },
+          selectedItemColor: Colors.blue,
+          unselectedItemColor: Colors.black,
+          selectedLabelStyle: const TextStyle(
+            fontSize: 16,
+          ),
+        ),
+      ),
+
+      body: tabs[select],
 
 
 
-
+      
     );
   }
+
+
+   List<Widget> tabs = [
+    HomeScreenUser(),
+    FavouriteTab(),
+    CartTab(),
+    SearchTap(),
+    ProfileTap()
+   ];
 }
+
+
 
 
 /*

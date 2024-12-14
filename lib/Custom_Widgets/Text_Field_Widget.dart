@@ -115,7 +115,7 @@ class TextFieldWidget extends StatelessWidget {
          return'password must be at least 8 chars';
         }
 
-       /* if(isPassword && !!RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$').hasMatch(value)){
+        /*if(isPassword && !!RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$').hasMatch(value)){
 
           return 'Password must contain at least one uppercase letter, one lowercase letter, one digit, and one special character.';
         }*/

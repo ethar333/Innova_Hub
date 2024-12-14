@@ -10,10 +10,10 @@ class AuthCubit extends Cubit <AuthStates>{
 
   AuthCubit():super(AuthIntialState());
 
-  static const String baseUrl = 'https://innovahub-d3etetfzh6ada8aq.uaenorth-01.azurewebsites.net/api/Account/';
+  static const String baseUrl = 'https://innova-hub.premiumasp.net/api/Account/';
   static const String registerApi = '$baseUrl/register';                 // register api:
   static const String loginApi = '$baseUrl/login';                      // login api:
-  static const String forgetPasswordApi = '$baseUrl/forgetPassword';   // forget password api:
+  static const String forgetPasswordApi = 'https://innovahub-d3etetfzh6ada8aq.uaenorth-01.azurewebsites.net/api/Profile/generate-token';   // forget password api:
   static const String resetPasswordApi = '$baseUrl/resetPassword';    // reset password api:
   static const String rolesApi = '$baseUrl/roles';                   // roles of users api:
   static const String googleLoginApi = '$baseUrl/googleLogin';      // googleLogin api:
@@ -38,8 +38,11 @@ class AuthCubit extends Cubit <AuthStates>{
     // call Api:
 
     try{
-      Response response =await http.post(           // store the response that return from api:
+      final response =await http.post(           // store the response that return from api:
      Uri.parse(registerApi),
+      headers: {
+          'Content-Type': 'application/json',
+        },
      
      // send data to database: 
      body: jsonEncode({
@@ -91,9 +94,11 @@ class AuthCubit extends Cubit <AuthStates>{
     try {
       final response = await http.post(
         Uri.parse(loginApi),
+
         headers: {
           'Content-Type': 'application/json',
         },
+        
         body: jsonEncode({
           "email": email,
           "password": password,
@@ -120,6 +125,8 @@ class AuthCubit extends Cubit <AuthStates>{
     }
   }
 
+
+  // 
     
   
 

@@ -6,6 +6,8 @@ import 'package:innovahub_app/Auth/login/forget_password.dart';
 import 'package:innovahub_app/Auth/login/login_screen.dart';
 import 'package:innovahub_app/Auth/login/reset_password.dart';
 import 'package:innovahub_app/Auth/register/register_screen.dart';
+import 'package:innovahub_app/home/home_Tap_Investor.dart';
+import 'package:innovahub_app/home/home_Tap_owner.dart';
 import 'package:innovahub_app/home/home_screen.dart';
 import 'package:innovahub_app/profile/profile.dart';
 import 'package:innovahub_app/splash_screen.dart';
@@ -23,7 +25,7 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers:[
 
-      BlocProvider(create: (context)=> AuthCubit()),
+      BlocProvider<AuthCubit>(create: (context)=> AuthCubit()),
 
 
       ] ,
@@ -39,6 +41,8 @@ class MyApp extends StatelessWidget {
         ForgetPasswordScreen.routname : (contect) => ForgetPasswordScreen(),
         resetpassword.routname : (context) => resetpassword(),
         HomeScreen.routeName :(context) => const HomeScreen(),
+        HomeScreenOwner.routeName :(context) => HomeScreenOwner(),
+        HomeScreenInvestor.routeName : (context) => HomeScreenInvestor(),
         ProfileScreen.routeName : (context) =>  const ProfileScreen(
         firstnameController: '', lastnameController: '', emailController:'', passwordController: '', cityController: '', phoneNumber: ''),
       },
@@ -52,5 +56,9 @@ class MyApp extends StatelessWidget {
     
 
   }
+  
 }
+
+
+
 
