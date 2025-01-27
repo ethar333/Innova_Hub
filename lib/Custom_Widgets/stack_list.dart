@@ -12,8 +12,8 @@ class stacklist extends StatelessWidget {
       Container(
         margin: const EdgeInsets.only(left: 25),
         //padding: EdgeInsets.only(left: 20),
-        height: 246,
-        width: 170,
+        height:295,
+        width: 200,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(25),
           color: Colors.white,
@@ -24,35 +24,51 @@ class stacklist extends StatelessWidget {
       ),
      const Positioned(
         bottom: 10,
+        left: 15,
         child: Column(
-          //mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.center,
+          //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              "RucksackEmbroideredBag",
-              style: TextStyle(fontSize: 12),
+              "Rucksack Embroidered Bag",
+              style: TextStyle(fontSize: 13),
             ),
-            Text("Made by Amira", style: TextStyle(fontSize: 15)),
-            Text("\$28.00"),
+            SizedBox(height: 8,),
+            Row(
+              children: [
+                Text("Made by", style: TextStyle(fontSize: 13,color: Constant.blackColorDark)),
+                Text(" Amira", style: TextStyle(fontSize: 13, color: Constant.blueColor)),
+              ],
+            ),
+          
+            SizedBox(height: 8,),
+
+            Text("\$28.00",style: TextStyle(fontWeight: FontWeight.bold),),
+            SizedBox(height: 10,),
+
             Row(
               children: [
                 Icon(Icons.favorite_border_outlined),
+                SizedBox(width: 15,),
                 Icon(Icons.shopping_cart),
-                SizedBox(
-                  width: 20,
-                ),
+                SizedBox(width: 30,),
                 CircleAvatar(
-                  radius: 11,
+                  radius: 8,
                   backgroundColor: Colors.green,
                   child: Icon(
                     Icons.check,
                     color: Constant.whiteColor,
+                    size: 14,
                   
                   ),
                 ),
-                Text(" In stock")
+               SizedBox(width: 5,),
+                Text(" In stock",style: TextStyle(fontSize: 12),)
               ],
             ),
+
+            SizedBox(height: 8,),
+
             Row(
               children: [
                 Icon(
@@ -67,9 +83,18 @@ class stacklist extends StatelessWidget {
                   Icons.star,
                   color: Colors.yellow,
                 ),
-                Text("4521")
+                 Icon(
+                  Icons.star,
+                  color: Colors.yellow,
+                ),
+           
+            SizedBox(width: 8,),
+
+                Text("56890"),
               ],
-            )
+            ),
+
+            SizedBox(height: 15,)
           ],
         ),
       )

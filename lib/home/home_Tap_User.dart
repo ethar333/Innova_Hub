@@ -60,7 +60,7 @@ class HomeScreenUser extends StatelessWidget {
               style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.w400,
-                  color: Constant.mainColor),
+                  color: Constant.blueColor),
             ),
           ),
       
@@ -69,7 +69,7 @@ class HomeScreenUser extends StatelessWidget {
           Container(
             height: 75,
             width: double.infinity,
-            color: const Color.fromARGB(255, 150, 200, 241),
+            color: Constant.transparentColor,
             child: const Column(
               children: [
                 SizedBox(
@@ -157,6 +157,7 @@ class HomeScreenUser extends StatelessWidget {
            Stack(
             children: [
               Container(
+                margin: EdgeInsets.all(12),
                 child: Image.asset(
                   "assets/images/image-12.png",
                   fit: BoxFit.fill,
@@ -196,9 +197,11 @@ class HomeScreenUser extends StatelessWidget {
                Stack(
                 children: [
                   Container(
-                    height: 170,
-                    width: 120,
-                    child: Image.asset("assets/images/image.png"),
+                    height: 120,
+                    width: 110,
+                    child: Image.asset("assets/images/image.png",
+                    fit: BoxFit.fill,
+                    ),
                   ),
                   Positioned(
                     bottom: 50,
@@ -226,9 +229,11 @@ class HomeScreenUser extends StatelessWidget {
              Stack(
                 children: [
                   Container(
-                    height: 150,
-                    width: 120,
-                    child: Image.asset("assets/images/image-1.png"),
+                    margin: EdgeInsets.all(10),
+                    height: 120,
+                    width: 110,
+                    child: Image.asset("assets/images/image-1.png",
+                    fit: BoxFit.fill,),
                   ),
                   Positioned(
                     bottom: 50,
@@ -255,9 +260,12 @@ class HomeScreenUser extends StatelessWidget {
               Stack(
                 children: [
                   Container(
-                    height: 150,
-                    width: 120,
-                    child: Image.asset("assets/images/image-2.png"),
+                    //margin: EdgeInsets.all(12),
+                    height: 120,
+                    width: 110,
+                    child: Image.asset("assets/images/image-2.png",
+                    fit: BoxFit.fill,
+                    ),
                   ),
                   Positioned(
                     bottom: 50,
@@ -290,9 +298,11 @@ class HomeScreenUser extends StatelessWidget {
               Stack(
                 children: [
                   Container(
-                    height: 170,
+                    height: 130,
                     width: 120,
-                    child: Image.asset("assets/images/image-3.png"),
+                    child: Image.asset("assets/images/image-3.png",
+                    fit: BoxFit.fill,
+                    ),
                   ),
                   Positioned(
                     bottom: 50,
@@ -319,9 +329,10 @@ class HomeScreenUser extends StatelessWidget {
               Stack(
                 children: [
                   Container(
-                    height: 170,
+                    height: 140,
                     width: 120,
-                    child: Image.asset("assets/images/image-4.png",),
+                    child: Image.asset("assets/images/image-4.png",
+                    fit: BoxFit.fill,),
                  ),
                   Positioned(
                     bottom: 50,
@@ -347,22 +358,37 @@ class HomeScreenUser extends StatelessWidget {
               ),
             ],
           ),
+
+          const SizedBox(height: 20,),
           
           const Row(
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
               SizedBox(
                 width: 10,
               ),
               Text(
                 "Best Selling Products",
-                style: TextStyle(color: Constant.blackColorDark,fontWeight: FontWeight.w400,fontSize: 18),
+                style: TextStyle(
+                color: Constant.blackColorDark,
+                fontWeight:FontWeight.w500,
+                fontSize: 18),
+              ),
+               
+               SizedBox( width: 110,),
+               Text(
+                "Show All",
+                style: TextStyle(
+                color: Constant.blueColor,
+                fontWeight:FontWeight.w400,
+                fontSize: 15),
               ),
             ],
           ),
           
           const SizedBox(height: 20),
           Container(
-            height: 250,
+            height: 310,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(25),
            ),
@@ -373,19 +399,31 @@ class HomeScreenUser extends StatelessWidget {
                 return const stacklist();
               },
               separatorBuilder: (BuildContext context, int index) {
-                return const SizedBox(  width: 10, );
+                return const SizedBox(  width: 15, );
               },
             ),
           ),
+
+         const SizedBox(height: 20,),
+
       
           const Row(
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
               SizedBox(
                 width: 10,
               ),
               Text(
                 "Handcraft Carpets",
-                style: TextStyle(fontSize: 18),
+                style: TextStyle(fontSize: 18,fontWeight: FontWeight.w500,color: Constant.blackColorDark),
+              ),
+              SizedBox( width: 130,),
+               Text(
+                "Show All",
+                style: TextStyle(
+                color: Constant.blueColor,
+                fontWeight:FontWeight.w400,
+                fontSize: 15),
               ),
             ],
           ),
@@ -404,21 +442,32 @@ class HomeScreenUser extends StatelessWidget {
               },
               separatorBuilder: (BuildContext context, int index) {
                 return const SizedBox(
-                  width: 7,
+                  width: 15,
                 );
               },
             ),
           ),
 
+         const SizedBox(height: 20,),
+
           //Explore other products
           const Row(
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
               SizedBox(
                 width: 10,
               ),
               Text(
                 "Shop Necklaces",
-                style: TextStyle(fontSize: 18),
+                style: TextStyle(fontSize: 18,fontWeight: FontWeight.w500,color: Constant.blackColorDark),
+              ),
+               SizedBox( width: 150,),
+               Text(
+                "Show All",
+                style: TextStyle(
+                color: Constant.blueColor,
+                fontWeight:FontWeight.w400,
+                fontSize: 15),
               ),
             ],
           ),
@@ -426,7 +475,9 @@ class HomeScreenUser extends StatelessWidget {
           const SizedBox(
             height: 20,
           ),
+
           Container(
+            margin: const EdgeInsets.only(left: 12),
             height: 250,
             child: ListView.separated(
               itemCount: 10,
@@ -436,11 +487,13 @@ class HomeScreenUser extends StatelessWidget {
               },
               separatorBuilder: (BuildContext context, int index) {
                 return const SizedBox(
-                  width: 7,
+                  width: 12,
                 );
               },
             ),
           ),
+
+          const SizedBox(height: 40,),
         ]
       ),
     );

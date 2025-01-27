@@ -8,59 +8,65 @@ class stacklisthandmade extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(children: [
       Container(
-        height: 200,
-        width: 113,
+        height: 270,
+        width: 190,
         color: Colors.white,
       ),
-
-      Image.asset( "assets/images/image-11.png",
+    
+      Image.asset( "assets/images/image-11.png",    
+      
       ),
       
       const Positioned(
-        bottom: 10,
+        bottom: 5,
+        left: 6,
+
         child: Column(
+          //mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              "Shop Necklaces",
+              "Rucksack Embroidered Bag",
               style: TextStyle(fontSize: 12),
             ),
-            Text("Made by Amira", style: TextStyle(fontSize: 15)),
-            Text("\$28.00"),
+    
+            SizedBox(height: 8,),
+    
+            Row(
+              children: [
+                Text("Made by", style: TextStyle(fontSize: 13,color: Constant.blackColorDark)),
+                Text(" Amira", style: TextStyle(fontSize: 13, color: Constant.blueColor)),
+    
+              ],
+            ),
+            SizedBox(height: 8,),
+    
+            Text("\$28.00",style: TextStyle(fontWeight: FontWeight.bold)),
+            
+            SizedBox(height: 10,),
             Row(
               children: [
                 Icon(Icons.favorite_border_outlined),
+                SizedBox(width: 15,),
                 Icon(Icons.shopping_cart),
                 SizedBox(
-                  width: 20,
+                  width: 30,
                 ),
                 CircleAvatar(
-                  radius: 11,
+                  radius: 8,
                   backgroundColor: Colors.green,
                   child: Icon(
                     Icons.check,
                     color: Constant.whiteColor,
+                    size: 14,
                   ),
                 ),
-                Text(" In stock")
+    
+               SizedBox(width: 5,),
+                Text(" In stock",style: TextStyle(fontSize: 12),)
               ],
             ),
-            Row(
-              children: [
-                Icon(
-                  Icons.star,
-                  color: Colors.yellow,
-                ),
-                Icon(
-                  Icons.star,
-                  color: Colors.yellow,
-                ),
-                Icon(
-                  Icons.star,
-                  color: Colors.yellow,
-                ),
-                Text("4521")
-              ],
-            )
+           
           ],
         ),
       )

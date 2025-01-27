@@ -4,7 +4,7 @@ import 'package:innovahub_app/Models/Category_model.dart';
 import 'package:innovahub_app/home/cart_Tap.dart';
 import 'package:innovahub_app/home/favourite_Tap.dart';
 import 'package:innovahub_app/home/home_Tap_User.dart';
-import 'package:innovahub_app/home/profile_Tap.dart';
+import 'package:innovahub_app/home/profile_Tap_customer.dart';
 import 'package:innovahub_app/home/search_Tap.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -489,27 +489,5 @@ class _RegisterDesignState extends State<RegisterDesign> {
     );
   }
 }*/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 

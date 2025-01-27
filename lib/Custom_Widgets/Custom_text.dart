@@ -1,6 +1,4 @@
 
-
-
 import 'package:flutter/material.dart';
 import 'package:innovahub_app/Constants/Colors_Constant.dart';
 
@@ -22,3 +20,4 @@ class TextCategory extends StatelessWidget {
     );
   }
 }
+

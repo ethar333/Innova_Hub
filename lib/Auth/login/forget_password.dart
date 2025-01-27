@@ -17,7 +17,7 @@ class ForgetPasswordScreen extends StatelessWidget {
   Future<void> sendForgetPasswordRequest( 
       BuildContext context, String email) async { 
     final url = Uri.parse( 
-        'https://innovahub-d3etetfzh6ada8aq.uaenorth-01.azurewebsites.net/api/Profile/generate-token'); // Replace with your API endpoint 
+        'https://innova-hub.premiumasp.net/api/Profile/generate-token'); // Replace with your API endpoint 
     
     try { 
       // Show loading indicator 
@@ -154,13 +154,17 @@ class ForgetPasswordScreen extends StatelessWidget {
                   onPressed: () { 
                     final userEmail = email.text.trim(); 
                     if (userEmail.isNotEmpty) { 
-                      sendForgetPasswordRequest(context, userEmail); 
-                    } else { 
+                      
+                      sendForgetPasswordRequest(context, userEmail);    // 
+
+                    }
+                     else { 
                       ScaffoldMessenger.of(context).showSnackBar(const SnackBar( 
                         content: Text('Please enter your email.'), 
                       )); 
                     } 
                   }, 
+
                   style: ElevatedButton.styleFrom( 
                     backgroundColor: Constant.mainColor, 
                     padding: const EdgeInsets.symmetric( 

@@ -1,19 +1,24 @@
+
 import 'package:flutter/material.dart';
 import 'package:innovahub_app/Constants/Colors_Constant.dart';
+import 'package:innovahub_app/home/deal_tap_owner.dart';
+import 'package:innovahub_app/home/home_Investor.dart';
+import 'package:innovahub_app/home/profile_owner.dart';
+import 'package:innovahub_app/home/search_Tap.dart';
 
 class HomeScreenInvestor extends StatefulWidget {
-  HomeScreenInvestor({super.key});
+  const HomeScreenInvestor({super.key});
 
-  static const String routeName = 'home_investor';              // routeName:
-
+  static const String routeName = 'home_investor';       // routeName:
   @override
   State<HomeScreenInvestor> createState() => _HomeScreenInvestorState();
 }
 
 class _HomeScreenInvestorState extends State<HomeScreenInvestor> {
-  int select = 0;
 
-  @override
+    int select = 0;
+
+    @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -31,7 +36,7 @@ class _HomeScreenInvestorState extends State<HomeScreenInvestor> {
             child: CircleAvatar(
               radius: 24,
               backgroundImage:
-                  AssetImage('assets/images/image-13.png'), // ضع الصورة هنا
+                  AssetImage('assets/images/investor1.png'), // ضع الصورة هنا
             ),
           ),
         ],
@@ -48,15 +53,9 @@ class _HomeScreenInvestorState extends State<HomeScreenInvestor> {
             ),
             BottomNavigationBarItem(
               icon: Icon(
-                Icons.favorite_border_outlined,
+                Icons.trending_up,
               ),
-              label: "Wishlist",
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(
-                Icons.shopping_cart_outlined,
-              ),
-              label: "Cart",
+              label: "Deals",
             ),
             BottomNavigationBarItem(
               icon: Icon(
@@ -83,76 +82,23 @@ class _HomeScreenInvestorState extends State<HomeScreenInvestor> {
           ),
         ),
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-           crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              margin: const EdgeInsets.only(top: 6),
-              width: double.infinity,
-              padding: const EdgeInsets.all(20),
-              color: Constant.mainColor,
-              child: TextField(
-                decoration: InputDecoration(
-                  contentPadding:
-                      const EdgeInsets.symmetric(horizontal: 12, vertical: 15),
-                  fillColor: Constant.whiteColor,
-                  filled: true,
-                  prefixIcon: const Icon(
-                    Icons.search,
-                    color: Constant.greyColor2,
-                  ),
-                  hintText: 'Search any Product...',
-                  hintStyle:
-                      const TextStyle(color: Constant.greyColor2, fontSize: 14),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(30),
-                    borderSide: const BorderSide(
-                      color: Constant.whiteColor,
-                    ),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(30),
-                    borderSide: const BorderSide(color: Constant.whiteColor),
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(40),
-                    borderSide: const BorderSide(color: Constant.whiteColor),
-                  ),
-                ),
-              ),
-            ),
-           
-            const SizedBox(height: 25, ),
 
-           const Padding(
-              padding: EdgeInsets.only(left: 20),
-              child:  Text('Necklaces',
-                style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.w400,
-                    color: Constant.mainColor),
-              ),
-            ),
+      body: tabsInvestor[select],
 
-            const SizedBox(height: 10),
-
-           const Padding(
-              padding:  EdgeInsets.only(left: 20),
-              child:  Text('Handcrafted necklaces featuring deep blue Lapis Lazuli stones',
-                style: TextStyle(
-                    fontSize: 15,
-                    fontWeight: FontWeight.w400,
-                    color: Constant.blackColorDark),
-                    maxLines: 2,
-              ),
-            ),
-          ],
-
-        ),
-
-      ),
     );
   }
+
+
+  List<Widget> tabsInvestor = [
+    
+    HomeInvestor(),
+     DealOwner(),
+     SearchTap(),
+     ProfileOwner(),
+
+  ];
 }
+
+
+
+

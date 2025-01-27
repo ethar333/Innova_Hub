@@ -8,8 +8,8 @@ import 'package:innovahub_app/Custom_Widgets/Text_Field_Widget.dart';
 import 'package:innovahub_app/home/home_screen.dart';
 
 class RegisterScreen extends StatefulWidget {
-  static const String routeName =
-      'register_screen'; // routeName of this screen:
+  
+  static const String routeName = 'register_screen'; // routeName of this screen:
 
   @override
   State<RegisterScreen> createState() => _RegisterScreenState();
@@ -36,10 +36,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   // Roles for Dropdown
   final List<Map<String, String>> roles = [
-    {"id": "1fb9855f-3bd0-4b65-a848-419a7f5fceaa", "name": "Investor"},
-    {"id": "61e066a0-056e-48ca-b720-302738a363f0", "name": "BusinessOwner"},
-    {"id": "84537a94-1437-4212-8446-2f35207c097f", "name": "Admin"},
-    {"id": "f1740269-16fd-41e3-bcdb-30dd4d96f455", "name": "Customer"}
+    {"id": "c5f61434-655f-483c-877f-aba2e939f1c5", "name": "Investor"},
+    {"id": "8f20aebd-f53b-4153-9ebc-20205ba3cab7", "name": "BusinessOwner"},
+    {"id": "fbf2a1bf-80bd-48d0-ae06-6714d7cd90df", "name": "Admin"},
+    {"id": "e17b0f5d-bed0-4dfa-9219-992c5d30d54b", "name": "Customer"}
   ];
 
   // Method to show a dialog
@@ -85,6 +85,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         Future.delayed(const Duration(seconds: 3), () {
           // Adjust the duration as needed
           Navigator.pushReplacementNamed(context, HomeScreen.routeName);
+          
         });
       } else if (state is RegisterErrorStata) {
         // show an error message:

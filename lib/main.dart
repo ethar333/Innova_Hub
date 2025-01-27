@@ -6,6 +6,7 @@ import 'package:innovahub_app/Auth/login/forget_password.dart';
 import 'package:innovahub_app/Auth/login/login_screen.dart';
 import 'package:innovahub_app/Auth/login/reset_password.dart';
 import 'package:innovahub_app/Auth/register/register_screen.dart';
+import 'package:innovahub_app/home/home_Tap_Categories.dart';
 import 'package:innovahub_app/home/home_Tap_Investor.dart';
 import 'package:innovahub_app/home/home_Tap_owner.dart';
 import 'package:innovahub_app/home/home_screen.dart';
@@ -43,21 +44,24 @@ class MyApp extends StatelessWidget {
         HomeScreen.routeName :(context) => const HomeScreen(),
         HomeScreenOwner.routeName :(context) => HomeScreenOwner(),
         HomeScreenInvestor.routeName : (context) => HomeScreenInvestor(),
+        HomeScreenCategories.routeName : (context) => HomeScreenCategories(),
         ProfileScreen.routeName : (context) =>  const ProfileScreen(
         firstnameController: '', lastnameController: '', emailController:'', passwordController: '', cityController: '', phoneNumber: ''),
       },
      
-     initialRoute: RegisterScreen.routeName,
+     initialRoute: HomeScreenInvestor.routeName,
 
        ),
 
-       
        );
     
 
   }
   
 }
+
+
+
 
 
 

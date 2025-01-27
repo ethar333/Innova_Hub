@@ -10,7 +10,7 @@ class AuthCubit extends Cubit <AuthStates>{
 
   AuthCubit():super(AuthIntialState());
 
-  static const String baseUrl = 'https://innova-hub.premiumasp.net/api/Account/';
+  static const String baseUrl = 'https://innova-hub.premiumasp.net/api/Account';
   static const String registerApi = '$baseUrl/register';                 // register api:
   static const String loginApi = '$baseUrl/login';                      // login api:
   static const String forgetPasswordApi = 'https://innovahub-d3etetfzh6ada8aq.uaenorth-01.azurewebsites.net/api/Profile/generate-token';   // forget password api:
