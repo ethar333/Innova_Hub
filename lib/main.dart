@@ -49,16 +49,16 @@ class MyApp extends StatelessWidget {
         firstnameController: '', lastnameController: '', emailController:'', passwordController: '', cityController: '', phoneNumber: ''),
       },
      
-     initialRoute: HomeScreenInvestor.routeName,
+     initialRoute: HomeScreenOwner.routeName,
 
        ),
 
        );
-    
 
   }
   
 }
+
 
 
 

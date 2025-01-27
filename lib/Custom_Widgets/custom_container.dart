@@ -2,8 +2,8 @@
 import 'package:flutter/material.dart';
 import 'package:innovahub_app/Constants/Colors_Constant.dart';
 
-class ContainerOwner extends StatelessWidget {
-   ContainerOwner({super.key,required this.icon, required this.label,required this.num});
+class CustomContainer extends StatelessWidget {
+   CustomContainer({super.key,required this.icon, required this.label,required this.num});
 
   IconData icon ;
   String label;
