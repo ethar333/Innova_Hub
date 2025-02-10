@@ -6,15 +6,21 @@ import 'package:innovahub_app/Auth/login/forget_password.dart';
 import 'package:innovahub_app/Auth/login/login_screen.dart';
 import 'package:innovahub_app/Auth/login/reset_password.dart';
 import 'package:innovahub_app/Auth/register/register_screen.dart';
+import 'package:innovahub_app/core/services/cache_services.dart';
 import 'package:innovahub_app/home/home_Tap_Categories.dart';
 import 'package:innovahub_app/home/home_Tap_Investor.dart';
 import 'package:innovahub_app/home/home_Tap_owner.dart';
 import 'package:innovahub_app/home/home_screen.dart';
-import 'package:innovahub_app/profile/profile.dart';
+import 'package:innovahub_app/home/register_page.dart';
+import 'package:innovahub_app/profiles/privacy_owner_investor.dart';
+import 'package:innovahub_app/profiles/privacy_user.dart';
+import 'package:innovahub_app/profiles/profile_tap_Investor.dart';
+import 'package:innovahub_app/profiles/profile_tap_User.dart';
 import 'package:innovahub_app/splash_screen.dart';
 
-void main() {
-  runApp(const MyApp());
+void main()async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await CacheService.init();  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -34,6 +40,7 @@ class MyApp extends StatelessWidget {
        child: MaterialApp(
        debugShowCheckedModeBanner: false,
       routes: {
+        TrainingPage.routeName : (context) => TrainingPage(),
         SplashScreen.routeName :(context) =>  const SplashScreen(),
         RegisterScreen.routeName : (context) =>  RegisterScreen(),
         //RegisterDesign.routeName:(context)=>RegisterDesign(),
@@ -42,22 +49,27 @@ class MyApp extends StatelessWidget {
         ForgetPasswordScreen.routname : (contect) => ForgetPasswordScreen(),
         resetpassword.routname : (context) => resetpassword(),
         HomeScreen.routeName :(context) => const HomeScreen(),
-        HomeScreenOwner.routeName :(context) => HomeScreenOwner(),
-        HomeScreenInvestor.routeName : (context) => HomeScreenInvestor(),
-        HomeScreenCategories.routeName : (context) => HomeScreenCategories(),
-        ProfileScreen.routeName : (context) =>  const ProfileScreen(
-        firstnameController: '', lastnameController: '', emailController:'', passwordController: '', cityController: '', phoneNumber: ''),
+        HomeScreenOwner.routeName :(context) => const HomeScreenOwner(),
+       // AddingDealOwner.routeName : (context) => AddingDealOwner(),
+        HomeScreenInvestor.routeName : (context) => const HomeScreenInvestor(),
+        HomeScreenCategories.routeName : (context) => const HomeScreenCategories(),
+        ProfileInvestor.routeName : (context) => const ProfileInvestor(),
+        ProfileUser.routeName : (context) =>  const ProfileUser(),
+        PrivacyUser.routeName : (context) => const PrivacyUser(),
+        PrivacyOwnerInvestor.routeName : (context) => const PrivacyOwnerInvestor(),
       },
      
-     initialRoute: HomeScreenOwner.routeName,
+     initialRoute: RegisterScreen.routeName,
 
-       ),
+   ),
 
-       );
-
+  );
   }
-  
+
 }
+
+
+
 
 
 

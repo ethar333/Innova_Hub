@@ -1,9 +1,14 @@
 
 import 'package:flutter/material.dart';
+import 'package:innovahub_app/Api_Categories/Api_Manager.dart';
 import 'package:innovahub_app/Constants/Colors_Constant.dart';
+import 'package:innovahub_app/Custom_Widgets/Estimated_container.dart';
 import 'package:innovahub_app/Custom_Widgets/Stack_listCart.dart';
+import 'package:innovahub_app/Custom_Widgets/category_card.dart';
 import 'package:innovahub_app/Custom_Widgets/container_owner.dart';
 import 'package:innovahub_app/Custom_Widgets/stack_listHandmade.dart';
+import 'package:innovahub_app/Models/Category_response.dart';
+import 'package:innovahub_app/Models/product_response.dart';
 
 class HomeOwner extends StatelessWidget {
   const HomeOwner({super.key});
@@ -124,94 +129,8 @@ class HomeOwner extends StatelessWidget {
             ),
           ),
 
-          Container(
-            margin: const EdgeInsets.all(15),
-            padding: const EdgeInsets.all(22),
-            decoration: BoxDecoration(
-              color: Constant.white2Color,
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Column(
-                  //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Estimated Balance', // text:
-                      style: TextStyle(
-                        color: Constant.blackColorDark,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                    Text(
-                      '152,326.23 EGP', // text:
-                      style: TextStyle(
-                        color: Constant.purpuleColor,
-                        fontSize: 24,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                    Text(
-                      '≈ \$3025.37', // text:
-                      style: TextStyle(
-                        color: Constant.blackColorDark,
-                        fontSize: 15,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                  ],
-                ),
-                Column(
-                  children: [
-                    Container(
-                      //margin: EdgeInsets.only(left: 30),
-                      //padding: const EdgeInsets.only(left: 10, right: 10),
-                      width: 90,
-                      height: 35,
-                      decoration: BoxDecoration(
-                        color: Constant.blueColor,
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: const Center(
-                        child: Text(
-                          'Withdraw',
-                          style: TextStyle(
-                            color: Constant.whiteColor,
-                            fontSize: 15,
-                          ),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 15,
-                    ),
-                    Container(
-                      //margin: EdgeInsets.only(left: 30),
-                      //padding: const EdgeInsets.only(left: 10, right: 10),
-                      width: 90,
-                      height: 35,
-                      decoration: BoxDecoration(
-                        color: Constant.blueColor,
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: const Center(
-                        child: Text(
-                          'Deposit',
-                          style: TextStyle(
-                            color: Constant.whiteColor,
-                            fontSize: 15,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
+          const EstimatedContainer(),
+
           Container(
             margin: const EdgeInsets.all(15),
             padding: const EdgeInsets.all(15),
@@ -305,289 +224,322 @@ class HomeOwner extends StatelessWidget {
             ),
           ),
 
-          const SizedBox(
-            height: 15,
-          ),
+           const SizedBox(height: 15,),
 
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Stack(
-                children: [
-                  Container(
-                    height: 120,
-                    width: 110,
-                    child: Image.asset(
-                      "assets/images/image.png",
-                      fit: BoxFit.fill,
-                    ),
-                  ),
-                  Positioned(
-                    bottom: 50,
-                    left: 30,
-                    child: Container(
-                        width: 50,
-                        decoration: BoxDecoration(
-                          // Semi-transparent background for visibility
-                          borderRadius: BorderRadius.circular(15),
-                          border: Border.all(color: Colors.white, width: 2),
-                        ),
-                        child: const Center(
-                          child: Text(
-                            "Art",
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        )),
-                  )
-                ],
-              ),
-              Stack(
-                children: [
-                  Container(
-                    margin: EdgeInsets.all(10),
-                    height: 120,
-                    width: 110,
-                    child: Image.asset(
-                      "assets/images/image-1.png",
-                      fit: BoxFit.fill,
-                    ),
-                  ),
-                  Positioned(
-                    bottom: 50,
-                    left: 25,
-                    child: Container(
-                        width: 70,
-                        decoration: BoxDecoration(
-                          // Semi-transparent background for visibility
-                          borderRadius: BorderRadius.circular(15),
-                          border: Border.all(color: Colors.white, width: 2),
-                        ),
-                        child: const Center(
-                          child: Text(
-                            "Jewelry",
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        )),
-                  )
-                ],
-              ),
-              Stack(
-                children: [
-                  Container(
-                    //margin: EdgeInsets.all(12),
-                    height: 120,
-                    width: 110,
-                    child: Image.asset(
-                      "assets/images/image-2.png",
-                      fit: BoxFit.fill,
-                    ),
-                  ),
-                  Positioned(
-                    bottom: 50,
-                    left: 25,
-                    child: Container(
-                        width: 70,
-                        decoration: BoxDecoration(
-                          // Semi-transparent background for visibility
-                          borderRadius: BorderRadius.circular(15),
-                          border: Border.all(color: Colors.white, width: 2),
-                        ),
-                        child: const Center(
-                          child: Text(
-                            "Bags",
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        )),
-                  )
-                ],
-              ),
-            ],
-          ),
+           // display categories:
+         FutureBuilder<List<CategoryResponse>>(
+        future: ApiManager.getAllCategories(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
 
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Stack(
-                children: [
-                  Container(
-                    height: 130,
-                    width: 120,
-                    child: Image.asset(
-                      "assets/images/image-3.png",
-                      fit: BoxFit.fill,
-                    ),
-                  ),
-                  Positioned(
-                    bottom: 50,
-                    left: 30,
-                    child: Container(
-                        width: 50,
-                        decoration: BoxDecoration(
-                          // Semi-transparent background for visibility
-                          borderRadius: BorderRadius.circular(15),
-                          border: Border.all(color: Colors.white, width: 2),
-                        ),
-                        child: const Center(
-                          child: Text(
-                            "Home",
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        )),
-                  )
-                ],
-              ),
-              Stack(
-                children: [
-                  Container(
-                    height: 140,
-                    width: 120,
-                    child: Image.asset(
-                      "assets/images/image-4.png",
-                      fit: BoxFit.fill,
-                    ),
-                  ),
-                  Positioned(
-                    bottom: 50,
-                    left: 35,
-                    child: Container(
-                        width: 50,
-                        decoration: BoxDecoration(
-                          // Semi-transparent background for visibility
-                          borderRadius: BorderRadius.circular(15),
-                          border: Border.all(color: Colors.white, width: 2),
-                        ),
-                        child: const Center(
-                          child: Text(
-                            "Carpts",
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        )),
-                  )
-                ],
-              ),
-            ],
-          ),
+            return const Center(child: CircularProgressIndicator(
+             color:Constant.mainColor,
+            ));
 
-          const SizedBox(
-            height: 10,
-          ),
+          } else if (snapshot.hasError) {
 
-          const Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              // SizedBox(width: 10, ),
-              Padding(
-                padding: EdgeInsets.only(left: 15),
-                child: Text(
-                  "Handcraft Carpets",
-                  style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w500,
-                      color: Constant.blackColorDark),
+            return Center(child: Text("Error: ${snapshot.error}"));
+
+          } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+
+            return const Center(child: Text("No categories found"));
+          }
+ 
+          // server has data:
+           List<CategoryResponse> categoryList = snapshot.data!;
+
+            return Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: categoryList.take(3).map((category) {
+                    return Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.all(5),
+                        child: CategoryCard(category: category),
+                      ),
+                    );
+                  }).toList(),
                 ),
-              ),
-              SizedBox(
-                width: 140,
-              ),
-              Text(
-                "Show All",
-                style: TextStyle(
-                    color: Constant.blueColor,
-                    fontWeight: FontWeight.w400,
-                    fontSize: 15),
-              ),
-            ],
-          ),
+                
+                const SizedBox(height: 10),
 
-          const SizedBox(
-            height: 10,
-          ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: categoryList.skip(3).map((category) {
+                    return Padding(
+                      padding: const EdgeInsets.all(5),
+                      child: CategoryCard(category: category)
+                    );
+                  }).toList(),
+                ),
+              ],
+          );
+        },
+      ),
 
-          Container(
-            height: 250,
-            child: ListView.separated(
-              itemCount: 10,
-              scrollDirection: Axis.horizontal,
-              itemBuilder: (context, index) {
-                return stacklistcart();
-              },
-              separatorBuilder: (BuildContext context, int index) {
-                return const SizedBox(
-                  width: 15,
-                );
-              },
-            ),
-          ),
-
-          const SizedBox(
-            height: 10,
-          ),
-          const Row(
+           const SizedBox(height: 20,),
+            Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              SizedBox(
-                width: 15,
+              const SizedBox(
+                width: 10,
               ),
-              Text(
+
+              const Text(
+                "Handcraft Carpets",
+                style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold,color: Constant.blackColorDark),
+              ),
+
+             // const SizedBox( width: 130,),
+               const Spacer(),
+
+                 InkWell(
+                  onTap: () {
+                  // Navigator.pushNamed(context, HomeScreenCategories.routeName,);
+                   //arguments:  CategoryItemResponse.localData[21]);
+
+                  },
+                  child: const Row(
+                    children: [
+                      Text(
+                      "Show All",
+                      style: TextStyle(
+                      color: Constant.blueColor,
+                      fontWeight:FontWeight.w400,
+                      fontSize: 15),
+                     ),
+                    Icon(Icons.chevron_right,color: Constant.blackColorDark,)
+                     
+                    ],
+                  ),
+                ),
+                const SizedBox(width: 10,)
+            ],
+          ),
+      
+          const SizedBox(
+            height: 20,
+          ),
+         
+         // display carpets products:
+       FutureBuilder<CategoryModel>(
+        future: ApiManager.getProducts(13),      // loading data:
+
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+
+            return const Center(child: CircularProgressIndicator(color: Constant.mainColor,));
+
+          } else if (snapshot.hasError) {
+
+            return Center(child: Text("Error: ${snapshot.error}"));
+
+          } else if (!snapshot.hasData ) {
+
+            return const Center(child: Text("No categories found"));
+          }
+ 
+          // server has data:
+
+         var products = snapshot.data?.allProducts ?? [];     // get all products;
+
+          return SizedBox(
+            height: 350,
+            width: double.infinity,
+            child: ListView.separated(
+              itemBuilder: (context,index){
+
+                return stacklistcart(product: products[index]);
+              } , 
+              separatorBuilder:(BuildContext context, int index) {
+                  return const SizedBox(width: 5);
+                  },
+               itemCount: products.length,
+               scrollDirection: Axis.horizontal,
+               
+            ),
+          );
+        },
+      ),
+        const SizedBox(height: 20,),
+
+          //Explore other products
+           Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              const SizedBox(
+                width: 10,
+              ),
+              const Text(
                 "Shop Necklaces",
-                style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w500,
-                    color: Constant.blackColorDark),
+                style: TextStyle(fontSize: 18,fontWeight: FontWeight.w500,color: Constant.blackColorDark),
               ),
-              SizedBox(
-                width: 160,
+              
+              //const SizedBox( width: 150,),
+                Spacer(),
+
+
+               InkWell(
+                onTap: () {
+                },
+                 child: const Row(
+                   children: [
+                     Text(
+                      "Show All",
+                      style: TextStyle(
+                      color: Constant.blueColor,
+                      fontWeight:FontWeight.w400,
+                      fontSize: 15),
+                     ),
+                   
+                    Icon(Icons.chevron_right,color: Constant.blackColorDark,)
+                 
+                   ],
+                 ),
+               ),
+                const SizedBox(width: 10,)
+
+            ],
+          ),
+      
+          const SizedBox(
+            height: 20,
+          ),
+          
+        // display Necklace products:
+        FutureBuilder<CategoryModel>(
+        future: ApiManager.getProducts(9),      // loading data:
+
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+
+            return const Center(child: CircularProgressIndicator(color: Constant.mainColor,));
+
+          } else if (snapshot.hasError) {
+
+            return Center(child: Text("Error: ${snapshot.error}"));
+
+          } else if (!snapshot.hasData ) {
+
+            return const Center(child: Text("No categories found"));
+          }
+ 
+          // server has data:
+
+         var products = snapshot.data?.allProducts ?? [];     // get all products;
+
+          return Container(
+             margin: const EdgeInsets.only(left: 15,right: 15),
+             height: 350,
+             width: double.infinity,
+             child: ListView.separated(
+               itemCount: products.length,
+               scrollDirection: Axis.horizontal,
+               itemBuilder: (context, index) {
+
+                 return stacklisthandmade(product: products[index],);
+
+               },
+               separatorBuilder: (BuildContext context, int index) {
+                 return const SizedBox( width: 15, );
+
+               },
+             ),
+          );
+        },
+      ),
+         const SizedBox(height: 30,),
+
+        Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              const SizedBox(
+                width: 10,
               ),
-              Text(
-                "Show All",
-                style: TextStyle(
-                    color: Constant.blueColor,
-                    fontWeight: FontWeight.w400,
-                    fontSize: 15),
+              const Text(
+                "Shop Rings",
+                style: TextStyle(fontSize: 18,fontWeight: FontWeight.w500,color: Constant.blackColorDark),
               ),
+              
+              //const SizedBox( width: 150,),
+              Spacer(),
+
+               InkWell(
+                onTap: () {
+                },
+                 child: const Row(
+                   children: [
+                     Text(
+                      "Show All",
+                      style: TextStyle(
+                      color: Constant.blueColor,
+                      fontWeight:FontWeight.w400,
+                      fontSize: 15),
+                      textAlign: TextAlign.end,
+                     ),
+                   
+                    Icon(Icons.chevron_right,color: Constant.blackColorDark,)
+                 
+                   ],
+                 ),
+               ),
+                const SizedBox(width: 10,)
+
             ],
           ),
 
-          const SizedBox(
-            height: 10,
-          ),
-          Container(
-            margin: const EdgeInsets.only(left: 12),
-            height: 250,
-            child: ListView.separated(
-              itemCount: 10,
-              scrollDirection: Axis.horizontal,
-              itemBuilder: (context, index) {
-                return stacklisthandmade();
-              },
-              separatorBuilder: (BuildContext context, int index) {
-                return const SizedBox(
-                  width: 12,
-                );
-              },
-            ),
-          ),
+          const SizedBox(height: 20,),
 
-          const SizedBox(
+       // display Rings products:
+        FutureBuilder<CategoryModel>(
+        future: ApiManager.getProducts(14),      // loading data:
+
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+
+            return const Center(child: CircularProgressIndicator(color: Constant.mainColor,));
+
+          } else if (snapshot.hasError) {
+
+            return Center(child: Text("Error: ${snapshot.error}"));
+
+          } else if (!snapshot.hasData ) {
+
+            return const Center(child: Text("No categories found"));
+          }
+ 
+          // server has data:
+
+         var products = snapshot.data?.allProducts ?? [];     // get all products;
+
+          return Container(
+             margin: const EdgeInsets.only(left: 15,right: 15),
+             height: 350,
+             width: double.infinity,
+             child: ListView.separated(
+               itemCount: products.length,
+               scrollDirection: Axis.horizontal,
+               itemBuilder: (context, index) {
+
+                 return stacklisthandmade(product: products[index],);
+
+               },
+               separatorBuilder: (BuildContext context, int index) {
+                 return const SizedBox( width: 15, );
+
+               },
+             ),
+          );
+        },
+      ),
+          /*const SizedBox(
             height: 40,
-          ),
+          ),*/
         ],
+
       ),
     );
   }
 }
+

@@ -1,11 +1,11 @@
+
 import 'package:flutter/material.dart';
 import 'package:innovahub_app/Constants/Colors_Constant.dart';
-import 'package:innovahub_app/Models/Category_model.dart';
 import 'package:innovahub_app/home/cart_Tap.dart';
 import 'package:innovahub_app/home/favourite_Tap.dart';
 import 'package:innovahub_app/home/home_Tap_User.dart';
-import 'package:innovahub_app/home/profile_Tap_customer.dart';
 import 'package:innovahub_app/home/search_Tap.dart';
+import 'package:innovahub_app/profiles/profile_tap_User.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -103,10 +103,11 @@ class _HomeScreenState extends State<HomeScreen> {
 
    List<Widget> tabs = [
     HomeScreenUser(),
-    FavouriteTab(),
-    CartTab(),
-    SearchTap(),
-    ProfileTap()
+    const FavouriteTab(),
+    const CartTab(),
+    const SearchTap(),
+    const ProfileUser(),
+
    ];
 }
 

@@ -2,49 +2,65 @@
 
 import 'package:flutter/material.dart';
 import 'package:innovahub_app/Constants/Colors_Constant.dart';
+import 'package:innovahub_app/Models/product_response.dart';
 
+// ignore: must_be_immutable, camel_case_types
 class stacklisthandmade extends StatelessWidget {
+
+  ProductResponse product;     // object:
+
+  stacklisthandmade({super.key,  required this.product});
   @override
+
   Widget build(BuildContext context) {
     return Stack(children: [
       Container(
-        height: 270,
-        width: 190,
-        color: Colors.white,
+        //margin: EdgeInsets.only(left: 10),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(25),
+          color: Colors.white,
+        ),
+        height: 330,
+        width: 200,
       ),
     
-      Image.asset( "assets/images/image-11.png",    
-      
+      ClipRRect(
+        borderRadius: BorderRadius.circular(25),
+        child: Image.network( product.productImage,    
+        fit: BoxFit.cover,
+        height: 180, 
+        width: 200,
+        ),
       ),
       
-      const Positioned(
-        bottom: 5,
-        left: 6,
+       Positioned(
+        bottom: 40,
+        left: 10,
 
         child: Column(
           //mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              "Rucksack Embroidered Bag",
-              style: TextStyle(fontSize: 12),
+              product.name,
+              style: const TextStyle(fontSize: 12),
             ),
     
-            SizedBox(height: 8,),
+            const SizedBox(height: 8,),
     
-            Row(
+             Row(
               children: [
-                Text("Made by", style: TextStyle(fontSize: 13,color: Constant.blackColorDark)),
-                Text(" Amira", style: TextStyle(fontSize: 13, color: Constant.blueColor)),
+                const Text("Made by ", style: TextStyle(fontSize: 13,color: Constant.blackColorDark)),
+                Text( product.authorName, style: const TextStyle(fontSize: 13, color: Constant.blueColor)),
     
               ],
             ),
-            SizedBox(height: 8,),
+            const SizedBox(height: 8,),
     
-            Text("\$28.00",style: TextStyle(fontWeight: FontWeight.bold)),
+             Text("\$${product.price}",style: const TextStyle(fontWeight: FontWeight.bold)),
             
-            SizedBox(height: 10,),
-            Row(
+            const SizedBox(height: 10,),
+            const Row(
               children: [
                 Icon(Icons.favorite_border_outlined),
                 SizedBox(width: 15,),
@@ -63,7 +79,7 @@ class stacklisthandmade extends StatelessWidget {
                 ),
     
                SizedBox(width: 5,),
-                Text(" In stock",style: TextStyle(fontSize: 12),)
+                Text(" In stock",style: TextStyle(fontSize: 13,color: Constant.blackColorDark),)
               ],
             ),
            

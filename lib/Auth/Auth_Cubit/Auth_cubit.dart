@@ -1,9 +1,10 @@
 
 import 'dart:convert';
+import 'dart:developer';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:http/http.dart';
 import 'package:http/http.dart' as http;
-import 'package:innovahub_app/Auth/Auth_Cubit/Auth_states.dart';       // object from http package to access http methods:
+import 'package:innovahub_app/Auth/Auth_Cubit/Auth_states.dart';
+import 'package:shared_preferences/shared_preferences.dart';       // object from http package to access http methods:
 
  // Cubit: that contain Functions of Auth api:
 class AuthCubit extends Cubit <AuthStates>{
@@ -58,12 +59,17 @@ class AuthCubit extends Cubit <AuthStates>{
           "roleId": roleId,
         }),
       );
-
-    
-     
+      
      if(response.statusCode == 200 || response.statusCode == 201){
 
-     emit(RegisterSuccessState());    // emit Success state:
+      final responseData = jsonDecode(response.body);
+        
+        // store data :
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        await prefs.setString("userId", responseData["UserId"]);
+        await prefs.setString("token", responseData["Token"]);
+
+     emit(RegisterSuccessState(messagesuccess: 'Register Success'));    // emit Success state:
 
      }
 
@@ -72,11 +78,9 @@ class AuthCubit extends Cubit <AuthStates>{
        var responseBody = jsonDecode(response.body);       // convert json to map:(parsing):
        // emit failed:
        emit(RegisterErrorStata(message: responseBody['message'] ?? 'Failed to register'));     // to access value of message:
-
    }
-
   }  
-  
+
   catch(e){
 
    emit(RegisterErrorStata(message: 'Error: $e'));
@@ -90,13 +94,13 @@ class AuthCubit extends Cubit <AuthStates>{
   
    Future<void> login({required String email, required String password}) async {
     emit(LoginLoadingState());
-
     try {
       final response = await http.post(
         Uri.parse(loginApi),
 
         headers: {
           'Content-Type': 'application/json',
+          //  'Authorization': 'Bearer ${CacheStorage ?? ''}'
         },
         
         body: jsonEncode({
@@ -104,20 +108,43 @@ class AuthCubit extends Cubit <AuthStates>{
           "password": password,
         }),
       );
+      log(response.body.toString());
 
       if (response.statusCode == 200) {
+
         final data = jsonDecode(response.body);
-        if (data['state'] == true) {
+
+       /* if (data['state'] == true) {
           emit(LoginSuccessState(
-             message: data['message'    // Corrected parameter name to 'message'
-             ])); 
+          userModel: UserModel.fromJson(data))); 
+        }*/
+        if (data.containsKey("Token")) {
+          String token = data["Token"];
+          String userId = data["UserId"];
+          String role = data["RoleName"];
+          String message = data["Message"];
+
+          SharedPreferences prefs = await SharedPreferences.getInstance();
+          await prefs.setString('access_token', token);
+          await prefs.setString('user_id', userId);
+          await prefs.setString('role', role);
+
+          emit(LoginSuccessState(
+            message: message,
+            token: token,
+            userId: userId,
+            roleName: role,
+          ));
         }
+
          else {
           emit(LoginErrorState(message: data['message']));
         }
+
       } else {
         emit(LoginErrorState(message: 'Login failed. Please try again.'));
       }
+
     } catch (e) {
       emit(LoginErrorState(
           message:'An error occurred: ${e.toString()}'));     // Improved error message

@@ -1,12 +1,11 @@
 
 import 'package:flutter/material.dart';
 import 'package:innovahub_app/Constants/Colors_Constant.dart';
-import 'package:innovahub_app/Custom_Widgets/custom_container.dart';
 import 'package:innovahub_app/home/add_Tap_owner.dart';
-import 'package:innovahub_app/home/deal_tap_owner.dart';
+import 'package:innovahub_app/home/Deals/deal_tap_owner.dart';
 import 'package:innovahub_app/home/home_owner.dart';
-import 'package:innovahub_app/home/profile_owner.dart';
 import 'package:innovahub_app/home/search_Tap.dart';
+import 'package:innovahub_app/profiles/profile_tap_owner.dart';
 
 class HomeScreenOwner extends StatefulWidget {
   const HomeScreenOwner({super.key});
@@ -103,7 +102,7 @@ class _HomeScreenOwnerState extends State<HomeScreenOwner> {
     AddOwner(),
     DealOwner(),
     SearchTap(),
-    ProfileOwner(),
+    ProfileOwner(firstnameController: '',lastnameController: '',emailController: '',passwordController: '',cityController: '',phoneNumber: '',),
 
   ];
 

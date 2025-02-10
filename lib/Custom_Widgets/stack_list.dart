@@ -2,56 +2,72 @@
 
 import 'package:flutter/material.dart';
 import 'package:innovahub_app/Constants/Colors_Constant.dart';
+import 'package:innovahub_app/Models/product_response.dart';
 
+// ignore: camel_case_types, must_be_immutable
 class stacklist extends StatelessWidget {
-  const stacklist({super.key});
+   stacklist({super.key,required this.product});
+
+    ProductResponse product;      // object from model to represent data:
 
   @override
   Widget build(BuildContext context) {
-    return Stack(children: [
+    return Stack(
+      children: [
       Container(
-        margin: const EdgeInsets.only(left: 25),
-        //padding: EdgeInsets.only(left: 20),
-        height:295,
-        width: 200,
+      margin: const EdgeInsets.only(left: 10),
+        height: 340,
+        width: 230,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(25),
           color: Colors.white,
         ),
       ),
-      Image.asset(
-        "assets/images/image-8.png",
+
+      Positioned(
+        left: 35,
+        child: Image.network(
+          product.productImage,
+          fit: BoxFit.contain,
+          height: 180, 
+          width: 180,
+        ),
       ),
-     const Positioned(
+
+      Positioned(
         bottom: 10,
-        left: 15,
+        left: 25,
+
         child: Column(
           //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              "Rucksack Embroidered Bag",
-              style: TextStyle(fontSize: 13),
+              product.name,
+              style: const TextStyle(fontSize: 13),
             ),
-            SizedBox(height: 8,),
-            Row(
+            const SizedBox(height: 8,),
+             Row(
               children: [
-                Text("Made by", style: TextStyle(fontSize: 13,color: Constant.blackColorDark)),
-                Text(" Amira", style: TextStyle(fontSize: 13, color: Constant.blueColor)),
+                const Text("Made by ", style: TextStyle(fontSize: 13,color: Constant.blackColorDark)),
+                Text(product.authorName, style: const TextStyle(fontSize: 13, color: Constant.blueColor)),
               ],
             ),
           
-            SizedBox(height: 8,),
+            const SizedBox(height: 8,),
 
-            Text("\$28.00",style: TextStyle(fontWeight: FontWeight.bold),),
-            SizedBox(height: 10,),
+            Text("\$${product.price.toStringAsFixed(2)}"),
+            const SizedBox(height: 10,),
 
-            Row(
+            const Row(
               children: [
                 Icon(Icons.favorite_border_outlined),
+
                 SizedBox(width: 15,),
+
                 Icon(Icons.shopping_cart),
-                SizedBox(width: 30,),
+
+                SizedBox(width: 50,),
                 CircleAvatar(
                   radius: 8,
                   backgroundColor: Colors.green,
@@ -63,13 +79,13 @@ class stacklist extends StatelessWidget {
                   ),
                 ),
                SizedBox(width: 5,),
-                Text(" In stock",style: TextStyle(fontSize: 12),)
+                Text(" In stock",style: TextStyle(fontSize: 13,color: Constant.blackColorDark),),
               ],
             ),
 
-            SizedBox(height: 8,),
+            const SizedBox(height: 8,),
 
-            Row(
+            const Row(
               children: [
                 Icon(
                   Icons.star,
@@ -94,7 +110,7 @@ class stacklist extends StatelessWidget {
               ],
             ),
 
-            SizedBox(height: 15,)
+            const SizedBox(height: 15,)
           ],
         ),
       )

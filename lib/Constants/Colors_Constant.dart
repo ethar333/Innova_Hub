@@ -21,8 +21,11 @@ class Constant{
  static const Color white2Color = Color(0xFFf2f2f2);
  static const Color greenColor = Color(0xFF1ABA1A);
  static const Color greyColor4 = Color(0xFF999999);
-
- 
+ static const Color yellowColor = Color(0xFFF5C301);
+ static const Color white3Color = Color(0xFFF7F7F7);
+ static const Color redColor = Color(0xFFFF0000);
+ static const Color white4Color = Color(0xFFD9D9D9);
+ static const Color black2Color = Color(0xFF545454);
 //Color.fromARGB(255, 112, 182, 182)
 // Main color => Color.fromARGB(255, 63, 154, 152)
 //Color.fromARGB(255, 112, 182, 182);

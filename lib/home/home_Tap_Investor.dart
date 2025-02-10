@@ -1,10 +1,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:innovahub_app/Constants/Colors_Constant.dart';
-import 'package:innovahub_app/home/deal_tap_owner.dart';
+import 'package:innovahub_app/home/Deals/deal_tap_investor.dart';
 import 'package:innovahub_app/home/home_Investor.dart';
-import 'package:innovahub_app/home/profile_owner.dart';
 import 'package:innovahub_app/home/search_Tap.dart';
+import 'package:innovahub_app/profiles/profile_tap_Investor.dart';
 
 class HomeScreenInvestor extends StatefulWidget {
   const HomeScreenInvestor({super.key});
@@ -91,10 +91,10 @@ class _HomeScreenInvestorState extends State<HomeScreenInvestor> {
 
   List<Widget> tabsInvestor = [
     
-    HomeInvestor(),
-     DealOwner(),
-     SearchTap(),
-     ProfileOwner(),
+     const HomeInvestor(),
+     const DealInvestor(),
+     const SearchTap(),
+     const ProfileInvestor(),
 
   ];
 }

@@ -1,6 +1,8 @@
 
 
 
+import 'package:innovahub_app/Auth/model/user_model.dart';
+
 abstract class AuthStates{
 
 
@@ -11,7 +13,10 @@ class AuthIntialState extends AuthStates{}
 class RegisterLoadingState  extends AuthStates{}
 
 
-class RegisterSuccessState  extends AuthStates{} 
+class RegisterSuccessState  extends AuthStates{
+  final String messagesuccess;
+  RegisterSuccessState({required this.messagesuccess});
+} 
 
 class RegisterErrorStata  extends AuthStates{
  String message;
@@ -24,8 +29,17 @@ class RegisterErrorStata  extends AuthStates{
 
  class LoginLoadingState extends AuthStates{} 
  class LoginSuccessState extends AuthStates{
-   String message;
-  LoginSuccessState({required this.message});
+  final String message;
+  final String token; //
+  final String userId;
+  final String roleName;
+  //final UserModel userModel;
+  
+   LoginSuccessState({
+    required this.message, 
+    required this.token,
+    required this.userId,
+    required this.roleName});
  } 
 
  class LoginErrorState extends AuthStates{

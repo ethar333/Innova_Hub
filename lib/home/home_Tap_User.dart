@@ -1,24 +1,33 @@
 
 import 'package:flutter/material.dart';
+import 'package:innovahub_app/Api_Categories/Api_Manager.dart';
 import 'package:innovahub_app/Constants/Colors_Constant.dart';
 import 'package:innovahub_app/Custom_Widgets/Stack_listCart.dart';
+import 'package:innovahub_app/Custom_Widgets/category_card.dart';
+import 'package:innovahub_app/Custom_Widgets/container_category_Item.dart';
+import 'package:innovahub_app/Custom_Widgets/discount_container.dart';
 import 'package:innovahub_app/Custom_Widgets/stack_list.dart';
 import 'package:innovahub_app/Custom_Widgets/stack_listHandmade.dart';
+import 'package:innovahub_app/Models/Category_response.dart';
+import 'package:innovahub_app/Models/product_response.dart';
 
 class HomeScreenUser extends StatelessWidget {
-  const HomeScreenUser({super.key});
+   HomeScreenUser({super.key,});
 
-  static const String routeName = 'home_user'; // routeName:
+  static const String routeName = 'home_user';      // routeName:
+  
+   //CategoryModel? category ;       // object:
 
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Column(
+
        // mainAxisAlignment: MainAxisAlignment.center,
        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            margin: EdgeInsets.only(top: 6),
+            margin: const EdgeInsets.only(top: 6),
             width: double.infinity,
             padding: const EdgeInsets.all(20),
             color: Constant.mainColor,
@@ -65,309 +74,72 @@ class HomeScreenUser extends StatelessWidget {
           ),
       
           const SizedBox(height: 10),
-      
-          Container(
-            height: 75,
-            width: double.infinity,
-            color: Constant.transparentColor,
-            child: const Column(
+          const ContainerCategoryItem(),
+          const SizedBox(height: 15,),
+          const DiscountContainer(),
+          const SizedBox(height: 10,),
+
+           // display categories:
+        FutureBuilder<List<CategoryResponse>>(
+        future: ApiManager.getAllCategories(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+
+            return const Center(child: CircularProgressIndicator(
+             color:Constant.mainColor,
+            ));
+
+          } else if (snapshot.hasError) {
+
+            return Center(child: Text("Error: ${snapshot.error}"));
+
+          } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+
+            return const Center(child: Text("No categories found"));
+          }
+ 
+          // server has data:
+           List<CategoryResponse> categoryList = snapshot.data!;
+
+            return Column(
               children: [
-                SizedBox(
-                  height: 10,
-                ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Text(
-                      "Women",
-                    ),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    Text(
-                      "Men",
-                    ),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    Text(
-                      "Kids",
-                    ),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    Text(
-                      "Fashion",
-                    ),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    Text(
-                      "Watches",
-                    ),
-                    SizedBox(
-                      width: 10,
-                    )
-                  ],
+                  children: categoryList.take(3).map((category) {
+                    return Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.all(5),
+                        child: CategoryCard(category: category),
+                      ),
+                    );
+                  }).toList(),
                 ),
+                
+                const SizedBox(height: 10),
+
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    SizedBox(
-                      height: 40,
-                    ),
-                    Text(
-                      "Blankets ",
-                    ),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    Text(
-                      "Jewelry ",
-                    ),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    Text(
-                      "Earrings ",
-                    ),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    Text(
-                      "Drawing ",
-                    ),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    Text(
-                      "Necklace ",
-                    ),
-                    SizedBox(
-                      width: 10,
-                    )
-                  ],
+                  children: categoryList.skip(3).map((category) {
+                    return Padding(
+                      padding: const EdgeInsets.all(5),
+                      child: CategoryCard(category: category)
+                    );
+                  }).toList(),
                 ),
               ],
-            ),
-          ),
-          
-          const SizedBox(height: 10,),
-      
-           Stack(
-            children: [
-              Container(
-                margin: EdgeInsets.all(12),
-                child: Image.asset(
-                  "assets/images/image-12.png",
-                  fit: BoxFit.fill,
-                ),
-                width: double.infinity,
-                height: 200,
-              ),
-              const  Positioned(
-                top: 30,
-                left: 10,
-                child: Column(
-                  children: [
-                    Text(
-                      "50-40 % off",
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18),
-                    ),
-                    Text(
-                      "Now in (product)",
-                      style: TextStyle(color: Colors.black, fontSize: 18),
-                    ),
-                    Text(
-                      "All colours",
-                      style: TextStyle(color: Colors.black, fontSize: 18),
-                    ),
-                  ],
-                ),
-              )
-            ],
-          ),
-          
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-               Stack(
-                children: [
-                  Container(
-                    height: 120,
-                    width: 110,
-                    child: Image.asset("assets/images/image.png",
-                    fit: BoxFit.fill,
-                    ),
-                  ),
-                  Positioned(
-                    bottom: 50,
-                    left: 30,
-                    child: Container(
-                        width: 50,
-                        decoration: BoxDecoration(
-                          // Semi-transparent background for visibility
-                          borderRadius: BorderRadius.circular(15),
-                          border: Border.all(color: Colors.white, width: 2),
-                        ),
-                        child: const Center(
-                          child: Text(
-                            "Art",
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        )),
-                  )
-                ],
-              ),
-
-             Stack(
-                children: [
-                  Container(
-                    margin: EdgeInsets.all(10),
-                    height: 120,
-                    width: 110,
-                    child: Image.asset("assets/images/image-1.png",
-                    fit: BoxFit.fill,),
-                  ),
-                  Positioned(
-                    bottom: 50,
-                    left: 25,
-                    child: Container(
-                        width: 70,
-                        decoration: BoxDecoration(
-                          // Semi-transparent background for visibility
-                          borderRadius: BorderRadius.circular(15),
-                          border: Border.all(color: Colors.white, width: 2),
-                        ),
-                        child: const Center(
-                          child: Text(
-                            "Jewelry",
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        )),
-                  )
-                ],
-              ),
-              Stack(
-                children: [
-                  Container(
-                    //margin: EdgeInsets.all(12),
-                    height: 120,
-                    width: 110,
-                    child: Image.asset("assets/images/image-2.png",
-                    fit: BoxFit.fill,
-                    ),
-                  ),
-                  Positioned(
-                    bottom: 50,
-                    left: 25,
-                    child: Container(
-                        width: 70,
-                        decoration: BoxDecoration(
-                          // Semi-transparent background for visibility
-                          borderRadius: BorderRadius.circular(15),
-                          border: Border.all(color: Colors.white, width: 2),
-                        ),
-                        child: const Center(
-                          child: Text(
-                            "Bags",
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        )),
-                  )
-                ],
-              ),
-            ],
-          ),
-          
-         Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Stack(
-                children: [
-                  Container(
-                    height: 130,
-                    width: 120,
-                    child: Image.asset("assets/images/image-3.png",
-                    fit: BoxFit.fill,
-                    ),
-                  ),
-                  Positioned(
-                    bottom: 50,
-                    left: 30,
-                    child: Container(
-                        width: 50,
-                        decoration: BoxDecoration(
-                          // Semi-transparent background for visibility
-                          borderRadius: BorderRadius.circular(15),
-                          border: Border.all(color: Colors.white, width: 2),
-                        ),
-                        child: const Center(
-                          child: Text(
-                            "Home",
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        )),
-                  )
-                ],
-              ),
-              Stack(
-                children: [
-                  Container(
-                    height: 140,
-                    width: 120,
-                    child: Image.asset("assets/images/image-4.png",
-                    fit: BoxFit.fill,),
-                 ),
-                  Positioned(
-                    bottom: 50,
-                    left: 35,
-                    child: Container(
-                        width: 50,
-                        decoration: BoxDecoration(
-                          // Semi-transparent background for visibility
-                          borderRadius: BorderRadius.circular(15),
-                          border: Border.all(color: Colors.white, width: 2),
-                        ),
-                        child: const Center(
-                          child: Text(
-                            "Carpts",
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        )),
-                  )
-                ],
-              ),
-            ],
-          ),
+          );
+        },
+      ),
 
           const SizedBox(height: 20,),
           
-          const Row(
+             Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              SizedBox(
+              const SizedBox(
                 width: 10,
               ),
-              Text(
+              const Text(
                 "Best Selling Products",
                 style: TextStyle(
                 color: Constant.blackColorDark,
@@ -375,56 +147,117 @@ class HomeScreenUser extends StatelessWidget {
                 fontSize: 18),
               ),
                
-               SizedBox( width: 110,),
-               Text(
-                "Show All",
-                style: TextStyle(
-                color: Constant.blueColor,
-                fontWeight:FontWeight.w400,
-                fontSize: 15),
-              ),
-            ],
+               //const SizedBox( width: 110,),
+               const Spacer(),
+
+               InkWell(
+                onTap: () {
+                  
+                 /* Navigator.pushNamed(context, HomeScreenCategories.routeName,
+                 // arguments:category,
+                  );*/
+
+                },
+                 child: const Row(
+                   children: [
+                     Text(
+                      "Show All",
+                      style: TextStyle(
+                      color: Constant.blueColor,
+                      fontWeight:FontWeight.w400,
+                      fontSize: 15),
+                     ),
+                     Icon(Icons.chevron_right,color: Constant.blackColorDark,)
+                 
+                   ],
+                 ),
+               ), 
+               const SizedBox(width: 10,)
+             ],
           ),
           
           const SizedBox(height: 20),
-          Container(
-            height: 310,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(25),
-           ),
-            child: ListView.separated(
-              itemCount: 10,
-              scrollDirection: Axis.horizontal,
-              itemBuilder: (context, index) {
-                return const stacklist();
-              },
-              separatorBuilder: (BuildContext context, int index) {
-                return const SizedBox(  width: 15, );
-              },
-            ),
-          ),
+
+          // display Bags product:
+          FutureBuilder<CategoryModel>(
+        future: ApiManager.getProducts(3),      // loading data:
+
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+
+            return const Center(child: CircularProgressIndicator(color: Constant.mainColor,));
+
+          } else if (snapshot.hasError) {
+
+            return Center(child: Text("Error: ${snapshot.error}"));
+
+          } else if (!snapshot.hasData ) {
+
+            return const Center(child: Text("No categories found"));
+          }
+ 
+          // server has data:
+
+         var products = snapshot.data?.allProducts ?? [];     // get all products;
+
+          return Container(
+             margin: const EdgeInsets.only(left: 10,right: 15),
+             height: 350,
+             width: double.infinity,
+             child: ListView.separated(
+               itemCount: products.length,
+               scrollDirection: Axis.horizontal,
+               itemBuilder: (context, index) {
+
+                 return stacklist(product: products[index]);
+
+               },
+               separatorBuilder: (BuildContext context, int index) {
+                 return const SizedBox( width: 5, );
+
+               },
+             ),
+          );
+        },
+      ),
 
          const SizedBox(height: 20,),
-
-      
-          const Row(
+            Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              SizedBox(
+              const SizedBox(
                 width: 10,
               ),
-              Text(
+
+              const Text(
                 "Handcraft Carpets",
-                style: TextStyle(fontSize: 18,fontWeight: FontWeight.w500,color: Constant.blackColorDark),
+                style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold,color: Constant.blackColorDark),
               ),
-              SizedBox( width: 130,),
-               Text(
-                "Show All",
-                style: TextStyle(
-                color: Constant.blueColor,
-                fontWeight:FontWeight.w400,
-                fontSize: 15),
-              ),
+
+             // const SizedBox( width: 130,),
+               Spacer(),
+
+                 InkWell(
+                  onTap: () {
+                  // Navigator.pushNamed(context, HomeScreenCategories.routeName,);
+                   //arguments:  CategoryItemResponse.localData[21]);
+
+                  },
+                  child: const Row(
+                    children: [
+                      Text(
+                      "Show All",
+                      style: TextStyle(
+                      color: Constant.blueColor,
+                      fontWeight:FontWeight.w400,
+                      fontSize: 15),
+                     ),
+                    Icon(Icons.chevron_right,color: Constant.blackColorDark,)
+                     
+                    ],
+                  ),
+                ),
+                const SizedBox(width: 10,)
             ],
           ),
       
@@ -432,70 +265,223 @@ class HomeScreenUser extends StatelessWidget {
             height: 20,
           ),
          
-          Container(
-            height: 250,
+         // display carpets products:
+       FutureBuilder<CategoryModel>(
+        future: ApiManager.getProducts(13),      // loading data:
+
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+
+            return const Center(child: CircularProgressIndicator(color: Constant.mainColor,));
+
+          } else if (snapshot.hasError) {
+
+            return Center(child: Text("Error: ${snapshot.error}"));
+
+          } else if (!snapshot.hasData ) {
+
+            return const Center(child: Text("No categories found"));
+          }
+ 
+          // server has data:
+
+         var products = snapshot.data?.allProducts ?? [];     // get all products;
+
+          return Container(
+            height: 350,
+            width: double.infinity,
             child: ListView.separated(
-              itemCount: 10,
-              scrollDirection: Axis.horizontal,
-              itemBuilder: (context, index) {
-                return stacklistcart();
-              },
-              separatorBuilder: (BuildContext context, int index) {
-                return const SizedBox(
-                  width: 15,
-                );
-              },
+              itemBuilder: (context,index){
+
+                return stacklistcart(product: products[index]);
+              } , 
+              separatorBuilder:(BuildContext context, int index) {
+                  return const SizedBox(width: 5);
+                  },
+               itemCount: products.length,
+               scrollDirection: Axis.horizontal,
+               
             ),
-          ),
+          );
+        },
+      ),
+
 
          const SizedBox(height: 20,),
 
           //Explore other products
-          const Row(
+           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              SizedBox(
+              const SizedBox(
                 width: 10,
               ),
-              Text(
+              const Text(
                 "Shop Necklaces",
                 style: TextStyle(fontSize: 18,fontWeight: FontWeight.w500,color: Constant.blackColorDark),
               ),
-               SizedBox( width: 150,),
-               Text(
-                "Show All",
-                style: TextStyle(
-                color: Constant.blueColor,
-                fontWeight:FontWeight.w400,
-                fontSize: 15),
-              ),
+              
+              //const SizedBox( width: 150,),
+                Spacer(),
+
+
+               InkWell(
+                onTap: () {
+                },
+                 child: const Row(
+                   children: [
+                     Text(
+                      "Show All",
+                      style: TextStyle(
+                      color: Constant.blueColor,
+                      fontWeight:FontWeight.w400,
+                      fontSize: 15),
+                     ),
+                   
+                    Icon(Icons.chevron_right,color: Constant.blackColorDark,)
+                 
+                   ],
+                 ),
+               ),
+                const SizedBox(width: 10,)
+
             ],
           ),
       
           const SizedBox(
             height: 20,
           ),
+          
+        // display Necklace products:
+        FutureBuilder<CategoryModel>(
+        future: ApiManager.getProducts(9),      // loading data:
 
-          Container(
-            margin: const EdgeInsets.only(left: 12),
-            height: 250,
-            child: ListView.separated(
-              itemCount: 10,
-              scrollDirection: Axis.horizontal,
-              itemBuilder: (context, index) {
-                return stacklisthandmade();
-              },
-              separatorBuilder: (BuildContext context, int index) {
-                return const SizedBox(
-                  width: 12,
-                );
-              },
-            ),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+
+            return const Center(child: CircularProgressIndicator(color: Constant.mainColor,));
+
+          } else if (snapshot.hasError) {
+
+            return Center(child: Text("Error: ${snapshot.error}"));
+
+          } else if (!snapshot.hasData ) {
+
+            return const Center(child: Text("No categories found"));
+          }
+ 
+          // server has data:
+
+         var products = snapshot.data?.allProducts ?? [];     // get all products;
+
+          return Container(
+             margin: const EdgeInsets.only(left: 15,right: 15),
+             height: 350,
+             width: double.infinity,
+             child: ListView.separated(
+               itemCount: products.length,
+               scrollDirection: Axis.horizontal,
+               itemBuilder: (context, index) {
+
+                 return stacklisthandmade(product: products[index],);
+
+               },
+               separatorBuilder: (BuildContext context, int index) {
+                 return const SizedBox( width: 15, );
+
+               },
+             ),
+          );
+        },
+      ),
+         const SizedBox(height: 30,),
+
+        Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              const SizedBox(
+                width: 10,
+              ),
+              const Text(
+                "Shop Rings",
+                style: TextStyle(fontSize: 18,fontWeight: FontWeight.w500,color: Constant.blackColorDark),
+              ),
+              
+              //const SizedBox( width: 150,),
+              Spacer(),
+
+               InkWell(
+                onTap: () {
+                },
+                 child: const Row(
+                   children: [
+                     Text(
+                      "Show All",
+                      style: TextStyle(
+                      color: Constant.blueColor,
+                      fontWeight:FontWeight.w400,
+                      fontSize: 15),
+                      textAlign: TextAlign.end,
+                     ),
+                   
+                    Icon(Icons.chevron_right,color: Constant.blackColorDark,)
+                 
+                   ],
+                 ),
+               ),
+                const SizedBox(width: 10,)
+
+            ],
           ),
 
-          const SizedBox(height: 40,),
-        ]
+          const SizedBox(height: 20,),
+
+       // display Rings products:
+        FutureBuilder<CategoryModel>(
+        future: ApiManager.getProducts(14),      // loading data:
+
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+
+            return const Center(child: CircularProgressIndicator(color: Constant.mainColor,));
+
+          } else if (snapshot.hasError) {
+
+            return Center(child: Text("Error: ${snapshot.error}"));
+
+          } else if (!snapshot.hasData ) {
+
+            return const Center(child: Text("No categories found"));
+          }
+ 
+          // server has data:
+
+         var products = snapshot.data?.allProducts ?? [];     // get all products;
+
+          return Container(
+             margin: const EdgeInsets.only(left: 15,right: 15),
+             height: 350,
+             width: double.infinity,
+             child: ListView.separated(
+               itemCount: products.length,
+               scrollDirection: Axis.horizontal,
+               itemBuilder: (context, index) {
+
+                 return stacklisthandmade(product: products[index],);
+
+               },
+               separatorBuilder: (BuildContext context, int index) {
+                 return const SizedBox( width: 15, );
+
+               },
+             ),
+          );
+        },
+      ),
+
+        ],
       ),
     );
   }
 }
+

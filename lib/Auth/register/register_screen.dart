@@ -5,7 +5,9 @@ import 'package:innovahub_app/Auth/Auth_Cubit/Auth_states.dart';
 import 'package:innovahub_app/Auth/login/login_screen.dart';
 import 'package:innovahub_app/Constants/Colors_Constant.dart';
 import 'package:innovahub_app/Custom_Widgets/Text_Field_Widget.dart';
+import 'package:innovahub_app/home/home_Tap_owner.dart';
 import 'package:innovahub_app/home/home_screen.dart';
+import 'package:innovahub_app/home/home_tap_Investor.dart';
 
 class RegisterScreen extends StatefulWidget {
   
@@ -34,35 +36,38 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   final _formKey = GlobalKey<FormState>(); // key of form:
 
-  // Roles for Dropdown
+  // Roles for Dropdown:
   final List<Map<String, String>> roles = [
-    {"id": "c5f61434-655f-483c-877f-aba2e939f1c5", "name": "Investor"},
-    {"id": "8f20aebd-f53b-4153-9ebc-20205ba3cab7", "name": "BusinessOwner"},
-    {"id": "fbf2a1bf-80bd-48d0-ae06-6714d7cd90df", "name": "Admin"},
-    {"id": "e17b0f5d-bed0-4dfa-9219-992c5d30d54b", "name": "Customer"}
+    {"id": "4b0f678d-843a-48b0-ae82-bc847d9d831f", "name": "Investor"},
+    {"id": "914fd25c-5bc8-4fdc-b641-cba55aa21ce4", "name": "BusinessOwner"},
+    {"id": "966e4d79-ec6c-4e56-a7f2-2ffd9405bcb2", "name": "Admin"},
+    {"id": "ede9bfb8-f953-4cc9-8099-ed7fa876c3cf", "name": "Customer"}
   ];
 
   // Method to show a dialog
-  void _showDialog(BuildContext context, String message) {
+  void _showDialog(BuildContext context, String message,
+      {VoidCallback? onClose}) {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        content: Text(
-          message,
-          style: const TextStyle(
-            color: Color.fromARGB(255, 112, 182, 182),
+        content: Text(message,
+           style: const TextStyle(
+            color: Constant.mainColor,
             fontWeight: FontWeight.bold,
           ),
         ),
         actions: [
           TextButton(
             onPressed: () {
-              Navigator.of(context).pop(); // Close the dialog
+              Navigator.of(context).pop(); // إغلاق الـ Dialog
+              if (onClose != null) {
+                onClose(); // تنفيذ الإجراء بعد إغلاق التنبيه
+              }
             },
             child: const Text(
               "OK",
               style: TextStyle(
-                color: Color.fromARGB(255, 112, 182, 182),
+                color: Constant.mainColor,
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -74,24 +79,46 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<AuthCubit, AuthStates>(listener: (context, state) {
-      if (state is RegisterSuccessState) {
-        _showDialog(context, "Registration successful!");
+    return BlocConsumer<AuthCubit, AuthStates>(
 
-        // Navigate to home when registration is successful:
+      listener: (context, state) {
+          print("Current state: $state");
 
-        // Navigator.pushReplacementNamed(context, HomeScreen.routeName);
+          if (state is RegisterSuccessState) {
 
-        Future.delayed(const Duration(seconds: 3), () {
-          // Adjust the duration as needed
-          Navigator.pushReplacementNamed(context, HomeScreen.routeName);
+          // Role-based navigation:
+          if (selectedRoleId == "914fd25c-5bc8-4fdc-b641-cba55aa21ce4") {
+            // BusinessOwner
+            Navigator.pushNamed(context, HomeScreenOwner.routeName );
+
+          } else if (selectedRoleId == "4b0f678d-843a-48b0-ae82-bc847d9d831f") {
+            // Investor
+            Navigator.pushNamed(context, HomeScreenInvestor.routeName );
+
+          } else if (selectedRoleId == "ede9bfb8-f953-4cc9-8099-ed7fa876c3cf") {
+            // Customer
+            Navigator.pushNamed(context, HomeScreen.routeName);
+
+          } /*else {
+            // Default or error handling (optional)
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(content: Text('Invalid role selected')),
+            );
+          }*/
+           _showDialog(context, state.messagesuccess, onClose: () {
+            /*Future.microtask(() {
+              Navigator.pushReplacementNamed(context, HomeScreen.routeName);
+            });*/
+          });
           
-        });
-      } else if (state is RegisterErrorStata) {
-        // show an error message:
-        _showDialog(context, 'some thing went wrong!');
-      }
-    }, builder: (context, state) {
+        } else if (state is RegisterErrorStata) {
+          print("Registration failed, staying on the same page.");
+
+          _showDialog(context, state.message);
+        
+        }
+    
+     }, builder: (context, state) {
       return Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.transparent,
@@ -373,11 +400,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   SizedBox(
                     width: double.infinity,
                     child: ElevatedButton(
-                      onPressed: () {
+                      onPressed: () async{
                         //validateForm();
                         if (_formKey.currentState!.validate()) {
                           // Call the register method from the AuthCubit
-                          context.read<AuthCubit>().register(
+                          await context.read<AuthCubit>().register(
                                 firstName: firstnameController.text,
                                 lastName: lastnameController.text,
                                 email: emailController.text,
@@ -446,7 +473,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     });
   }
 
-  void validateForm() {
+  /*void validateForm() {
     if (_formKey.currentState!.validate()) {
       // register:
       // Call the register method from the AuthCubit
@@ -463,5 +490,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
             roleId: selectedRoleId!,
           );
     }
-  }
+  }*/
 }
+
