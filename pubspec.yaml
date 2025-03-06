@@ -41,6 +41,8 @@ dependencies:
   http: ^1.2.0
   flutter_bloc: ^8.1.6
   shared_preferences: any
+  dio: ^5.8.0+1
+  pretty_dio_logger: ^1.4.0
 dev_dependencies:
   flutter_test:
     sdk: flutter

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:innovahub_app/Constants/Colors_Constant.dart';
+import 'package:innovahub_app/core/Constants/Colors_Constant.dart';
 import 'package:innovahub_app/Custom_Widgets/Estimated_container.dart';
 import 'package:innovahub_app/Custom_Widgets/container_investor.dart';
 

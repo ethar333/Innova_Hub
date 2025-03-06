@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:innovahub_app/Constants/Colors_Constant.dart';
+import 'package:innovahub_app/core/Constants/Colors_Constant.dart';
 
 class PrivacyOwnerInvestor extends StatelessWidget {
   const PrivacyOwnerInvestor({super.key});

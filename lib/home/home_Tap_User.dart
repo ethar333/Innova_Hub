@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
-import 'package:innovahub_app/Api_Categories/Api_Manager.dart';
-import 'package:innovahub_app/Constants/Colors_Constant.dart';
+import 'package:innovahub_app/Api/Api_Manager_categories.dart';
+import 'package:innovahub_app/core/Constants/Colors_Constant.dart';
 import 'package:innovahub_app/Custom_Widgets/Stack_listCart.dart';
 import 'package:innovahub_app/Custom_Widgets/category_card.dart';
 import 'package:innovahub_app/Custom_Widgets/container_category_Item.dart';
@@ -12,7 +12,7 @@ import 'package:innovahub_app/Models/Category_response.dart';
 import 'package:innovahub_app/Models/product_response.dart';
 
 class HomeScreenUser extends StatelessWidget {
-   HomeScreenUser({super.key,});
+   const HomeScreenUser({super.key,});
 
   static const String routeName = 'home_user';      // routeName:
   
@@ -81,7 +81,7 @@ class HomeScreenUser extends StatelessWidget {
 
            // display categories:
         FutureBuilder<List<CategoryResponse>>(
-        future: ApiManager.getAllCategories(),
+        future: ApiManagerCategories.getAllCategories(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
 
@@ -179,8 +179,8 @@ class HomeScreenUser extends StatelessWidget {
           const SizedBox(height: 20),
 
           // display Bags product:
-          FutureBuilder<CategoryModel>(
-        future: ApiManager.getProducts(3),      // loading data:
+       FutureBuilder<CategoryModel>(
+        future: ApiManagerCategories.getProducts(3),      // loading data:
 
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
@@ -235,7 +235,7 @@ class HomeScreenUser extends StatelessWidget {
               ),
 
              // const SizedBox( width: 130,),
-               Spacer(),
+               const Spacer(),
 
                  InkWell(
                   onTap: () {
@@ -267,7 +267,7 @@ class HomeScreenUser extends StatelessWidget {
          
          // display carpets products:
        FutureBuilder<CategoryModel>(
-        future: ApiManager.getProducts(13),      // loading data:
+        future: ApiManagerCategories.getProducts(13),      // loading data:
 
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
@@ -287,7 +287,7 @@ class HomeScreenUser extends StatelessWidget {
 
          var products = snapshot.data?.allProducts ?? [];     // get all products;
 
-          return Container(
+          return SizedBox(
             height: 350,
             width: double.infinity,
             child: ListView.separated(
@@ -322,7 +322,7 @@ class HomeScreenUser extends StatelessWidget {
               ),
               
               //const SizedBox( width: 150,),
-                Spacer(),
+                const Spacer(),
 
 
                InkWell(
@@ -354,7 +354,7 @@ class HomeScreenUser extends StatelessWidget {
           
         // display Necklace products:
         FutureBuilder<CategoryModel>(
-        future: ApiManager.getProducts(9),      // loading data:
+        future: ApiManagerCategories.getProducts(9),      // loading data:
 
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
@@ -408,7 +408,7 @@ class HomeScreenUser extends StatelessWidget {
               ),
               
               //const SizedBox( width: 150,),
-              Spacer(),
+              const Spacer(),
 
                InkWell(
                 onTap: () {
@@ -438,7 +438,7 @@ class HomeScreenUser extends StatelessWidget {
 
        // display Rings products:
         FutureBuilder<CategoryModel>(
-        future: ApiManager.getProducts(14),      // loading data:
+        future: ApiManagerCategories.getProducts(14),      // loading data:
 
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {

@@ -6,7 +6,9 @@ import 'package:innovahub_app/Auth/login/forget_password.dart';
 import 'package:innovahub_app/Auth/login/login_screen.dart';
 import 'package:innovahub_app/Auth/login/reset_password.dart';
 import 'package:innovahub_app/Auth/register/register_screen.dart';
+import 'package:innovahub_app/core/network/dio_helper.dart';
 import 'package:innovahub_app/core/services/cache_services.dart';
+import 'package:innovahub_app/home/Deals/adding_deal_owner.dart';
 import 'package:innovahub_app/home/home_Tap_Categories.dart';
 import 'package:innovahub_app/home/home_Tap_Investor.dart';
 import 'package:innovahub_app/home/home_Tap_owner.dart';
@@ -18,9 +20,14 @@ import 'package:innovahub_app/profiles/profile_tap_Investor.dart';
 import 'package:innovahub_app/profiles/profile_tap_User.dart';
 import 'package:innovahub_app/splash_screen.dart';
 
+
 void main()async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await CacheService.init();  runApp(const MyApp());
+   WidgetsFlutterBinding.ensureInitialized();
+  
+  await CacheService.init();
+  await DioHelper.init();
+  
+    runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -33,14 +40,12 @@ class MyApp extends StatelessWidget {
       providers:[
 
       BlocProvider<AuthCubit>(create: (context)=> AuthCubit()),
-
-
       ] ,
       
        child: MaterialApp(
        debugShowCheckedModeBanner: false,
       routes: {
-        TrainingPage.routeName : (context) => TrainingPage(),
+        TrainingPage.routeName : (context) => const TrainingPage(),
         SplashScreen.routeName :(context) =>  const SplashScreen(),
         RegisterScreen.routeName : (context) =>  RegisterScreen(),
         //RegisterDesign.routeName:(context)=>RegisterDesign(),
@@ -54,12 +59,13 @@ class MyApp extends StatelessWidget {
         HomeScreenInvestor.routeName : (context) => const HomeScreenInvestor(),
         HomeScreenCategories.routeName : (context) => const HomeScreenCategories(),
         ProfileInvestor.routeName : (context) => const ProfileInvestor(),
-        ProfileUser.routeName : (context) =>  const ProfileUser(),
+        ProfileUser.routeName : (context) => const ProfileUser(),
         PrivacyUser.routeName : (context) => const PrivacyUser(),
         PrivacyOwnerInvestor.routeName : (context) => const PrivacyOwnerInvestor(),
+        PublishDealScreen.routeName : (context) => PublishDealScreen(),
       },
      
-     initialRoute: RegisterScreen.routeName,
+     initialRoute: HomeScreen.routeName,
 
    ),
 
@@ -67,14 +73,5 @@ class MyApp extends StatelessWidget {
   }
 
 }
-
-
-
-
-
-
-
-
-
 
 

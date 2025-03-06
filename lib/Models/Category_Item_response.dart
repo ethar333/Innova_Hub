@@ -7,8 +7,8 @@
    String categoryName;
 
   CategoryItemResponse({
-     required this.categoryId,
-     required this.categoryName,
+    required this.categoryId,
+    required this.categoryName,
   });
 
   // Factory method to create a Category object from JSON

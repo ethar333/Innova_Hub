@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
-import 'package:innovahub_app/Api_Categories/Api_Manager.dart';
-import 'package:innovahub_app/Constants/Colors_Constant.dart';
+import 'package:innovahub_app/Api/Api_Manager_categories.dart';
+import 'package:innovahub_app/core/Constants/Colors_Constant.dart';
 import 'package:innovahub_app/Custom_Widgets/Estimated_container.dart';
 import 'package:innovahub_app/Custom_Widgets/Stack_listCart.dart';
 import 'package:innovahub_app/Custom_Widgets/category_card.dart';
@@ -228,7 +228,7 @@ class HomeOwner extends StatelessWidget {
 
            // display categories:
          FutureBuilder<List<CategoryResponse>>(
-        future: ApiManager.getAllCategories(),
+        future: ApiManagerCategories.getAllCategories(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
 
@@ -324,7 +324,7 @@ class HomeOwner extends StatelessWidget {
          
          // display carpets products:
        FutureBuilder<CategoryModel>(
-        future: ApiManager.getProducts(13),      // loading data:
+        future: ApiManagerCategories.getProducts(13),      // loading data:
 
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
@@ -377,7 +377,7 @@ class HomeOwner extends StatelessWidget {
               ),
               
               //const SizedBox( width: 150,),
-                Spacer(),
+                const Spacer(),
 
 
                InkWell(
@@ -409,7 +409,7 @@ class HomeOwner extends StatelessWidget {
           
         // display Necklace products:
         FutureBuilder<CategoryModel>(
-        future: ApiManager.getProducts(9),      // loading data:
+        future: ApiManagerCategories.getProducts(9),      // loading data:
 
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
@@ -449,7 +449,10 @@ class HomeOwner extends StatelessWidget {
           );
         },
       ),
+      
          const SizedBox(height: 30,),
+
+
 
         Row(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -463,7 +466,7 @@ class HomeOwner extends StatelessWidget {
               ),
               
               //const SizedBox( width: 150,),
-              Spacer(),
+              const Spacer(),
 
                InkWell(
                 onTap: () {
@@ -493,7 +496,7 @@ class HomeOwner extends StatelessWidget {
 
        // display Rings products:
         FutureBuilder<CategoryModel>(
-        future: ApiManager.getProducts(14),      // loading data:
+        future: ApiManagerCategories.getProducts(14),      // loading data:
 
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {

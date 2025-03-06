@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:innovahub_app/Constants/Colors_Constant.dart';
+import 'package:innovahub_app/core/Constants/Colors_Constant.dart';
 import 'package:innovahub_app/home/widget/custom_search_bar.dart';
 
 class DealInvestor extends StatefulWidget {

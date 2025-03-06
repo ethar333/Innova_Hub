@@ -3,7 +3,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:innovahub_app/Auth/login/reset_password.dart';
-import 'package:innovahub_app/Constants/Colors_Constant.dart';
+import 'package:innovahub_app/core/Constants/Colors_Constant.dart';
 import 'package:innovahub_app/Custom_Widgets/Text_Field_Widget.dart';
 import 'package:http/http.dart' as http;
 
@@ -138,11 +138,11 @@ class ForgetPasswordScreen extends StatelessWidget {
                      ),
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(20),
-                          borderSide: BorderSide(color: Constant.greyColor2),
+                          borderSide: const BorderSide(color: Constant.greyColor2),
                         ),
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
-                          borderSide: BorderSide(color: Constant.greyColor2),
+                          borderSide: const BorderSide(color: Constant.greyColor2),
                         ), 
                   prefixIcon: const Icon(Icons.email), 
                 ), 

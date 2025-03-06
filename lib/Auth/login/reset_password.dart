@@ -1,13 +1,15 @@
 
 import 'package:flutter/material.dart';
 import 'package:innovahub_app/Auth/login/login_screen.dart';
-import 'package:innovahub_app/Constants/Colors_Constant.dart';
+import 'package:innovahub_app/core/Constants/Colors_Constant.dart';
 import 'package:innovahub_app/Custom_Widgets/Text_Field_Widget.dart';
 
 
 class resetpassword extends StatefulWidget {
 
-  static const String routname = "reset_password";                
+  static const String routname = "reset_password";
+
+  const resetpassword({super.key});                
   @override
   State<resetpassword> createState() => _resetpasswordState();              // routeName of this screen:
 
@@ -153,7 +155,7 @@ class _resetpasswordState extends State<resetpassword> {
                    const SizedBox(height: 20,),
 
 
-                Container(
+                SizedBox(
                   width: double.infinity,
                   child: ElevatedButton(
                     onPressed: () {

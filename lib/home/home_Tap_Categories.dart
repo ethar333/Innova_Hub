@@ -1,8 +1,8 @@
 
 import 'dart:developer';
 import 'package:flutter/material.dart';
-import 'package:innovahub_app/Api_Categories/Api_Manager.dart';
-import 'package:innovahub_app/Constants/Colors_Constant.dart';
+import 'package:innovahub_app/Api/Api_Manager_categories.dart';
+import 'package:innovahub_app/core/Constants/Colors_Constant.dart';
 import 'package:innovahub_app/Models/Category_Item_response.dart';
 import 'package:innovahub_app/Models/product_response.dart';
 import 'package:innovahub_app/home/widget/home_screen_categoys_body.dart';
@@ -104,7 +104,7 @@ class _HomeScreenInvestorState extends State<HomeScreenCategories> {
       ),
       
       body: FutureBuilder<CategoryModel>(
-        future: ApiManager.getProducts(arguments.categoryId),
+        future: ApiManagerCategories.getProducts(arguments.categoryId),
         builder: (context,snapshot) {
           log(snapshot.connectionState.toString());
           if(snapshot.connectionState == ConnectionState.waiting){

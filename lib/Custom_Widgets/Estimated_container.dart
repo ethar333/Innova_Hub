@@ -1,6 +1,6 @@
 
 import 'package:flutter/material.dart';
-import 'package:innovahub_app/Constants/Colors_Constant.dart';
+import 'package:innovahub_app/core/Constants/Colors_Constant.dart';
 
 class EstimatedContainer extends StatelessWidget {
   const EstimatedContainer({super.key});
@@ -15,10 +15,10 @@ class EstimatedContainer extends StatelessWidget {
               color: Constant.white2Color,
               borderRadius: BorderRadius.circular(12),
             ),
-            child: Row(
+            child: const Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Column(
+                  Column(
                   //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -48,9 +48,10 @@ class EstimatedContainer extends StatelessWidget {
                     ),
                   ],
                 ),
-                Column(
+                
+                /*Column(
                   children: [
-                    Container(
+                   /* Container(
                       //margin: EdgeInsets.only(left: 30),
                       //padding: const EdgeInsets.only(left: 10, right: 10),
                       width: 90,
@@ -68,10 +69,12 @@ class EstimatedContainer extends StatelessWidget {
                           ),
                         ),
                       ),
-                    ),
+                    ),*/
+                    
                     const SizedBox(
                       height: 15,
                     ),
+                   
                     Container(
                       //margin: EdgeInsets.only(left: 30),
                       //padding: const EdgeInsets.only(left: 10, right: 10),
@@ -92,13 +95,14 @@ class EstimatedContainer extends StatelessWidget {
                       ),
                     ),
                   ],
-                ),
+                ),*/
               ],
             ),
           );
 
 
-  }
+  }    
+                  
 }
 
 

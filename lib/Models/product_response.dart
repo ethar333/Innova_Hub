@@ -19,7 +19,8 @@
       categoryDescription: json['CategoryDescription'],
       allProducts: json['AllProductsOnspecificCategories'] != null
        ? List<ProductResponse>.from(json["AllProductsOnspecificCategories"].map((x) => ProductResponse.fromJson(x)))
-          : [],
+       : [],
+          
     );
    }
    
@@ -37,8 +38,8 @@
   String toString() {
     return 'CategoryModel{categoryName: $categoryName, categoryDescription: $categoryDescription, allProducts: $allProducts}';
 
-    }
-      }
+  }
+  }
 
   
 

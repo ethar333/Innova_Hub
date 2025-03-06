@@ -1,6 +1,6 @@
 
 import 'package:flutter/material.dart';
-import 'package:innovahub_app/Constants/Colors_Constant.dart';
+import 'package:innovahub_app/core/Constants/Colors_Constant.dart';
 import 'package:innovahub_app/Custom_Widgets/Stack_listCart.dart';
 import 'package:innovahub_app/Custom_Widgets/stack_list.dart';
 import 'package:innovahub_app/Custom_Widgets/stack_listHandmade.dart';
@@ -62,9 +62,10 @@ class HomeScreenCategorysBody extends StatelessWidget {
                 return stacklistcart(product:categoryModel.allProducts[index] ,);
               },
             ),
-          ),*/
+          ),*/   
 
-          Container(
+          
+         Container(
             margin: const EdgeInsets.only(left: 10,right: 10),
             height: 350,
             width: double.infinity,

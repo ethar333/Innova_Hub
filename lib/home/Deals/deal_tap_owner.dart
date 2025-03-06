@@ -1,5 +1,6 @@
+
 import 'package:flutter/material.dart';
-import 'package:innovahub_app/Constants/Colors_Constant.dart';
+import 'package:innovahub_app/core/Constants/Colors_Constant.dart';
 import 'package:innovahub_app/home/Deals/adding_deal_owner.dart';
 import 'package:innovahub_app/home/widget/custom_search_bar.dart';
 
@@ -95,14 +96,14 @@ class DealOwner extends StatelessWidget {
             child: InkWell(
               onTap: () {
                 
-               // Navigator.pushNamed(context, AddingDealOwner.routeName);
+                Navigator.pushNamed(context, PublishDealScreen.routeName);
 
               },
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   const Text(
-                    'Publish New Product             ', // text:
+                    'Publish New Deal              ', // text:
                     style: TextStyle(
                       color: Constant.blackColorDark,
                       fontSize: 18,
@@ -397,7 +398,6 @@ class DealOwner extends StatelessWidget {
              // const SizedBox(  width: 20, ),
 
               Container(
-
                 margin: const EdgeInsets.only(left:15,top: 15) ,
                 padding: const EdgeInsets.all(12),
                 width: 150,

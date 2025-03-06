@@ -1,6 +1,6 @@
 
 import 'package:flutter/material.dart';
-import 'package:innovahub_app/Constants/Colors_Constant.dart';
+import 'package:innovahub_app/core/Constants/Colors_Constant.dart';
 import 'package:innovahub_app/home/cart_Tap.dart';
 import 'package:innovahub_app/home/favourite_Tap.dart';
 import 'package:innovahub_app/home/home_Tap_User.dart';

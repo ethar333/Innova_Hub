@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:innovahub_app/Constants/Colors_Constant.dart';
+import 'package:innovahub_app/core/Constants/Colors_Constant.dart';
 
 class TitleAndDescription extends StatelessWidget {
   final String title;

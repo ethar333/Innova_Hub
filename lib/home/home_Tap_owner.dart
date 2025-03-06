@@ -1,6 +1,6 @@
 
 import 'package:flutter/material.dart';
-import 'package:innovahub_app/Constants/Colors_Constant.dart';
+import 'package:innovahub_app/core/Constants/Colors_Constant.dart';
 import 'package:innovahub_app/home/add_Tap_owner.dart';
 import 'package:innovahub_app/home/Deals/deal_tap_owner.dart';
 import 'package:innovahub_app/home/home_owner.dart';
@@ -102,7 +102,7 @@ class _HomeScreenOwnerState extends State<HomeScreenOwner> {
     AddOwner(),
     DealOwner(),
     SearchTap(),
-    ProfileOwner(firstnameController: '',lastnameController: '',emailController: '',passwordController: '',cityController: '',phoneNumber: '',),
+    ProfileOwner(),
 
   ];
 

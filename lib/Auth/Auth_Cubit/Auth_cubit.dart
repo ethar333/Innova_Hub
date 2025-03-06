@@ -147,8 +147,8 @@ class AuthCubit extends Cubit <AuthStates>{
 
     } catch (e) {
       emit(LoginErrorState(
-          message:'An error occurred: ${e.toString()}'));     // Improved error message
-    
+       message:'An error occurred: ${e.toString()}'));     // Improved error message
+  
     }
   }
 

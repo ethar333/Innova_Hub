@@ -1,6 +1,6 @@
 
 import 'package:flutter/material.dart';
-import 'package:innovahub_app/Constants/Colors_Constant.dart';
+import 'package:innovahub_app/core/Constants/Colors_Constant.dart';
 import 'package:innovahub_app/home/Deals/deal_tap_investor.dart';
 import 'package:innovahub_app/home/home_Investor.dart';
 import 'package:innovahub_app/home/search_Tap.dart';

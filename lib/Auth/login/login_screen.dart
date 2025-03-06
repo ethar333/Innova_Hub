@@ -5,7 +5,7 @@ import 'package:innovahub_app/Auth/Auth_Cubit/Auth_cubit.dart';
 import 'package:innovahub_app/Auth/Auth_Cubit/Auth_states.dart';
 import 'package:innovahub_app/Auth/login/forget_password.dart';
 import 'package:innovahub_app/Auth/register/register_screen.dart';
-import 'package:innovahub_app/Constants/Colors_Constant.dart';
+import 'package:innovahub_app/core/Constants/Colors_Constant.dart';
 import 'package:innovahub_app/Custom_Widgets/Text_Field_Widget.dart';
 import 'package:innovahub_app/core/services/cache_services.dart';
 import 'package:innovahub_app/home/home_Tap_owner.dart';
@@ -13,7 +13,9 @@ import 'package:innovahub_app/home/home_screen.dart';
 import 'package:innovahub_app/home/home_tap_Investor.dart';
 
 class LoginScreen extends StatefulWidget {
-  static const String routname = 'login_screen'; // routeName of login screen:
+  static const String routname = 'login_screen';
+
+  const LoginScreen({super.key}); // routeName of login screen:
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
@@ -224,7 +226,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       const SizedBox(
                         height: 18,
                       ),
-                      Container(
+                      SizedBox(
                         width: double.infinity,
                         child: ElevatedButton(
                           onPressed: () {
