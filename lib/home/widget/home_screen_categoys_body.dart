@@ -77,7 +77,7 @@ class HomeScreenCategorysBody extends StatelessWidget {
 
                 }
 
-               else if(categoryModel.categoryName == 'Necklace' || categoryModel!.categoryName == 'Rings' ){
+               else if(categoryModel.categoryName == 'Necklace' || categoryModel.categoryName == 'Rings' ){
                  return stacklisthandmade(product:categoryModel.allProducts[index] ,);
 
                 }

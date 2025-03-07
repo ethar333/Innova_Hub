@@ -2,7 +2,6 @@
 
  // Model Business owner response:
 
- import 'dart:ui';
 
 class BusinessOwnerResponse{
 

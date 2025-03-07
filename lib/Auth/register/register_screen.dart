@@ -12,7 +12,9 @@ import 'package:innovahub_app/home/home_tap_Investor.dart';
 
 class RegisterScreen extends StatefulWidget {
   
-  static const String routeName = 'register_screen'; // routeName of this screen:
+  static const String routeName = 'register_screen';
+
+  const RegisterScreen({super.key}); // routeName of this screen:
 
   @override
   State<RegisterScreen> createState() => _RegisterScreenState();
@@ -39,10 +41,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   // Roles for Dropdown:
   final List<Map<String, String>> roles = [
-    {"id": "4b0f678d-843a-48b0-ae82-bc847d9d831f", "name": "Investor"},
-    {"id": "914fd25c-5bc8-4fdc-b641-cba55aa21ce4", "name": "BusinessOwner"},
-    {"id": "966e4d79-ec6c-4e56-a7f2-2ffd9405bcb2", "name": "Admin"},
-    {"id": "ede9bfb8-f953-4cc9-8099-ed7fa876c3cf", "name": "Customer"}
+    {"id": "33ee9c19-1d76-42fa-9a1f-8f2177c7c5b5", "name": "Investor"},
+    {"id": "b6e2efdb-f6e1-4315-b5a4-0388c4a3e7fb", "name": "BusinessOwner"},
+    {"id": "d48c80ca-cd8c-4b58-9e21-9d8a16a1e284", "name": "Admin"},
+    {"id": "9744156a-2a5b-4abb-a78f-9f5cec5a2afb", "name": "Customer"}
   ];
 
   // Method to show a dialog
@@ -88,15 +90,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
           if (state is RegisterSuccessState) {
 
           // Role-based navigation:
-          if (selectedRoleId == "914fd25c-5bc8-4fdc-b641-cba55aa21ce4") {
+          if (selectedRoleId == "b6e2efdb-f6e1-4315-b5a4-0388c4a3e7fb") {
             // BusinessOwner
             Navigator.pushNamed(context, HomeScreenOwner.routeName );
 
-          } else if (selectedRoleId == "4b0f678d-843a-48b0-ae82-bc847d9d831f") {
+          } else if (selectedRoleId == "33ee9c19-1d76-42fa-9a1f-8f2177c7c5b5") {
             // Investor
             Navigator.pushNamed(context, HomeScreenInvestor.routeName );
 
-          } else if (selectedRoleId == "ede9bfb8-f953-4cc9-8099-ed7fa876c3cf") {
+          } else if (selectedRoleId == "9744156a-2a5b-4abb-a78f-9f5cec5a2afb") {
             // Customer
             Navigator.pushNamed(context, HomeScreen.routeName);
 
@@ -257,11 +259,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         ),
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(20),
-                          borderSide: BorderSide(color: Constant.greyColor2),
+                          borderSide: const BorderSide(color: Constant.greyColor2),
                         ),
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
-                          borderSide: BorderSide(color: Constant.greyColor2),
+                          borderSide: const BorderSide(color: Constant.greyColor2),
                         ),
 
                         suffixIcon: IconButton(

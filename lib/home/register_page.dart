@@ -27,11 +27,11 @@ class TrainingPage extends StatelessWidget {
         future: ApiManagerDeals.getAllDeals(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           } else if (snapshot.hasError) {
             return Center(child: Text("Error: ${snapshot.error}"));
           } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-            return Center(child: Text("No businesses found"));
+            return const Center(child: Text("No businesses found"));
           } else {
             return ListView.builder(
               itemCount: snapshot.data!.length,
@@ -40,7 +40,7 @@ class TrainingPage extends StatelessWidget {
                 BusinessOwnerResponse business = snapshot.data![index];
                 
                 return Card(
-                  margin: EdgeInsets.all(10),
+                  margin: const EdgeInsets.all(10),
                   child: ListTile(
                     /*leading: Image.network(business.images.isNotEmpty
                         ? business.images[0]

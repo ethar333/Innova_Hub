@@ -73,11 +73,11 @@ class TextFieldWidget extends StatelessWidget {
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(20),
-          borderSide: BorderSide(color:Constant.greyColor2),
+          borderSide: const BorderSide(color:Constant.greyColor2),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: BorderSide(color: Constant.greyColor2),
+          borderSide: const BorderSide(color: Constant.greyColor2),
 
         ),
         suffixIcon: suffixIcon,            // To make icon of password visivle:

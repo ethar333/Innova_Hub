@@ -54,6 +54,7 @@ class ProductResponse{
   double price;
   bool isAvailable;
   int stock;
+  int productId;
 
    // constructor:
    ProductResponse({required this.name,
@@ -64,6 +65,7 @@ class ProductResponse{
    required this.price,
    required this.isAvailable,
    required this.stock,
+   required this.productId
    });
 
   // factory constructor:(from json):
@@ -78,6 +80,7 @@ class ProductResponse{
       price: json['ProductPrice'].toDouble(),
       isAvailable: json['IsAvailable'],
       stock: json['Stock'],
+      productId: json['ProductId'],
     );
   }
  
@@ -93,9 +96,13 @@ class ProductResponse{
       'ProductPrice' : price,
       'IsAvailable' : isAvailable,
       'Stock' : stock,
+      'ProductId': productId,
 
       };
    }
 
 }
+
+
+
 

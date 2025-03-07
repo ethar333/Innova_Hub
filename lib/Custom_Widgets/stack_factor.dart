@@ -5,13 +5,13 @@ import 'package:innovahub_app/Models/Category_response.dart';
 
 class stackrefactor extends StatelessWidget {
   CategoryResponse catigory;
-  stackrefactor({required this.catigory});
+  stackrefactor({super.key, required this.catigory});
 
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        Container(
+        SizedBox(
           height: 170,
           width: 120,
           child: Image.network(catigory.imageUrl),

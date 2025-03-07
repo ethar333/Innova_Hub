@@ -98,11 +98,11 @@ class _HomeScreenOwnerState extends State<HomeScreenOwner> {
 
   List<Widget> tabsOwner = [
     
-    HomeOwner(),
-    AddOwner(),
-    DealOwner(),
-    SearchTap(),
-    ProfileOwner(),
+    const HomeOwner(),
+    const AddOwner(),
+    const DealOwner(),
+    const SearchTap(),
+    const ProfileOwner(),
 
   ];
 

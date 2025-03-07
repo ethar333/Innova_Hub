@@ -1,6 +1,6 @@
 
-
 import 'package:flutter/material.dart';
+import 'package:innovahub_app/Api/Api_Manager_services_product.dart';
 import 'package:innovahub_app/core/Constants/Colors_Constant.dart';
 import 'package:innovahub_app/Models/product_response.dart';
 
@@ -59,16 +59,40 @@ class stacklist extends StatelessWidget {
             Text("\$${product.price.toStringAsFixed(2)}"),
             const SizedBox(height: 10,),
 
-            const Row(
+             Row(
               children: [
-                Icon(Icons.favorite_border_outlined),
+                const Icon(Icons.favorite_border_outlined),
 
-                SizedBox(width: 15,),
+                const SizedBox(width: 15,),
+                GestureDetector(
+                    onTap: () async {
+                      bool success = await ApiCartServices.addToCart(product.productId, 1);
 
-                Icon(Icons.shopping_cart),
+                      if (success) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            backgroundColor: Colors.teal,
+                            content: Text("${product.name}  added to cart 🛒"),
+                            duration: const Duration(seconds: 2),
+                          ),
+                        );
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            backgroundColor: Colors.red,
+                            content: Text("Faild to add to cart"),
+                            duration: Duration(seconds: 2),
+                          ),
+                        );
+                      }
+                    },
+                    child: const Icon(Icons.shopping_cart, color: Colors.black),
+                  ),
 
-                SizedBox(width: 50,),
-                CircleAvatar(
+                //(child: Icon(Icons.shopping_cart)),
+
+                const SizedBox(width: 50,),
+                const CircleAvatar(
                   radius: 8,
                   backgroundColor: Colors.green,
                   child: Icon(
@@ -78,8 +102,8 @@ class stacklist extends StatelessWidget {
                   
                   ),
                 ),
-               SizedBox(width: 5,),
-                Text(" In stock",style: TextStyle(fontSize: 13,color: Constant.blackColorDark),),
+               const SizedBox(width: 5,),
+                const Text(" In stock",style: TextStyle(fontSize: 13,color: Constant.blackColorDark),),
               ],
             ),
 

@@ -72,63 +72,7 @@ class ApiManagerCategories {
   }
   
 
-   // to get profile info:
-
-   /*Future<UserProfile?> fetchUserProfile() async {
-    try {
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      String? token = prefs.getString("token");
-
-      if (token == null) throw Exception("Token is missing, please log in again.");
-
-      final response = await http.get(
-        Uri.parse("$baseUrl/profile"),
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer $token',
-        },
-      );
-
-      if (response.statusCode == 200) {
-        final Map<String, dynamic> data = json.decode(response.body);
-        return UserProfile.fromJson(data);
-      } else {
-        throw Exception("Failed to load profile data");
-      }
-    } catch (error) {
-      print("Error fetching user profile: $error");
-      return null;
-    }
-  }*/
-
-
-
-  /*static Future<String?> uploadImageToServer(File imageFile) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? token = prefs.getString("token");
-
-    if (token == null) return null;
-
-    var request = http.MultipartRequest(
-      "POST",
-      Uri.parse("https://innova-hub.premiumasp.net/api/Profile/profile-picture"),
-    );
-
-    request.headers['Authorization'] = 'Bearer $token';
-    request.files
-        .add(await http.MultipartFile.fromPath("image", imageFile.path));
-
-    var response = await request.send();
-
-    if (response.statusCode == 200) {
-      var responseData = await response.stream.bytesToString();
-      var jsonData = json.decode(responseData);
-      return jsonData["ProfileImageUrl"];  // استرجاع رابط الصورة
-    } else {
-      return null;
-    }
-  }*/
-
+   
 
 }
 

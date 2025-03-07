@@ -141,22 +141,28 @@ class HomeOwner extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Container(
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    border: Border.all(
-                      color: Constant.mainColor, // لون الـ border
-                      width: 3, // سمك الـ border
+                GestureDetector(
+                  onTap: (){
+
+                   // Navigator.pushNamed(context, MyHomePage.routeName);
+                  },
+                  child: Container(
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      border: Border.all(
+                        color: Constant.mainColor, // لون الـ border
+                        width: 3, // سمك الـ border
+                      ),
                     ),
+                    child: const CircleAvatar(
+                        backgroundColor: Constant.whiteColor,
+                        radius: 15,
+                        child: Icon(
+                          Icons.add,
+                          color: Constant.mainColor,
+                          size: 30,
+                        )),
                   ),
-                  child: const CircleAvatar(
-                      backgroundColor: Constant.whiteColor,
-                      radius: 15,
-                      child: Icon(
-                        Icons.add,
-                        color: Constant.mainColor,
-                        size: 30,
-                      )),
                 ), // Icon:
 
                 const Text(
@@ -406,7 +412,8 @@ class HomeOwner extends StatelessWidget {
           const SizedBox(
             height: 20,
           ),
-          
+
+
         // display Necklace products:
         FutureBuilder<CategoryModel>(
         future: ApiManagerCategories.getProducts(9),      // loading data:
@@ -449,10 +456,8 @@ class HomeOwner extends StatelessWidget {
           );
         },
       ),
-      
+
          const SizedBox(height: 30,),
-
-
 
         Row(
             mainAxisAlignment: MainAxisAlignment.start,

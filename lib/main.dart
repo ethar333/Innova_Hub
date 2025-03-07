@@ -6,6 +6,7 @@ import 'package:innovahub_app/Auth/login/forget_password.dart';
 import 'package:innovahub_app/Auth/login/login_screen.dart';
 import 'package:innovahub_app/Auth/login/reset_password.dart';
 import 'package:innovahub_app/Auth/register/register_screen.dart';
+import 'package:innovahub_app/Products/product_page.dart';
 import 'package:innovahub_app/core/network/dio_helper.dart';
 import 'package:innovahub_app/core/services/cache_services.dart';
 import 'package:innovahub_app/home/Deals/adding_deal_owner.dart';
@@ -50,9 +51,9 @@ class MyApp extends StatelessWidget {
         RegisterScreen.routeName : (context) =>  RegisterScreen(),
         //RegisterDesign.routeName:(context)=>RegisterDesign(),
        // Logindesign.routname:(context) => Logindesign(),
-        LoginScreen.routname : (context) => LoginScreen(),
+        LoginScreen.routname : (context) => const LoginScreen(),
         ForgetPasswordScreen.routname : (contect) => ForgetPasswordScreen(),
-        resetpassword.routname : (context) => resetpassword(),
+        resetpassword.routname : (context) => const resetpassword(),
         HomeScreen.routeName :(context) => const HomeScreen(),
         HomeScreenOwner.routeName :(context) => const HomeScreenOwner(),
        // AddingDealOwner.routeName : (context) => AddingDealOwner(),
@@ -62,16 +63,17 @@ class MyApp extends StatelessWidget {
         ProfileUser.routeName : (context) => const ProfileUser(),
         PrivacyUser.routeName : (context) => const PrivacyUser(),
         PrivacyOwnerInvestor.routeName : (context) => const PrivacyOwnerInvestor(),
-        PublishDealScreen.routeName : (context) => PublishDealScreen(),
+        PublishDealScreen.routeName : (context) => const PublishDealScreen(),
+        ProductPage.routeName :(context) => const ProductPage(),
+        //MyHomePage.routeName: (context) => MyHomePage(),
       },
      
-     initialRoute: HomeScreen.routeName,
+     initialRoute: ProductPage.routeName,
 
    ),
 
   );
   }
-
 }
 
 

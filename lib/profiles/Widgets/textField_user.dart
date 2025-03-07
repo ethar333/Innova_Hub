@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:innovahub_app/core/Constants/Colors_Constant.dart';
 
 class ContainerUser  extends StatelessWidget {
-    ContainerUser ({super.key, required this.icon, required this.title,  this.route});
+    const ContainerUser ({super.key, required this.icon, required this.title,  this.route});
 
   final IconData icon;
   final String title; 
