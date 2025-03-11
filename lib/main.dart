@@ -6,10 +6,14 @@ import 'package:innovahub_app/Auth/login/forget_password.dart';
 import 'package:innovahub_app/Auth/login/login_screen.dart';
 import 'package:innovahub_app/Auth/login/reset_password.dart';
 import 'package:innovahub_app/Auth/register/register_screen.dart';
+import 'package:innovahub_app/Products/buy_page.dart';
+import 'package:innovahub_app/Products/cart_page.dart';
+import 'package:innovahub_app/Products/checkout_address.dart';
 import 'package:innovahub_app/Products/product_page.dart';
 import 'package:innovahub_app/core/network/dio_helper.dart';
 import 'package:innovahub_app/core/services/cache_services.dart';
 import 'package:innovahub_app/home/Deals/adding_deal_owner.dart';
+import 'package:innovahub_app/home/cart_Tap.dart';
 import 'package:innovahub_app/home/home_Tap_Categories.dart';
 import 'package:innovahub_app/home/home_Tap_Investor.dart';
 import 'package:innovahub_app/home/home_Tap_owner.dart';
@@ -46,7 +50,7 @@ class MyApp extends StatelessWidget {
        child: MaterialApp(
        debugShowCheckedModeBanner: false,
       routes: {
-        TrainingPage.routeName : (context) => const TrainingPage(),
+        TrainingPage.routeName : (context) =>  TrainingPage(),
         SplashScreen.routeName :(context) =>  const SplashScreen(),
         RegisterScreen.routeName : (context) =>  RegisterScreen(),
         //RegisterDesign.routeName:(context)=>RegisterDesign(),
@@ -65,7 +69,10 @@ class MyApp extends StatelessWidget {
         PrivacyOwnerInvestor.routeName : (context) => const PrivacyOwnerInvestor(),
         PublishDealScreen.routeName : (context) => const PublishDealScreen(),
         ProductPage.routeName :(context) => const ProductPage(),
-        //MyHomePage.routeName: (context) => MyHomePage(),
+        //CartTap.routeName : (context) => CartTap(),
+        CartPage.routeName : (context) => CartPage(),
+        BuyPage.routeName : (context) => BuyPage(),
+        CheckoutAddress.routeName : (context) => CheckoutAddress(),
       },
      
      initialRoute: ProductPage.routeName,

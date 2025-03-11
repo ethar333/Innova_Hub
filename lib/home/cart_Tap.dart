@@ -1,19 +1,18 @@
 
 
 import 'package:flutter/material.dart';
-import 'package:innovahub_app/Api/Api_Manager_services_product.dart';
+import 'package:innovahub_app/Api/cart_services.dart';
 
-class CartTab extends StatefulWidget {
-  static String routeName = "cart";
+class CartTap extends StatefulWidget {
 
-  const CartTab({super.key});
+  static const String routeName = "cart";             // route Name of this screen: 
 
   @override
-  State<CartTab> createState() => _CartScreenState();
+  State<CartTap> createState() => _CartScreenState();
 }
 
-class _CartScreenState extends State<CartTab> {
-  final ApiCartServices cartService = ApiCartServices();
+class _CartScreenState extends State<CartTap> {
+  final CartService cartService = CartService();
   List<Map<String, dynamic>> cartItems = [];
   bool isLoading = true;
 
@@ -60,7 +59,6 @@ class _CartScreenState extends State<CartTab> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Cart")),
       body: isLoading
           ? const Center(child: CircularProgressIndicator())
           : cartItems.isEmpty
@@ -115,7 +113,8 @@ class _CartScreenState extends State<CartTab> {
                               margin: const EdgeInsets.only(bottom: 10),
                               padding: const EdgeInsets.all(10),
                               decoration: BoxDecoration(
-                                color: Colors.white,borderRadius: BorderRadius.circular(15),
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(15),
                                 boxShadow: const [
                                   BoxShadow(
                                     color: Colors.black12,
@@ -138,29 +137,26 @@ class _CartScreenState extends State<CartTab> {
                                       fit: BoxFit.cover,
                                     ),
                                   ),
-                                  const SizedBox(width: 20),
+                                  SizedBox(width: 20),
                                   Expanded(
                                     child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
+                                      crossAxisAlignment:  CrossAxisAlignment.start,
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: [
                                         Text(
                                           item["ProductName"],
-                                          style: const TextStyle(
+                                          style: TextStyle(
                                               fontSize: 15,
                                               fontWeight: FontWeight.bold),
                                           overflow: TextOverflow.ellipsis,
                                         ),
-                                        const SizedBox(height: 5),
+                                        SizedBox(height: 5),
                                         Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
+                                          mainAxisAlignment:MainAxisAlignment.spaceBetween,
                                           children: [
                                             Text(
                                               "\$${getTotalPrice(index).toStringAsFixed(2)}",
-                                              style: const TextStyle(
+                                              style: TextStyle(
                                                   fontSize: 15,
                                                   fontWeight: FontWeight.bold),
                                             ),
@@ -168,22 +164,23 @@ class _CartScreenState extends State<CartTab> {
                                               children: [
                                                 GestureDetector(
                                                   onTap: () => decreaseQuantity(index),
-                                                  child: const Icon(Icons.remove, color: Colors.teal),
+                                                  child: Icon(Icons.remove, color: Colors.teal),
                                                 ),
                                                 Text(
                                                   "${item["Quantity"]}",
-                                                  style: const TextStyle(color: Colors.teal, fontSize: 18),
+                                                  style: TextStyle(color: Colors.teal, fontSize: 18),
                                                 ),
                                                 GestureDetector(
                                                   onTap: () => increaseQuantity(index),
-                                                  child: const Icon(Icons.add, color: Colors.teal),
+                                                  child: Icon(Icons.add, color: Colors.teal),
                                                 ),
                                               ],
                                             ),
                                             GestureDetector(
                                               onTap: () => removeFromCart(index),
-                                              child: const Icon(Icons.delete, color: Colors.red),
-                                            ),],
+                                              child: Icon(Icons.delete, color: Colors.red),
+                                            ),
+                                            ],
                                         ),
                                       ],
                                     ),
@@ -200,3 +197,4 @@ class _CartScreenState extends State<CartTab> {
     );
   }
 }
+

@@ -1,21 +1,21 @@
 
 import 'package:flutter/material.dart';
-import 'package:innovahub_app/Api/Api_Manager_services_product.dart';
+import 'package:innovahub_app/Api/cart_services.dart';
 import 'package:innovahub_app/core/Constants/Colors_Constant.dart';
 import 'package:innovahub_app/Models/product_response.dart';
 
 // ignore: camel_case_types, must_be_immutable
 class stacklist extends StatelessWidget {
-   stacklist({super.key,required this.product});
+  stacklist({super.key, required this.product});
 
-    ProductResponse product;      // object from model to represent data:
+   ProductResponse product;  // object from model to represent data:
 
+  //final CartService cartService = CartService(); // object:
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
+    return Stack(children: [
       Container(
-      margin: const EdgeInsets.only(left: 10),
+        margin: const EdgeInsets.only(left: 10),
         height: 340,
         width: 230,
         decoration: BoxDecoration(
@@ -23,21 +23,18 @@ class stacklist extends StatelessWidget {
           color: Colors.white,
         ),
       ),
-
       Positioned(
         left: 35,
         child: Image.network(
           product.productImage,
           fit: BoxFit.contain,
-          height: 180, 
+          height: 180,
           width: 180,
         ),
       ),
-
       Positioned(
         bottom: 10,
         left: 25,
-
         child: Column(
           //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -46,39 +43,49 @@ class stacklist extends StatelessWidget {
               product.name,
               style: const TextStyle(fontSize: 13),
             ),
-            const SizedBox(height: 8,),
-             Row(
+            const SizedBox(
+              height: 8,
+            ),
+            Row(
               children: [
-                const Text("Made by ", style: TextStyle(fontSize: 13,color: Constant.blackColorDark)),
-                Text(product.authorName, style: const TextStyle(fontSize: 13, color: Constant.blueColor)),
+                const Text("Made by ",
+                    style: TextStyle(
+                        fontSize: 13, color: Constant.blackColorDark)),
+                Text(product.authorName,
+                    style: const TextStyle(
+                        fontSize: 13, color: Constant.blueColor)),
               ],
             ),
-          
-            const SizedBox(height: 8,),
-
+            const SizedBox(
+              height: 8,
+            ),
             Text("\$${product.price.toStringAsFixed(2)}"),
-            const SizedBox(height: 10,),
-
-             Row(
+            const SizedBox(
+              height: 10,
+            ),
+            Row(
               children: [
                 const Icon(Icons.favorite_border_outlined),
 
-                const SizedBox(width: 15,),
+                const SizedBox(
+                  width: 15,
+                ),
+                
                 GestureDetector(
                     onTap: () async {
-                      bool success = await ApiCartServices.addToCart(product.productId, 1);
+                      bool success = await addToCart(product.productId, 1);
 
                       if (success) {
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
                             backgroundColor: Colors.teal,
                             content: Text("${product.name}  added to cart 🛒"),
-                            duration: const Duration(seconds: 2),
+                            duration: Duration(seconds: 2),
                           ),
                         );
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
+                          SnackBar(
                             backgroundColor: Colors.red,
                             content: Text("Faild to add to cart"),
                             duration: Duration(seconds: 2),
@@ -86,12 +93,14 @@ class stacklist extends StatelessWidget {
                         );
                       }
                     },
-                    child: const Icon(Icons.shopping_cart, color: Colors.black),
+                    child: Icon(Icons.shopping_cart, color: Colors.black),
                   ),
-
+                  
                 //(child: Icon(Icons.shopping_cart)),
 
-                const SizedBox(width: 50,),
+                const SizedBox(
+                  width: 50,
+                ),
                 const CircleAvatar(
                   radius: 8,
                   backgroundColor: Colors.green,
@@ -99,16 +108,21 @@ class stacklist extends StatelessWidget {
                     Icons.check,
                     color: Constant.whiteColor,
                     size: 14,
-                  
                   ),
                 ),
-               const SizedBox(width: 5,),
-                const Text(" In stock",style: TextStyle(fontSize: 13,color: Constant.blackColorDark),),
+                const SizedBox(
+                  width: 5,
+                ),
+                const Text(
+                  " In stock",
+                  style:
+                      TextStyle(fontSize: 13, color: Constant.blackColorDark),
+                ),
               ],
             ),
-
-            const SizedBox(height: 8,),
-
+            const SizedBox(
+              height: 8,
+            ),
             const Row(
               children: [
                 Icon(
@@ -123,18 +137,19 @@ class stacklist extends StatelessWidget {
                   Icons.star,
                   color: Colors.yellow,
                 ),
-                 Icon(
+                Icon(
                   Icons.star,
                   color: Colors.yellow,
                 ),
-           
-            SizedBox(width: 8,),
-
+                SizedBox(
+                  width: 8,
+                ),
                 Text("56890"),
               ],
             ),
-
-            const SizedBox(height: 15,)
+            const SizedBox(
+              height: 15,
+            )
           ],
         ),
       )

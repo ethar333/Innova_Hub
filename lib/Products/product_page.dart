@@ -1,5 +1,7 @@
 
 import 'package:flutter/material.dart';
+import 'package:innovahub_app/Products/buy_page.dart';
+import 'package:innovahub_app/Products/cart_page.dart';
 import 'package:innovahub_app/core/Constants/Colors_Constant.dart';
 
 class ProductPage extends StatefulWidget {
@@ -17,8 +19,10 @@ class _ProductPageState extends State<ProductPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Constant.whiteColor,
+      backgroundColor: Constant.white3Color,
       appBar: AppBar(
+        //shadowColor: Constant.whiteColor,
+        backgroundColor: Constant.whiteColor,
         elevation: 0,
         title: const Text(
           'Innova',
@@ -330,7 +334,11 @@ class _ProductPageState extends State<ProductPage> {
                 children: [
                   Expanded(
                     child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                       
+                        Navigator.pushNamed(context, BuyPage.routeName);
+
+                      },
                       style: ElevatedButton.styleFrom(
                           backgroundColor: Constant.mainColor,
                           minimumSize: const Size(1, 60)),
@@ -344,35 +352,91 @@ class _ProductPageState extends State<ProductPage> {
                   const SizedBox(width: 10),
                   Expanded(
                     child: OutlinedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                         
+                        Navigator.pushNamed(context, CartPage.routeName);
+
+                      },
                       style: ElevatedButton.styleFrom(
+                          side: const BorderSide(
+                              color: Constant.greyColor2,
+                              width: 1), // لون وسمك الحدود
                           backgroundColor: Constant.whiteColor,
                           minimumSize: const Size(1, 60)),
                       child: const Text(
                         "Add to cart",
                         style: TextStyle(
-                            color: Constant.black2Color, fontSize: 18),
+                       color: Constant.black2Color, fontSize: 18),
                       ),
                     ),
                   ),
                 ],
               ),
             ),
-           
-           /* const Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text("Comments",
+            const SizedBox(height: 20),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    "Comments",
                     style: TextStyle(
                         color: Constant.blackColorDark,
                         fontWeight: FontWeight.w500,
-                        fontSize: 16)),
-                SizedBox(height: 10),
-              ],
-            ),*/
+                        fontSize: 16),
+                  ),
+                  const SizedBox(height: 10),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: TextField(
+                          decoration: InputDecoration(
+                            fillColor: Constant.whiteColor,
+                            hintText: "What do you think?",
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(25),
+                              borderSide: const BorderSide(
+                            color: Constant.greyColor2),
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(20),
+                              borderSide:const BorderSide( color: Constant.greyColor2), 
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                             borderRadius: BorderRadius.circular(20),
+                              borderSide:const BorderSide(color:Constant.greyColor2,), 
+                           ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(width: 10),
+                      ElevatedButton(
+                      onPressed: () {},
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: Constant.mainColor,
+                          minimumSize: const Size(1, 50)),
+                       child: const Row(
+                         children: [
+                            Text( "Add",
+                            style: TextStyle(color: Constant.whiteColor, fontSize: 18),
+                           ),
+                           SizedBox(width: 10,),
+                            Icon( Icons.send, color: Constant.whiteColor,size: 23, ),
+                         ],
+                       ),
+                     ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 20),
           ],
         ),
       ),
     );
   }
 }
+
+

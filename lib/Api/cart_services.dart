@@ -1,13 +1,46 @@
 
-/*import 'dart:convert';
+
+import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
-class ApiCartServices{
+Future<bool> addToCart(int productId, int quantity) async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  String? token = prefs.getString("token"); 
+  if (token == null) {
+    return false;
+  }
 
+  String url = 'https://innova-hub.premiumasp.net/api/Cart/add';
+
+  Map<String, dynamic> body = {"ProductId": productId, "Quantity": quantity};
+
+  try {
+    var response = await http.post(
+      Uri.parse(url),
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer $token", 
+      },
+      body: jsonEncode(body),
+    );
+
+    if (response.statusCode == 200) {
+      return true;
+    } else {
+     
+      return false;
+    }
+  } catch (error) {
+    return false;
+  }
+}
+
+
+class CartService {
   final String baseUrl = 'https://innova-hub.premiumasp.net/api/Cart';
 
-  static Future<String?> _getToken() async {
+  Future<String?> _getToken() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.getString("token");
   }
@@ -83,40 +116,4 @@ class ApiCartServices{
       print("Error deleting item: $error");
     }
   }
-
-  
-  // function => add to cart:
-   
-  static Future<bool> addToCart(int productId, int quantity) async {
-  SharedPreferences prefs = await SharedPreferences.getInstance();
-  String? token = prefs.getString("token"); 
-  if (token == null) {
-    return false;
-  }
-
-  String url = 'https://innova-hub.premiumasp.net/api/Cart/add';
-
-  Map<String, dynamic> body = {"ProductId": productId, "Quantity": quantity};
-
-  try {
-    var response = await http.post(
-      Uri.parse(url),
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": "Bearer $token", 
-      },
-      body: jsonEncode(body),
-    );
-
-    if (response.statusCode == 200) {
-      return true;
-    } else {
-     
-      return false;
-    }
-  } catch (error) {
-    return false;
-  }
 }
-
-}*/

@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:innovahub_app/Api/Api_Manager_categories.dart';
+import 'package:innovahub_app/Products/product_page.dart';
 import 'package:innovahub_app/core/Constants/Colors_Constant.dart';
 import 'package:innovahub_app/Custom_Widgets/Stack_listCart.dart';
 import 'package:innovahub_app/Custom_Widgets/category_card.dart';
@@ -267,7 +268,7 @@ class HomeScreenUser extends StatelessWidget {
          
          // display carpets products:
        FutureBuilder<CategoryModel>(
-        future: ApiManagerCategories.getProducts(13),      // loading data:
+        future: ApiManagerCategories.getProducts(12),      // loading data:
 
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
@@ -373,7 +374,6 @@ class HomeScreenUser extends StatelessWidget {
           // server has data:
 
          var products = snapshot.data?.allProducts ?? [];     // get all products;
-
           return Container(
              margin: const EdgeInsets.only(left: 15,right: 15),
              height: 350,
@@ -383,7 +383,11 @@ class HomeScreenUser extends StatelessWidget {
                scrollDirection: Axis.horizontal,
                itemBuilder: (context, index) {
 
-                 return stacklisthandmade(product: products[index],);
+                 return GestureDetector(
+                  onTap: () {
+                    Navigator.pushNamed(context, ProductPage.routeName);
+                  },
+                  child: stacklisthandmade(product: products[index],));
 
                },
                separatorBuilder: (BuildContext context, int index) {
@@ -438,7 +442,7 @@ class HomeScreenUser extends StatelessWidget {
 
        // display Rings products:
         FutureBuilder<CategoryModel>(
-        future: ApiManagerCategories.getProducts(14),      // loading data:
+        future: ApiManagerCategories.getProducts(13),      // loading data:
 
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
