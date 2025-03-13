@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:innovahub_app/Api/Api_Manager_categories.dart';
+import 'package:innovahub_app/Products/publish_product_screen.dart';
 import 'package:innovahub_app/core/Constants/Colors_Constant.dart';
 import 'package:innovahub_app/Custom_Widgets/Estimated_container.dart';
 import 'package:innovahub_app/Custom_Widgets/Stack_listCart.dart';
@@ -9,6 +10,7 @@ import 'package:innovahub_app/Custom_Widgets/container_owner.dart';
 import 'package:innovahub_app/Custom_Widgets/stack_listHandmade.dart';
 import 'package:innovahub_app/Models/Category_response.dart';
 import 'package:innovahub_app/Models/product_response.dart';
+import 'package:innovahub_app/home/Deals/owner_product.dart';
 
 class HomeOwner extends StatelessWidget {
   const HomeOwner({super.key});
@@ -130,7 +132,6 @@ class HomeOwner extends StatelessWidget {
           ),
 
           const EstimatedContainer(),
-
           Container(
             margin: const EdgeInsets.all(15),
             padding: const EdgeInsets.all(15),
@@ -144,7 +145,7 @@ class HomeOwner extends StatelessWidget {
                 GestureDetector(
                   onTap: (){
 
-                   // Navigator.pushNamed(context, MyHomePage.routeName);
+                    Navigator.pushNamed(context, MyHomePage.routeName);
                   },
                   child: Container(
                     decoration: BoxDecoration(
@@ -330,7 +331,7 @@ class HomeOwner extends StatelessWidget {
          
          // display carpets products:
        FutureBuilder<CategoryModel>(
-        future: ApiManagerCategories.getProducts(13),      // loading data:
+        future: ApiManagerCategories.getProducts(12),      // loading data:
 
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
@@ -501,7 +502,7 @@ class HomeOwner extends StatelessWidget {
 
        // display Rings products:
         FutureBuilder<CategoryModel>(
-        future: ApiManagerCategories.getProducts(14),      // loading data:
+        future: ApiManagerCategories.getProducts(13),      // loading data:
 
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {

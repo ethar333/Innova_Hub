@@ -41,10 +41,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   // Roles for Dropdown:
   final List<Map<String, String>> roles = [
-    {"id": "9ebc69ec-eeef-428c-b9d0-d9ef35036ebf", "name": "Investor"},
-    {"id": "b785df31-fb24-4140-bd71-607aea66e588", "name": "BusinessOwner"},
-    {"id": "9cfdce16-e1bc-4d44-9eb6-dc7a06421f20", "name": "Admin"},
-    {"id": "ea4549e9-35be-447c-9c4e-99a354a74712", "name": "Customer"}
+    {"id": "e2cc14f7-7622-4dbb-bff7-9773a463ed87", "name": "Investor"},
+    {"id": "61648e1b-189c-47a5-8230-0f2aa236073b", "name": "BusinessOwner"},
+    {"id": "3c69b053-db9c-40db-85cf-4f28bacc934b", "name": "Admin"},
+    {"id": "3cfde989-74ca-4945-8304-d417de918112", "name": "Customer"}
   ];
 
   // Method to show a dialog
@@ -90,15 +90,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
           if (state is RegisterSuccessState) {
 
           // Role-based navigation:
-          if (selectedRoleId == "b785df31-fb24-4140-bd71-607aea66e588") {
+          if (selectedRoleId == "61648e1b-189c-47a5-8230-0f2aa236073b") {
             // BusinessOwner
             Navigator.pushNamed(context, HomeScreenOwner.routeName );
 
-          } else if (selectedRoleId == "9ebc69ec-eeef-428c-b9d0-d9ef35036ebf") {
+          } else if (selectedRoleId == "e2cc14f7-7622-4dbb-bff7-9773a463ed87") {
             // Investor
             Navigator.pushNamed(context, HomeScreenInvestor.routeName );
 
-          } else if (selectedRoleId == "ea4549e9-35be-447c-9c4e-99a354a74712") {
+          } else if (selectedRoleId == "3cfde989-74ca-4945-8304-d417de918112") {
             // Customer
             Navigator.pushNamed(context, HomeScreen.routeName);
 
@@ -394,8 +394,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           selectedRoleId = value;
                         });
                       },
-                      validator: (value) =>
-                          value == null ? 'Please select a role' : null,
+                      validator: (value) => value == null ? 'Please select a role' : null,
                     ),
                   ),
 
