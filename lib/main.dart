@@ -10,12 +10,10 @@ import 'package:innovahub_app/Products/buy_page.dart';
 import 'package:innovahub_app/Products/cart_page.dart';
 import 'package:innovahub_app/Products/checkout_address.dart';
 import 'package:innovahub_app/Products/product_page.dart';
-import 'package:innovahub_app/Products/publish_product_screen.dart';
 import 'package:innovahub_app/core/network/dio_helper.dart';
 import 'package:innovahub_app/core/services/cache_services.dart';
 import 'package:innovahub_app/home/Deals/adding_deal_owner.dart';
 import 'package:innovahub_app/home/Deals/owner_product.dart';
-import 'package:innovahub_app/home/cart_Tap.dart';
 import 'package:innovahub_app/home/home_Tap_Categories.dart';
 import 'package:innovahub_app/home/home_Tap_Investor.dart';
 import 'package:innovahub_app/home/home_Tap_owner.dart';
@@ -80,7 +78,7 @@ class MyApp extends StatelessWidget {
         //AddProductScreen.routname : (context) => AddProductScreen(),
       },
      
-     initialRoute: RegisterScreen.routeName,
+     initialRoute: MyHomePage.routeName,
 
    ),
 
