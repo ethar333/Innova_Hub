@@ -1,13 +1,15 @@
-
-
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
-import 'package:innovahub_app/core/Constants/Colors_Constant.dart';
 import 'package:multiselect/multiselect.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'package:innovahub_app/core/Constants/Colors_Constant.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key}) : super(key: key);
@@ -32,10 +34,11 @@ class _MyHomePageState extends State<MyHomePage> {
   File? _image1;
   File? _image2;
   File? _image3;
-  final _formKey =GlobalKey<FormState>();
-  
+  final _formKey = GlobalKey<FormState>();
+
   File? homePicture;
   List<File> pictures = [];
+  Set<String> selectedColors = {};
 
   final picker = ImagePicker();
 
@@ -58,8 +61,9 @@ class _MyHomePageState extends State<MyHomePage> {
     }
   }
 
-    Future<void> _pickImage(int imageNumber) async {
-    final pickedFile = await ImagePicker().pickImage(source: ImageSource.gallery);
+  Future<void> _pickImage(int imageNumber) async {
+    final pickedFile =
+        await ImagePicker().pickImage(source: ImageSource.gallery);
     if (pickedFile != null) {
       setState(() {
         if (imageNumber == 1) {
@@ -73,12 +77,12 @@ class _MyHomePageState extends State<MyHomePage> {
     }
   }
 
-   Future<void> addProduct() async {
+  Future<void> addProduct() async {
     if (!_formKey.currentState!.validate() || homePicture == null) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-        content:
-        Text("Please fill all required fields and select images.")),
+        const SnackBar(
+            content:
+                Text("Please fill all required fields and select images.")),
       );
       return;
     }
@@ -126,7 +130,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
       if (response.statusCode == 200 || response.statusCode == 201) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text("Product added successfully!")),
+          const SnackBar(content: Text("Product added successfully!")),
         );
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -144,274 +148,291 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        appBar: AppBar(
+          automaticallyImplyLeading: false,
+          title: Text(
+            "Publish Your Product",
+            style: TextStyle(fontSize: 18.sp),
+          ),
+          actions: [
+            Icon(
+              Icons.close,
+              color: Colors.red,
+              size: 25.r,
+            ),
+          ],
+        ),
         body: Padding(
-      padding: const EdgeInsets.only(right: 15),
-      child: SingleChildScrollView(
-        child: Form(
-          key: _formKey,
-          child: Column(
-            children: [
-              SizedBox(
-                height: 50,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          padding: const EdgeInsets.symmetric(
+            horizontal: 15,
+          ).r,
+          child: SingleChildScrollView(
+            child: Form(
+              key: _formKey,
+              child: Column(
                 children: [
-                  Text(
-                    "Publish Your Product",
-                    style: TextStyle(fontSize: 18),
-                  ),
-                  Icon(
-                    Icons.close,
-                    color: Colors.red,
-                    size: 25,
-                  )
-                ],
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "Product Name : ",
-                    style: TextStyle(fontSize: 16, color: Colors.teal),
-                  ),
-                  Container(width: 230, height: 30, child: CustomTextField())
-                ],
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "Product Category : ",
-                    style: TextStyle(fontSize: 16, color: Colors.teal),
-                  ),
-                  Container(
-                      decoration: BoxDecoration(
-                          color: Colors.grey,
-                          borderRadius: BorderRadius.circular(5)),
-                      height: 50,
-                      width: 200,
-                      child: dropdownmenueforcatregory(categoryIdController: categoryIdController,))
-                ],
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "Description : ",
-                    style: TextStyle(fontSize: 16, color: Colors.teal),
-                  ),
-                  Container(
-                      width: 230,
-                      height: 100,
-                      child: CustomTextField(
-                        maxLines: 5,
-                      ))
-                ],
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        "Price : ",
-                        style: TextStyle(fontSize: 16, color: Colors.teal),
+                        "Product Name : ",
+                        style: TextStyle(fontSize: 16.sp, color: Colors.teal),
                       ),
                       SizedBox(
-                        height: 5,
-                      ),
-                      Container(width: 170, height: 30, child: CustomTextField())
+                          width: 230.r,
+                          height: 30.r,
+                          child: const CustomTextField())
                     ],
                   ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "Discount : ",
-                        style: TextStyle(fontSize: 16, color: Colors.teal),
-                      ),
-                      SizedBox(
-                        height: 5,
-                      ),
-                      Container(width: 170, height: 30, child: CustomTextField())
-                    ],
-                  )
-                ],
-              ),
-              SizedBox(
-                height: 15,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Column(
-                    crossAxisAlignment:CrossAxisAlignment.start,
-                     children: [
-                      Text(
-                        "Wight (Kg): ",
-                        style: TextStyle(fontSize: 16, color: Colors.teal),
-                      ),
-                      SizedBox(
-                        height: 5,
-                      ),
-                      Container(width: 170, height: 30, child: CustomTextField())
-                    ],
+                  SizedBox(
+                    height: 20.r,
                   ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                        "Dimentions(L×W×H) : ",
+                      const Text(
+                        "Product Category : ",
                         style: TextStyle(fontSize: 16, color: Colors.teal),
-                      ),
-                      SizedBox(
-                        height: 5,
-                      ),
-                      Container(width: 170, height: 30, child: CustomTextField())
-                    ],
-                  )
-                ],
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Row(
-                children: [
-                  Text(
-                    "Availability",
-                    style: TextStyle(fontSize: 16, color: Colors.black),
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: 15,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "Color : ",
-                        style: TextStyle(fontSize: 16, color: Colors.teal),
-                      ),
-                      SizedBox(
-                        height: 5,
                       ),
                       Container(
                           decoration: BoxDecoration(
-                            color: Colors.grey, //
-                            borderRadius: BorderRadius.circular(10),
-                            border: Border.all(
-                              color: Colors.grey.shade600,
-                            ),
-                          ),
-                          height: 40,
-                          width: 170,
-                          child: DropdownMenuForcolor())
+                              color: Constant.white4Color,
+                              borderRadius: BorderRadius.circular(5)),
+                          height: 50.r,
+                          width: 200.r,
+                          child: dropdownmenueforcatregory(
+                            categoryIdController: categoryIdController,
+                          ))
                     ],
                   ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                  SizedBox(
+                    height: 20.r,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                        "Size : ",
+                      const Text(
+                        "Description : ",
                         style: TextStyle(fontSize: 16, color: Colors.teal),
                       ),
                       SizedBox(
-                        height: 5,
-                      ),
-                      Container(
-                          decoration: BoxDecoration(
-                            color: Colors.grey, //
-                            borderRadius: BorderRadius.circular(10),
-                            border: Border.all(
-                              color: Colors.grey.shade600,
-                            ),
-                          ),
-                          height: 40,
-                          width: 170,
-                          child: DropdownMenuForsize())
+                          width: 230.r,
+                          height: 100.r,
+                          child: const CustomTextField(
+                            maxLines: 5,
+                          ))
                     ],
-                  )
-                ],
-              ),
-              SizedBox(
-                height: 15,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "Stock Availability : ",
-                    style: TextStyle(fontSize: 16, color: Colors.teal),
                   ),
-                  Container(width: 240, height: 30, child: CustomTextField())
-                ],
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Text("Home Picture",
-                      style: TextStyle(fontSize: 16, color: Colors.teal)),
-                 
-                        
-                     Row(
+                  SizedBox(
+                    height: 10.r,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Price : ",
+                            style:
+                                TextStyle(fontSize: 16.sp, color: Colors.teal),
+                          ),
+                          SizedBox(
+                            height: 5.r,
+                          ),
+                          SizedBox(
+                              width: 170.r,
+                              height: 30.r,
+                              child: const CustomTextField())
+                        ],
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Discount : ",
+                            style:
+                                TextStyle(fontSize: 16.sp, color: Colors.teal),
+                          ),
+                          SizedBox(
+                            height: 5.r,
+                          ),
+                          SizedBox(
+                              width: 170.r,
+                              height: 30.r,
+                              child: const CustomTextField())
+                        ],
+                      )
+                    ],
+                  ),
+                  SizedBox(
+                    height: 15.r,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Wight (Kg): ",
+                            style:
+                                TextStyle(fontSize: 16.sp, color: Colors.teal),
+                          ),
+                          SizedBox(
+                            height: 5.r,
+                          ),
+                          SizedBox(
+                              width: 170.r,
+                              height: 30.r,
+                              child: const CustomTextField())
+                        ],
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Dimentions(L×W×H) : ",
+                            style:
+                                TextStyle(fontSize: 16.sp, color: Colors.teal),
+                          ),
+                          SizedBox(
+                            height: 5.r,
+                          ),
+                          SizedBox(
+                              width: 170.r,
+                              height: 30.r,
+                              child: const CustomTextField())
+                        ],
+                      )
+                    ],
+                  ),
+                  SizedBox(
+                    height: 10.r,
+                  ),
+                  Row(
+                    children: [
+                      Text(
+                        "Availability",
+                        style: TextStyle(fontSize: 16.sp, color: Colors.black),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 15.r,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Color : ",
+                            style:
+                                TextStyle(fontSize: 16.sp, color: Colors.teal),
+                          ),
+                          SizedBox(
+                            height: 5.r,
+                          ),
+                          Container(
+                              decoration: BoxDecoration(
+                                color: Constant.white4Color, //
+                                borderRadius: BorderRadius.circular(10),
+                                border: Border.all(
+                                  color: Constant.white4Color,
+                                ),
+                              ),
+                              height: 40.r,
+                              width: 170.r,
+                              child: DropdownMenuForcolor(
+                                selectedColors: selectedColors,
+                              ))
+                        ],
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Size : ",
+                            style:
+                                TextStyle(fontSize: 16.sp, color: Colors.teal),
+                          ),
+                          SizedBox(
+                            height: 5.r,
+                          ),
+                          Container(
+                              decoration: BoxDecoration(
+                                color: Constant.white4Color, //
+                                borderRadius: BorderRadius.circular(10),
+                                border: Border.all(
+                                  color: Constant.white4Color,
+                                ),
+                              ),
+                              height: 40.r,
+                              width: 170.r,
+                              child: const DropdownMenuForsize())
+                        ],
+                      )
+                    ],
+                  ),
+                  SizedBox(
+                    height: 15.r,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "Stock Availability : ",
+                        style: TextStyle(fontSize: 16.sp, color: Colors.teal),
+                      ),
+                      Expanded(
+                          child: SizedBox(
+                              height: 30.r, child: const CustomTextField()))
+                    ],
+                  ),
+                  SizedBox(
+                    height: 20.r,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Text("Home Picture",
+                          style:
+                              TextStyle(fontSize: 16.sp, color: Colors.teal)),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          _buildImagePicker(1, _image1, isLarge: true),
+                          const SizedBox(width: 20),
+                        ],
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        _buildImagePicker(1, _image1, isLarge: true),
-                        const SizedBox(width: 20),
-                         
-                      ],
-                    ),
-                     
-                ],
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Text("Other Picture",
-                      style: TextStyle(fontSize: 16, color: Colors.teal)),
-                       Column(
+                        const Text("Other Picture",
+                            style: TextStyle(fontSize: 16, color: Colors.teal)),
+                        Column(
                           children: [
                             _buildImagePicker(2, _image2),
                             const SizedBox(height: 15),
                             _buildImagePicker(3, _image3),
                           ],
                         ),
-                ]
-              ),
-              SizedBox(
-                height: 40,
-              ),
-               Center(
+                      ]),
+                  const SizedBox(
+                    height: 40,
+                  ),
+                  Center(
                     child: ElevatedButton(
                       onPressed: () {
-          
-                         addProduct();
+                        addProduct();
                       },
-          
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Constant.green2Color,
                         minimumSize: const Size(double.infinity, 50),
@@ -422,15 +443,18 @@ class _MyHomePageState extends State<MyHomePage> {
                       ),
                     ),
                   ),
-                  
-                  SizedBox(height: 20,),
-            ],
+                  const SizedBox(
+                    height: 20,
+                  ),
+                ],
+              ),
+            ),
           ),
-        ),
-      ),
-    ));
+        ));
   }
-   Widget _buildImagePicker(int imageNumber, File? image, {bool isLarge = false}) {
+
+  Widget _buildImagePicker(int imageNumber, File? image,
+      {bool isLarge = false}) {
     return GestureDetector(
       onTap: () => _pickImage(imageNumber),
       child: Container(
@@ -438,12 +462,11 @@ class _MyHomePageState extends State<MyHomePage> {
         width: isLarge ? 200 : 130,
         height: isLarge ? 270 : 130,
         decoration: BoxDecoration(
-          color: Constant.white4Color,
-          borderRadius: BorderRadius.circular(15)
-        ),
+            color: Constant.white4Color,
+            borderRadius: BorderRadius.circular(15)),
         child: image != null
-         ? Image.file(image, fit: BoxFit.cover)
-         : Icon(Icons.file_upload, size: isLarge ? 30 : 20),
+            ? Image.file(image, fit: BoxFit.cover)
+            : Icon(Icons.file_upload, size: isLarge ? 30 : 20),
       ),
     );
   }
@@ -456,101 +479,104 @@ class CustomTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextField(
-      style: TextStyle(color: Colors.black),
+      style: const TextStyle(color: Colors.black),
       maxLines: maxLines,
       decoration: InputDecoration(
         filled: true,
-        fillColor: Colors.grey,
+        fillColor: Constant.white4Color,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(5),
-          borderSide: BorderSide(color: Colors.grey),
+          borderSide: const BorderSide(color: Constant.white4Color),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(5),
-          borderSide: BorderSide(color: Colors.grey),
+          borderSide: const BorderSide(color: Constant.white4Color),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(5),
-          borderSide: BorderSide(color: Colors.grey, width: 2),
+          borderSide: const BorderSide(color: Constant.white4Color, width: 2),
         ),
-        contentPadding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+        contentPadding:
+            const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
       ),
     );
   }
 }
 
 class dropdownmenueforcatregory extends StatefulWidget {
-    final TextEditingController categoryIdController;
-  const dropdownmenueforcatregory({super.key,required this.categoryIdController});
+  final TextEditingController categoryIdController;
+  const dropdownmenueforcatregory(
+      {super.key, required this.categoryIdController});
 
   @override
   State<dropdownmenueforcatregory> createState() =>
-   _dropdownmenueforcatregoryState();
+      _dropdownmenueforcatregoryState();
 }
 
 class _dropdownmenueforcatregoryState extends State<dropdownmenueforcatregory> {
-  
   String? dropdownvalue;
 
   final List<Map<String, dynamic>> categories = [
-  {"CategoryId": 1, "CategoryName": "Carpets"},
-  {"CategoryId": 2, "CategoryName": "Home"},
-  {"CategoryId": 3, "CategoryName": "Bags"},
-  {"CategoryId": 4, "CategoryName": "Jewelry"},
-  {"CategoryId": 5, "CategoryName": "Art"},
-  {"CategoryId": 6, "CategoryName": "Men"},
-  {"CategoryId": 7, "CategoryName": "Watches"},
-  {"CategoryId": 8, "CategoryName": "Drawing"},
-  {"CategoryId": 9, "CategoryName": "Necklace"},
-  {"CategoryId": 10, "CategoryName": "Wood Crafting"},
-  {"CategoryId": 11, "CategoryName": "Toys"},
-  {"CategoryId": 12, "CategoryName": "Carpets"},
-  {"CategoryId": 13, "CategoryName": "Rings"},
-  {"CategoryId": 14, "CategoryName": "Furniture"},
-  {"CategoryId": 15, "CategoryName": "Laptops"},
-];
-String? selectedCategoryName;
-int? selectedCategoryId;
+    {"CategoryId": 1, "CategoryName": "Carpets"},
+    {"CategoryId": 2, "CategoryName": "Home"},
+    {"CategoryId": 3, "CategoryName": "Bags"},
+    {"CategoryId": 4, "CategoryName": "Jewelry"},
+    {"CategoryId": 5, "CategoryName": "Art"},
+    {"CategoryId": 6, "CategoryName": "Men"},
+    {"CategoryId": 7, "CategoryName": "Watches"},
+    {"CategoryId": 8, "CategoryName": "Drawing"},
+    {"CategoryId": 9, "CategoryName": "Necklace"},
+    {"CategoryId": 10, "CategoryName": "Wood Crafting"},
+    {"CategoryId": 11, "CategoryName": "Toys"},
+    {"CategoryId": 12, "CategoryName": "Carpets"},
+    {"CategoryId": 13, "CategoryName": "Rings"},
+    {"CategoryId": 14, "CategoryName": "Furniture"},
+    {"CategoryId": 15, "CategoryName": "Laptops"},
+  ];
+  String? selectedCategoryName;
+  int? selectedCategoryId;
 
   @override
   Widget build(BuildContext context) {
     return DropdownButtonFormField<String>(
-  decoration: InputDecoration(
-    labelText: 'Select Category',
-    border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
-  ),
-  value: selectedCategoryName,
-  items: categories.map((category) {
-    return DropdownMenuItem<String>(
-      value: category['CategoryName'],
-      child: Text(category['CategoryName']),
+      decoration: InputDecoration(
+        labelText: 'Select Category',
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
+      ),
+      value: selectedCategoryName,
+      items: categories.map((category) {
+        return DropdownMenuItem<String>(
+          value: category['CategoryName'],
+          child: Text(category['CategoryName']),
+        );
+      }).toList(),
+      onChanged: (String? newValue) {
+        setState(() {
+          selectedCategoryName = newValue;
+          selectedCategoryId = categories.firstWhere(
+            (category) => category['CategoryName'] == newValue,
+          )['CategoryId'];
+
+          // تحديث قيمة الـ Controller بالـ CategoryId
+          widget.categoryIdController.text = selectedCategoryId.toString();
+        });
+      },
     );
-  }).toList(),
-  onChanged: (String? newValue) {
-    setState(() {
-      selectedCategoryName = newValue;
-      selectedCategoryId = categories.firstWhere(
-        (category) => category['CategoryName'] == newValue,
-      )['CategoryId'];
-      
-      // تحديث قيمة الـ Controller بالـ CategoryId
-      widget.categoryIdController.text = selectedCategoryId.toString();
-    });
-  },
-);
   }
 }
 
 class DropdownMenuForcolor extends StatefulWidget {
-  const DropdownMenuForcolor({super.key});
+  Set<String> selectedColors;
+  DropdownMenuForcolor({
+    Key? key,
+    required this.selectedColors,
+  }) : super(key: key);
 
   @override
   State<DropdownMenuForcolor> createState() => _DropdownMenuForcolorState();
 }
 
 class _DropdownMenuForcolorState extends State<DropdownMenuForcolor> {
-  List<String> selectedColors = [];
-
   final List<String> colorOptions = [
     "Red",
     "Green",
@@ -566,19 +592,17 @@ class _DropdownMenuForcolorState extends State<DropdownMenuForcolor> {
       children: [
         Expanded(
           child: DropDownMultiSelect(
-            //selectedValuesStyle: TextStyle(color: Colors.black),
             options: colorOptions,
-            selectedValues: selectedColors,
-            whenEmpty: selectedColors.isEmpty
+            selectedValues: widget.selectedColors.toList(),
+            whenEmpty: widget.selectedColors.isEmpty
                 ? ""
-                : selectedColors.join(" | "),
-            //separator: " | ",
+                : widget.selectedColors.join(" | "),
             onChanged: (List<String> values) {
               setState(() {
-                selectedColors = values;
+                widget.selectedColors = values.toSet();
               });
             },
-            decoration: InputDecoration(
+            decoration: const InputDecoration(
               border: InputBorder.none,
               contentPadding: EdgeInsets.symmetric(vertical: 8, horizontal: 12),
             ),
@@ -614,17 +638,17 @@ class _DropdownMenuForsizeState extends State<DropdownMenuForsize> {
       children: [
         Expanded(
           child: DropDownMultiSelect(
-           // selectedValuesStyle: TextStyle(  color: Colors.black, ),
+            // selectedValuesStyle: TextStyle(  color: Colors.black, ),
             options: colorOptions,
             selectedValues: selectedColors,
             whenEmpty: '', //
-           // separator: " | ", // ✅
+            // separator: " | ", // ✅
             onChanged: (List<String> values) {
               setState(() {
                 selectedColors = values;
               });
             },
-            decoration: InputDecoration(
+            decoration: const InputDecoration(
               border: InputBorder.none,
               contentPadding: EdgeInsets.symmetric(vertical: 8, horizontal: 12),
             ),
@@ -633,7 +657,6 @@ class _DropdownMenuForsizeState extends State<DropdownMenuForsize> {
       ],
     );
   }
- 
 }
 
 
@@ -801,7 +824,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
                 Container(
                     decoration: BoxDecoration(
-                        color: Colors.grey,
+                        color: Constant.white4Color,
                         borderRadius: BorderRadius.circular(5)),
                     height: 30,
                     width: 200,
@@ -923,10 +946,10 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                     Container(
                         decoration: BoxDecoration(
-                          color: Colors.grey, //
+                          color: Constant.white4Color, //
                           borderRadius: BorderRadius.circular(10),
                           border: Border.all(
-                            color: Colors.grey.shade600,
+                            color: Constant.white4Color.shade600,
                           ),
                         ),
                         height: 40,
@@ -946,10 +969,10 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                     Container(
                         decoration: BoxDecoration(
-                          color: Colors.grey, //
+                          color: Constant.white4Color, //
                           borderRadius: BorderRadius.circular(10),
                           border: Border.all(
-                            color: Colors.grey.shade600,
+                            color: Constant.white4Color.shade600,
                           ),
                         ),
                         height: 40,
@@ -1067,18 +1090,18 @@ class CustomTextField extends StatelessWidget {
       maxLines: maxLines,
       decoration: InputDecoration(
         filled: true,
-        fillColor: Colors.grey,
+        fillColor: Constant.white4Color,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(5),
-          borderSide: BorderSide(color: Colors.grey),
+          borderSide: BorderSide(color: Constant.white4Color),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(5),
-          borderSide: BorderSide(color: Colors.grey),
+          borderSide: BorderSide(color: Constant.white4Color),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(5),
-          borderSide: BorderSide(color: Colors.grey, width: 2),
+          borderSide: BorderSide(color: Constant.white4Color, width: 2),
         ),
         contentPadding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
       ),

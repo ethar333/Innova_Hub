@@ -1,7 +1,7 @@
 
 import 'dart:developer';
 import 'package:flutter/material.dart';
-import 'package:innovahub_app/Api/Api_Manager_categories.dart';
+import 'package:innovahub_app/core/Api/Api_Manager_categories.dart';
 import 'package:innovahub_app/core/Constants/Colors_Constant.dart';
 import 'package:innovahub_app/Models/Category_Item_response.dart';
 import 'package:innovahub_app/Models/product_response.dart';

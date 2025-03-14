@@ -4,7 +4,7 @@ import 'dart:io';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:innovahub_app/Api/Api_Manager_profiles.dart';
+import 'package:innovahub_app/core/Api/Api_Manager_profiles.dart';
 import 'package:innovahub_app/Custom_Widgets/Text_Field_profile.dart';
 import 'package:innovahub_app/Models/profiles/User_profile_model.dart';
 import 'package:innovahub_app/core/Constants/Colors_Constant.dart';
