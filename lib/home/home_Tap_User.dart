@@ -1,6 +1,6 @@
 
 import 'package:flutter/material.dart';
-import 'package:innovahub_app/Api/Api_Manager_categories.dart';
+import 'package:innovahub_app/core/Api/Api_Manager_categories.dart';
 import 'package:innovahub_app/Products/product_page.dart';
 import 'package:innovahub_app/core/Constants/Colors_Constant.dart';
 import 'package:innovahub_app/Custom_Widgets/Stack_listCart.dart';

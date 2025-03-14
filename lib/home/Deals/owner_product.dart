@@ -1,12 +1,14 @@
-
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 import 'package:multiselect/multiselect.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import 'package:innovahub_app/core/Constants/Colors_Constant.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -151,7 +153,7 @@ class _MyHomePageState extends State<MyHomePage> {
           automaticallyImplyLeading: false,
           title: Text(
             "Publish Your Product",
-            style: TextStyle(fontSize: 18),
+            style: TextStyle(fontSize: 18.sp),
           ),
           actions: [
             Icon(

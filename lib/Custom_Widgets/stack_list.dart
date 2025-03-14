@@ -1,6 +1,6 @@
 
 import 'package:flutter/material.dart';
-import 'package:innovahub_app/Api/cart_services.dart';
+import 'package:innovahub_app/core/Api/cart_services.dart';
 import 'package:innovahub_app/core/Constants/Colors_Constant.dart';
 import 'package:innovahub_app/Models/product_response.dart';
 

@@ -1,38 +1,32 @@
-
 import 'package:flutter/material.dart';
 
- // Colors that used in tha App:
-class Constant{
-    
- //Color.fromARGB(255, 63, 154, 152);
+// Colors that used in tha App:
+class Constant {
+  //Color.fromARGB(255, 63, 154, 152);
 
- static const Color mainColor = Color(0xFF126090);
- static const Color blackColorDark = Color(0xFF000000);
- static const Color blackColor = Color(0xFF222222);
- static const Color greyColor = Color(0xFF888888);
- static const Color greyColor2 = Color(0xFFB2B1B1);
- static const Color whiteColor = Color(0xFFFFFFFF);
- static const Color greyColor3 = Color(0xFF333333);
- static const Color blueColor = Color(0xFF0056B3);
- static const Color transparentColor = Color(0xFFedf1f3);
- static const Color blue2Color = Color(0xFF2F35ED);
- static const Color purpuleColor = Color(0xFF2C1DB3);
- static const Color blue3Color = Color(0xFF0000FF);
- static const Color white2Color = Color(0xFFf2f2f2);
- static const Color greenColor = Color(0xFF1ABA1A);
- static const Color greyColor4 = Color(0xFF999999);
- static const Color yellowColor = Color(0xFFF5C301);
- static const Color white3Color = Color(0xFFF7F7F7);
- static const Color redColor = Color(0xFFFF0000);
- static const Color white4Color = Color(0xFFD9D9D9);
- static const Color black2Color = Color(0xFF545454);
- static const Color black3Color = Color(0xFF4B4A4A);
- static const Color green2Color = Color(0xFF6BB76B);
-
-
-
+  static const Color mainColor = Color(0xFF126090);
+  static const Color blackColorDark = Color(0xFF000000);
+  static const Color blackColor = Color(0xFF222222);
+  static const Color greyColor = Color(0xFF888888);
+  static const Color greyColor2 = Color(0xFFB2B1B1);
+  static const Color whiteColor = Color(0xFFFFFFFF);
+  static const Color greyColor3 = Color(0xFF333333);
+  static const Color blueColor = Color(0xFF0056B3);
+  static const Color transparentColor = Color(0xFFedf1f3);
+  static const Color blue2Color = Color(0xFF2F35ED);
+  static const Color purpuleColor = Color(0xFF2C1DB3);
+  static const Color blue3Color = Color(0xFF0000FF);
+  static const Color white2Color = Color(0xFFf2f2f2);
+  static const Color greenColor = Color(0xFF1ABA1A);
+  static const Color greyColor4 = Color(0xFF999999);
+  static const Color yellowColor = Color(0xFFF5C301);
+  static const Color white3Color = Color(0xFFF7F7F7);
+  static const Color redColor = Color(0xFFFF0000);
+  static const Color white4Color = Color(0xFFD9D9D9);
+  static const Color black2Color = Color(0xFF545454);
+  static const Color black3Color = Color(0xFF4B4A4A);
+  static const Color green2Color = Color(0xFF6BB76B);
 }
-
 
 /*
 

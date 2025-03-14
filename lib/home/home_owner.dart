@@ -1,6 +1,6 @@
 
 import 'package:flutter/material.dart';
-import 'package:innovahub_app/Api/Api_Manager_categories.dart';
+import 'package:innovahub_app/core/Api/Api_Manager_categories.dart';
 import 'package:innovahub_app/Products/publish_product_screen.dart';
 import 'package:innovahub_app/core/Constants/Colors_Constant.dart';
 import 'package:innovahub_app/Custom_Widgets/Estimated_container.dart';
