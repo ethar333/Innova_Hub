@@ -210,7 +210,12 @@ class HomeScreenUser extends StatelessWidget {
                scrollDirection: Axis.horizontal,
                itemBuilder: (context, index) {
 
-                 return stacklist(product: products[index]);
+                 return GestureDetector(
+                  onTap: () {
+                    Navigator.pushNamed(context, ProductPage.routeName,
+                    arguments: products[index],);
+                  },
+                  child: stacklist(product: products[index]));
 
                },
                separatorBuilder: (BuildContext context, int index) {
@@ -294,7 +299,13 @@ class HomeScreenUser extends StatelessWidget {
             child: ListView.separated(
               itemBuilder: (context,index){
 
-                return stacklistcart(product: products[index]);
+                return GestureDetector(
+                  onTap: () {
+                    Navigator.pushNamed(context, ProductPage.routeName,
+                    arguments: products[index],);
+                  },
+                  child: stacklistcart(product: products[index]));
+
               } , 
               separatorBuilder:(BuildContext context, int index) {
                   return const SizedBox(width: 5);
@@ -385,7 +396,8 @@ class HomeScreenUser extends StatelessWidget {
 
                  return GestureDetector(
                   onTap: () {
-                    Navigator.pushNamed(context, ProductPage.routeName);
+                    Navigator.pushNamed(context, ProductPage.routeName,
+                    arguments: products[index],);
                   },
                   child: stacklisthandmade(product: products[index],));
 
@@ -471,7 +483,12 @@ class HomeScreenUser extends StatelessWidget {
                scrollDirection: Axis.horizontal,
                itemBuilder: (context, index) {
 
-                 return stacklisthandmade(product: products[index],);
+                 return GestureDetector(
+                  onTap: () {
+                    Navigator.pushNamed(context, ProductPage.routeName,
+                    arguments: products[index],);
+                  },
+                  child: stacklisthandmade(product: products[index],));
 
                },
                separatorBuilder: (BuildContext context, int index) {

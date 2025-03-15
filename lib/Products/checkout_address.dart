@@ -4,7 +4,7 @@ import 'package:innovahub_app/Custom_Widgets/Data_textfield.dart';
 import 'package:innovahub_app/core/Constants/Colors_Constant.dart';
 
 class CheckoutAddress extends StatefulWidget {
-  CheckoutAddress({super.key});
+  const CheckoutAddress({super.key});
 
   static const String routeName = 'address';
 

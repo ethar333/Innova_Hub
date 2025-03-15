@@ -1,7 +1,9 @@
 
 import 'package:flutter/material.dart';
+import 'package:innovahub_app/Models/product_response.dart';
 import 'package:innovahub_app/Products/buy_page.dart';
 import 'package:innovahub_app/Products/cart_page.dart';
+import 'package:innovahub_app/core/Api/comment_service.dart';
 import 'package:innovahub_app/core/Constants/Colors_Constant.dart';
 
 class ProductPage extends StatefulWidget {
@@ -14,10 +16,45 @@ class ProductPage extends StatefulWidget {
 }
 
 class _ProductPageState extends State<ProductPage> {
+  var productcomment;
+  TextEditingController input = TextEditingController();
+  TextEditingController output = TextEditingController();
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    productcomment =ModalRoute.of(context)!.settings.arguments as ProductResponse;
+  }
+
+  void addComment() async {
+    if (input.text.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("Comment cannot be empty!")),
+      );
+      return;
+    }
+
+    String message =
+        await CommentService.postComment(productcomment.productId, input.text);
+
+    if (message == "Comment added successfully!") {
+      setState(() {
+        output.text = input.text;
+        input.clear();
+      });
+    }
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text(message)),
+    );
+  }
+
   int select = 0;
 
   @override
   Widget build(BuildContext context) {
+    var arguments = ModalRoute.of(context)!.settings.arguments
+        as ProductResponse; // receive data:
+
     return Scaffold(
       backgroundColor: Constant.white3Color,
       appBar: AppBar(
@@ -118,8 +155,8 @@ class _ProductPageState extends State<ProductPage> {
               padding: const EdgeInsets.only(top: 15, bottom: 15),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(15),
-                child: Image.asset(
-                  "assets/images/Necklace1.png",
+                child: Image.network(
+                  arguments.productImage,
                   fit: BoxFit.cover,
                   width: 350,
                 ),
@@ -137,8 +174,8 @@ class _ProductPageState extends State<ProductPage> {
                     padding: const EdgeInsets.symmetric(horizontal: 10),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(15),
-                      child: Image.asset(
-                        "assets/images/Necklace2.png", // استبدلها بالصور الفعلية
+                      child: Image.network(
+                        arguments.productImage, // استبدلها بالصور الفعلية
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -169,8 +206,8 @@ class _ProductPageState extends State<ProductPage> {
                         ),
                       ),
                       const SizedBox(width: 10),
-                      const Text("Owner Name",
-                          style: TextStyle(
+                      Text(arguments.authorName,
+                          style: const TextStyle(
                               color: Constant.blackColorDark,
                               fontSize: 15,
                               fontWeight: FontWeight.w500)),
@@ -186,25 +223,25 @@ class _ProductPageState extends State<ProductPage> {
                     ],
                   ),
                   const SizedBox(height: 8),
-                  const Text(
-                    "Lapis Set, Necklace, ring, earrings lightweight",
-                    style: TextStyle(
+                  Text(
+                    arguments.name,
+                    style: const TextStyle(
                         color: Constant.blackColorDark,
                         fontSize: 16,
                         fontWeight: FontWeight.w500),
                   ),
                   const SizedBox(height: 8),
-                  const Text(
-                    "\$70.00",
-                    style: TextStyle(
+                  Text(
+                    arguments.price.toString(),
+                    style: const TextStyle(
                         color: Constant.blackColorDark,
                         fontSize: 16,
                         fontWeight: FontWeight.w500),
                   ),
                   const SizedBox(height: 8),
-                  const Text(
-                    "Full Set without Silver Necklace",
-                    style: TextStyle(
+                  Text(
+                    arguments.description,
+                    style: const TextStyle(
                         color: Constant.blackColorDark,
                         fontSize: 16,
                         fontWeight: FontWeight.w500),
@@ -335,9 +372,7 @@ class _ProductPageState extends State<ProductPage> {
                   Expanded(
                     child: ElevatedButton(
                       onPressed: () {
-                       
                         Navigator.pushNamed(context, BuyPage.routeName);
-
                       },
                       style: ElevatedButton.styleFrom(
                           backgroundColor: Constant.mainColor,
@@ -353,9 +388,7 @@ class _ProductPageState extends State<ProductPage> {
                   Expanded(
                     child: OutlinedButton(
                       onPressed: () {
-                         
                         Navigator.pushNamed(context, CartPage.routeName);
-
                       },
                       style: ElevatedButton.styleFrom(
                           side: const BorderSide(
@@ -366,7 +399,7 @@ class _ProductPageState extends State<ProductPage> {
                       child: const Text(
                         "Add to cart",
                         style: TextStyle(
-                       color: Constant.black2Color, fontSize: 18),
+                            color: Constant.black2Color, fontSize: 18),
                       ),
                     ),
                   ),
@@ -391,44 +424,79 @@ class _ProductPageState extends State<ProductPage> {
                     children: [
                       Expanded(
                         child: TextField(
+                          controller: input,
                           decoration: InputDecoration(
                             fillColor: Constant.whiteColor,
                             hintText: "What do you think?",
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(25),
-                              borderSide: const BorderSide(
-                            color: Constant.greyColor2),
+                              borderSide:
+                                  const BorderSide(color: Constant.greyColor2),
                             ),
                             enabledBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(20),
-                              borderSide:const BorderSide( color: Constant.greyColor2), 
+                              borderSide:
+                                  const BorderSide(color: Constant.greyColor2),
                             ),
                             focusedBorder: OutlineInputBorder(
-                             borderRadius: BorderRadius.circular(20),
-                              borderSide:const BorderSide(color:Constant.greyColor2,), 
-                           ),
+                              borderRadius: BorderRadius.circular(20),
+                              borderSide: const BorderSide(
+                                color: Constant.greyColor2,
+                              ),
+                            ),
                           ),
                         ),
                       ),
                       const SizedBox(width: 10),
                       ElevatedButton(
-                      onPressed: () {},
-                      style: ElevatedButton.styleFrom(
-                          backgroundColor: Constant.mainColor,
-                          minimumSize: const Size(1, 50)),
-                       child: const Row(
-                         children: [
-                            Text( "Add",
-                            style: TextStyle(color: Constant.whiteColor, fontSize: 18),
-                           ),
-                           SizedBox(width: 10,),
-                            Icon( Icons.send, color: Constant.whiteColor,size: 23, ),
-                         ],
-                       ),
-                     ),
+                        onPressed: () {
+                          addComment(); // Function to add comment:
+                        },
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: Constant.mainColor,
+                            minimumSize: const Size(1, 50)),
+                        child: const Row(
+                          children: [
+                            Text(
+                              "Add",
+                              style: TextStyle(
+                                  color: Constant.whiteColor, fontSize: 18),
+                            ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Icon(
+                              Icons.send,
+                              color: Constant.whiteColor,
+                              size: 23,
+                            ),
+                          ],
+                        ),
+                      ),
                     ],
                   ),
                 ],
+              ),
+            ),
+            const SizedBox(height: 20),
+            Container(
+              height: 160,
+              width: double.infinity,
+              margin: const EdgeInsets.symmetric(horizontal: 16),
+              padding: const EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                color: Constant.whiteColor,
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: Center(
+                child: Text(
+                  output.text.isNotEmpty ? output.text : "No Comments yet !",
+                  style: const TextStyle(
+                    fontWeight: FontWeight.w500 ,
+                    color: Constant.greyColor4,
+                    
+                  ),
+                ),
               ),
             ),
             const SizedBox(height: 20),
@@ -438,5 +506,3 @@ class _ProductPageState extends State<ProductPage> {
     );
   }
 }
-
-
