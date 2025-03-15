@@ -4,6 +4,7 @@ import 'package:innovahub_app/Auth/Auth_Cubit/Auth_cubit.dart';
 import 'package:innovahub_app/Auth/register/register_screen.dart';
 import 'package:innovahub_app/home/Deals/adding_deal_owner.dart';
 import 'package:innovahub_app/home/Deals/owner_product.dart';
+import 'package:innovahub_app/home/cubit/owner_home_layout_cubit.dart';
 import 'package:innovahub_app/home/home_Tap_Categories.dart';
 import 'package:innovahub_app/home/home_Tap_Investor.dart';
 import 'package:innovahub_app/home/home_Tap_owner.dart';
@@ -40,7 +41,10 @@ abstract class AppRouter {
         ForgetPasswordScreen.routname: (contect) => ForgetPasswordScreen(),
         resetpassword.routname: (_) => const resetpassword(),
         HomeScreen.routeName: (_) => const HomeScreen(),
-        HomeScreenOwner.routeName: (_) => const HomeScreenOwner(),
+        HomeScreenOwner.routeName: (_) => BlocProvider(
+              create: (context) => OwnerHomeLayoutCubit(),
+              child: const HomeScreenOwner(),
+            ),
         // AddingDealOwner.routeName : (_) => AddingDealOwner(),
         HomeScreenInvestor.routeName: (_) => const HomeScreenInvestor(),
         HomeScreenCategories.routeName: (_) => const HomeScreenCategories(),

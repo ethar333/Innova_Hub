@@ -1,9 +1,11 @@
-
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:innovahub_app/core/Constants/Colors_Constant.dart';
 import 'package:innovahub_app/home/add_Tap_owner.dart';
 import 'package:innovahub_app/home/Deals/deal_tap_owner.dart';
+import 'package:innovahub_app/home/cubit/owner_home_layout_cubit.dart';
 import 'package:innovahub_app/home/home_owner.dart';
+import 'package:innovahub_app/home/model/owner_home_layout_model.dart';
 import 'package:innovahub_app/home/search_Tap.dart';
 import 'package:innovahub_app/profiles/profile_tap_owner.dart';
 
@@ -17,8 +19,6 @@ class HomeScreenOwner extends StatefulWidget {
 }
 
 class _HomeScreenOwnerState extends State<HomeScreenOwner> {
-  int select = 0;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,77 +36,41 @@ class _HomeScreenOwnerState extends State<HomeScreenOwner> {
             padding: EdgeInsets.only(right: 16),
             child: CircleAvatar(
               radius: 24,
-              backgroundImage:
-                  AssetImage('assets/images/owner1.png'), // ضع الصورة هنا
+              backgroundImage: AssetImage('assets/images/owner1.png'),
             ),
           ),
         ],
       ),
-      bottomNavigationBar: Theme(
-        data: Theme.of(context).copyWith(canvasColor: Colors.white),
-        child: BottomNavigationBar(
-          items: const [
-            BottomNavigationBarItem(
-              icon: Icon(
-                Icons.home_filled,
-              ),
-              label: "Home",
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(
-                Icons.add,
-              ),
-              label: "Add",
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(
-                Icons.trending_up,
-              ),
-              label: "Deals",
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(
-                Icons.search_outlined,
-              ),
-              label: "Search",
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(
-                Icons.person_outline,
-              ),
-              label: "Profile",
-            ),
-          ],
-          currentIndex: select,
-          onTap: (index) {
-            select = index;
-            setState(() {});
-          },
-          selectedItemColor: Colors.blue,
-          unselectedItemColor: Colors.black,
-          selectedLabelStyle: const TextStyle(
-            fontSize: 16,
-          ),
-        ),
+      body: BlocBuilder<OwnerHomeLayoutCubit, OwnerHomeLayoutState>(
+        builder: (context, state) {
+          return PageView.builder(
+            controller: OwnerHomeLayoutCubit.get(context).pageController,
+            onPageChanged: (value) {
+              OwnerHomeLayoutCubit.get(context).changePage(value);
+            },
+            itemBuilder: (context, index) {
+              return OwnerHomeLayoutModel.screens[index];
+            },
+          );
+        },
       ),
-
-      body: tabsOwner[select],
-
+      bottomNavigationBar:
+          BlocBuilder<OwnerHomeLayoutCubit, OwnerHomeLayoutState>(
+        builder: (context, state) {
+          return BottomNavigationBar(
+            items: OwnerHomeLayoutModel.items,
+            currentIndex: OwnerHomeLayoutCubit.get(context).currentIndex,
+            onTap: (index) {
+              OwnerHomeLayoutCubit.get(context).changePage(index);
+            },
+            selectedItemColor: Colors.blue,
+            unselectedItemColor: Colors.black,
+            selectedLabelStyle: const TextStyle(
+              fontSize: 16,
+            ),
+          );
+        },
+      ),
     );
   }
-
-
-  List<Widget> tabsOwner = [
-    
-    const HomeOwner(),
-    const AddOwner(),
-    const DealOwner(),
-    const SearchTap(),
-    const ProfileOwner(),
-
-  ];
-
-
-
 }
-
