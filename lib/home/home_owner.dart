@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
+import 'package:innovahub_app/Products/product_page.dart';
 import 'package:innovahub_app/core/Api/Api_Manager_categories.dart';
-import 'package:innovahub_app/Products/publish_product_screen.dart';
 import 'package:innovahub_app/core/Constants/Colors_Constant.dart';
 import 'package:innovahub_app/Custom_Widgets/Estimated_container.dart';
 import 'package:innovahub_app/Custom_Widgets/Stack_listCart.dart';
@@ -145,7 +145,7 @@ class HomeOwner extends StatelessWidget {
                 GestureDetector(
                   onTap: (){
 
-                    Navigator.pushNamed(context, MyHomePage.routeName);
+                    Navigator.pushNamed(context, OwnerPublish.routeName);
                   },
                   child: Container(
                     decoration: BoxDecoration(
@@ -357,7 +357,12 @@ class HomeOwner extends StatelessWidget {
             child: ListView.separated(
               itemBuilder: (context,index){
 
-                return stacklistcart(product: products[index]);
+                return GestureDetector(
+                  onTap: () {
+                    Navigator.pushNamed(context, ProductPage.routeName,
+                    arguments: products[index],);
+                  },
+                child: stacklistcart(product: products[index]));
               } , 
               separatorBuilder:(BuildContext context, int index) {
                   return const SizedBox(width: 5);
@@ -446,7 +451,13 @@ class HomeOwner extends StatelessWidget {
                scrollDirection: Axis.horizontal,
                itemBuilder: (context, index) {
 
-                 return stacklisthandmade(product: products[index],);
+                 return GestureDetector(
+                  onTap: () {
+                    Navigator.pushNamed(context, ProductPage.routeName,
+                    arguments: products[index],
+                    );
+                  },
+                  child: stacklisthandmade(product: products[index],));
 
                },
                separatorBuilder: (BuildContext context, int index) {
@@ -531,7 +542,12 @@ class HomeOwner extends StatelessWidget {
                scrollDirection: Axis.horizontal,
                itemBuilder: (context, index) {
 
-                 return stacklisthandmade(product: products[index],);
+                 return GestureDetector(
+                  onTap: () {
+                    Navigator.pushNamed(context, ProductPage.routeName,
+                    arguments: products[index],);
+                  },
+                  child: stacklisthandmade(product: products[index],));
 
                },
                separatorBuilder: (BuildContext context, int index) {

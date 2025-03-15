@@ -1,7 +1,9 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:innovahub_app/Auth/Auth_Cubit/Auth_cubit.dart';
 import 'package:innovahub_app/Auth/register/register_screen.dart';
+import 'package:innovahub_app/Products/payment_page.dart';
 import 'package:innovahub_app/home/Deals/adding_deal_owner.dart';
 import 'package:innovahub_app/home/Deals/owner_product.dart';
 import 'package:innovahub_app/home/cubit/owner_home_layout_cubit.dart';
@@ -32,8 +34,6 @@ abstract class AppRouter {
               create: (context) => AuthCubit(),
               child: const RegisterScreen(),
             ),
-        //RegisterDesign.routeName:(_)=>RegisterDesign(),
-        // Logindesign.routname:(_) => Logindesign(),
         LoginScreen.routname: (_) => BlocProvider(
               create: (context) => AuthCubit(),
               child: const LoginScreen(),
@@ -57,10 +57,8 @@ abstract class AppRouter {
         //CartTap.routeName : (_) => CartTap(),
         CartPage.routeName: (_) => const CartPage(),
         BuyPage.routeName: (_) => const BuyPage(),
-        CheckoutAddress.routeName: (_) => CheckoutAddress(),
-        MyHomePage.routeName: (_) => const MyHomePage(),
-        //ProductScreen.routeName : (_) => ProductScreen(),
-        //PublishProductPage.routeName : (_) => PublishProductPage(),
-        //AddProductScreen.routname : (_) => AddProductScreen(),
+        CheckoutAddress.routeName: (_) => const CheckoutAddress(),
+        OwnerPublish.routeName: (_) => const OwnerPublish(),
+        PaymentPage.routeName : (_) => const PaymentPage(),
       };
 }

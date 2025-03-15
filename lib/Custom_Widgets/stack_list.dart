@@ -80,12 +80,12 @@ class stacklist extends StatelessWidget {
                           SnackBar(
                             backgroundColor: Colors.teal,
                             content: Text("${product.name}  added to cart 🛒"),
-                            duration: Duration(seconds: 2),
+                            duration: const Duration(seconds: 2),
                           ),
                         );
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
+                          const SnackBar(
                             backgroundColor: Colors.red,
                             content: Text("Faild to add to cart"),
                             duration: Duration(seconds: 2),
@@ -93,7 +93,7 @@ class stacklist extends StatelessWidget {
                         );
                       }
                     },
-                    child: Icon(Icons.shopping_cart, color: Colors.black),
+                    child: const Icon(Icons.shopping_cart, color: Colors.black),
                   ),
                   
                 //(child: Icon(Icons.shopping_cart)),

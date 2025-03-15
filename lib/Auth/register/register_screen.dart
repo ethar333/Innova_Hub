@@ -42,10 +42,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   // Roles for Dropdown:
   final List<Map<String, String>> roles = [
-    {"id": "e2cc14f7-7622-4dbb-bff7-9773a463ed87", "name": "Investor"},
-    {"id": "61648e1b-189c-47a5-8230-0f2aa236073b", "name": "BusinessOwner"},
-    {"id": "3c69b053-db9c-40db-85cf-4f28bacc934b", "name": "Admin"},
-    {"id": "3cfde989-74ca-4945-8304-d417de918112", "name": "Customer"}
+    {"id": "cd16cdf7-d30f-4687-9bee-8ccf594004be", "name": "Investor"},
+    {"id": "92355aa9-5cc9-4614-8c3c-5c4742118771", "name": "BusinessOwner"},
+    {"id": "b3dc246f-d394-4fd4-bf03-113986caedc6", "name": "Admin"},
+    {"id": "7b55b763-ff73-40cc-9e40-3b5a7e022fec", "name": "Customer"}
   ];
 
   // Method to show a dialog
@@ -91,15 +91,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
           if (state is RegisterSuccessState) {
 
           // Role-based navigation:
-          if (selectedRoleId == "61648e1b-189c-47a5-8230-0f2aa236073b") {
+          if (selectedRoleId == "92355aa9-5cc9-4614-8c3c-5c4742118771") {
             // BusinessOwner
             Navigator.pushNamed(context, HomeScreenOwner.routeName );
 
-          } else if (selectedRoleId == "e2cc14f7-7622-4dbb-bff7-9773a463ed87") {
+          } else if (selectedRoleId == "cd16cdf7-d30f-4687-9bee-8ccf594004be") {
             // Investor
             Navigator.pushNamed(context, HomeScreenInvestor.routeName );
 
-          } else if (selectedRoleId == "3cfde989-74ca-4945-8304-d417de918112") {
+          } else if (selectedRoleId == "7b55b763-ff73-40cc-9e40-3b5a7e022fec") {
             // Customer
             Navigator.pushNamed(context, HomeScreen.routeName);
 
