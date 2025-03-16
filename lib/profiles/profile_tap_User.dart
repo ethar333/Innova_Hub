@@ -264,9 +264,9 @@ class _ProfileDesignState extends State<ProfileUser> {
             ),
 
             const SizedBox(height: 15),
-            ContainerUser(icon: Icons.lock , title: "Privacy & Security",route: PrivacyUser.routeName ,),     
+            const ContainerUser(icon: Icons.lock , title: "Privacy & Security",route: PrivacyUser.routeName ,),     
             const SizedBox( height: 15,),
-            ContainerUser(icon: Icons.payment , title: "Payment Methods",route: null ,),     
+            const ContainerUser(icon: Icons.payment , title: "Payment Methods",route: null ,),     
             const SizedBox(height: 20),
 
             const LogoutTextField(),

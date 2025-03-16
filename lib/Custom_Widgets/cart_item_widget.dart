@@ -5,7 +5,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:innovahub_app/core/Constants/Colors_Constant.dart';
 
 class CartItemWidget extends StatefulWidget {
-   CartItemWidget({super.key});
+   const CartItemWidget({super.key});
 
   @override
   State<CartItemWidget> createState() => _CartItemWidgetState();

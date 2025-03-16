@@ -4,7 +4,9 @@ import 'package:innovahub_app/core/Api/cart_services.dart';
 
 class CartTap extends StatefulWidget {
 
-  static const String routeName = "cart";             // route Name of this screen: 
+  static const String routeName = "cart";
+
+  const CartTap({super.key});             // route Name of this screen: 
 
   @override
   State<CartTap> createState() => _CartScreenState();
@@ -136,7 +138,7 @@ class _CartScreenState extends State<CartTap> {
                                       fit: BoxFit.cover,
                                     ),
                                   ),
-                                  SizedBox(width: 20),
+                                  const SizedBox(width: 20),
                                   Expanded(
                                     child: Column(
                                       crossAxisAlignment:  CrossAxisAlignment.start,
@@ -144,18 +146,18 @@ class _CartScreenState extends State<CartTap> {
                                       children: [
                                         Text(
                                           item["ProductName"],
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                               fontSize: 15,
                                               fontWeight: FontWeight.bold),
                                           overflow: TextOverflow.ellipsis,
                                         ),
-                                        SizedBox(height: 5),
+                                        const SizedBox(height: 5),
                                         Row(
                                           mainAxisAlignment:MainAxisAlignment.spaceBetween,
                                           children: [
                                             Text(
                                               "\$${getTotalPrice(index).toStringAsFixed(2)}",
-                                              style: TextStyle(
+                                              style: const TextStyle(
                                                   fontSize: 15,
                                                   fontWeight: FontWeight.bold),
                                             ),
@@ -163,21 +165,21 @@ class _CartScreenState extends State<CartTap> {
                                               children: [
                                                 GestureDetector(
                                                   onTap: () => decreaseQuantity(index),
-                                                  child: Icon(Icons.remove, color: Colors.teal),
+                                                  child: const Icon(Icons.remove, color: Colors.teal),
                                                 ),
                                                 Text(
                                                   "${item["Quantity"]}",
-                                                  style: TextStyle(color: Colors.teal, fontSize: 18),
+                                                  style: const TextStyle(color: Colors.teal, fontSize: 18),
                                                 ),
                                                 GestureDetector(
                                                   onTap: () => increaseQuantity(index),
-                                                  child: Icon(Icons.add, color: Colors.teal),
+                                                  child: const Icon(Icons.add, color: Colors.teal),
                                                 ),
                                               ],
                                             ),
                                             GestureDetector(
                                               onTap: () => removeFromCart(index),
-                                              child: Icon(Icons.delete, color: Colors.red),
+                                              child: const Icon(Icons.delete, color: Colors.red),
                                             ),
                                             ],
                                         ),

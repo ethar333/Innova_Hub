@@ -84,7 +84,7 @@ class _CartPageState extends State<CartPage> {
               ],
             ),
           ),
-          if (quantity > 0) CartItemWidget(),
+          if (quantity > 0) const CartItemWidget(),
           const Spacer(),
           Padding(
             padding: const EdgeInsets.all(16.0),

@@ -23,7 +23,7 @@ class SplashScreen extends StatelessWidget {
        
            ), 
        
-            nextScreen: RegisterScreen(),
+            nextScreen: const RegisterScreen(),
 
           ),
 

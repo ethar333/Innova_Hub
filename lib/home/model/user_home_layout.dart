@@ -9,7 +9,7 @@ abstract class UserHomeLayout {
   static List<Widget> screens = [
     const HomeScreenUser(),
     const FavouriteTab(),
-    CartTap(),
+    const CartTap(),
     const SearchTap(),
     const ProfileUser(),
   ];
