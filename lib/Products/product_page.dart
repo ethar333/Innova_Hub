@@ -24,8 +24,7 @@ class _ProductPageState extends State<ProductPage> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    productcomment =
-        ModalRoute.of(context)!.settings.arguments as ProductResponse;
+    productcomment = ModalRoute.of(context)!.settings.arguments as ProductResponse;
   }
 
   void addComment() async {
