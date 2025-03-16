@@ -51,7 +51,7 @@ class _ProductPageState extends State<ProductPage> {
     );
   }
 
-  int select = 0;
+  int quantity = 1;
 
   @override
   Widget build(BuildContext context) {
@@ -255,7 +255,7 @@ class _ProductPageState extends State<ProductPage> {
             ),
             Container(
               margin: const EdgeInsets.all(15),
-              padding: const EdgeInsets.all(15),
+              padding: const EdgeInsets.all(10),
               decoration: BoxDecoration(
                 color: Constant.whiteColor,
                 borderRadius: BorderRadius.circular(18),
@@ -263,9 +263,9 @@ class _ProductPageState extends State<ProductPage> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Text(
-                    'Available quantity: 2', // text:
-                    style: TextStyle(
+                  Text(
+                    'Available quantity: ${arguments.stock}', // text:
+                    style: const TextStyle(
                       color: Constant.greyColor4,
                       fontSize: 15,
                       //fontWeight: FontWeight.w400,
@@ -282,7 +282,13 @@ class _ProductPageState extends State<ProductPage> {
                       borderRadius: BorderRadius.circular(15),
                     ),
                     child: IconButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        setState(() {
+                          if (quantity > 1) {
+                            quantity--;
+                          }
+                        });
+                      },
                       icon: const Icon(
                         Icons.remove,
                         size: 30,
@@ -293,9 +299,10 @@ class _ProductPageState extends State<ProductPage> {
                   const SizedBox(
                     width: 15,
                   ),
-                  const Text(
-                    "1",
-                    style: TextStyle(color: Constant.mainColor, fontSize: 25),
+                  Text(
+                    "$quantity",
+                    style: const TextStyle(
+                        color: Constant.mainColor, fontSize: 25),
                   ),
                   const SizedBox(
                     width: 15,
@@ -310,7 +317,13 @@ class _ProductPageState extends State<ProductPage> {
                       borderRadius: BorderRadius.circular(15),
                     ),
                     child: IconButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        setState(() {
+                          if (quantity < arguments.stock) {
+                            quantity++;
+                          }
+                        });
+                      },
                       icon: const Icon(
                         Icons.add,
                         size: 30,
@@ -344,7 +357,7 @@ class _ProductPageState extends State<ProductPage> {
                   Expanded(
                     child: OutlinedButton(
                       onPressed: () {
-                        addToCart(arguments.productId, 1).then((value) {
+                        addToCart(arguments.productId, quantity).then((value) {
                           if (value) {
                             quickAlert(
                                 context: context,

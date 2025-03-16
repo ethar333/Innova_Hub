@@ -1,10 +1,10 @@
-
 import 'package:flutter/material.dart';
 import 'package:innovahub_app/core/Api/cart_services.dart';
 
 class CartTap extends StatefulWidget {
+  static const String routeName = "cart";
 
-  static const String routeName = "cart";             // route Name of this screen: 
+  const CartTap({super.key}); // route Name of this screen:
 
   @override
   State<CartTap> createState() => _CartScreenState();
@@ -28,14 +28,19 @@ class _CartScreenState extends State<CartTap> {
   }
 
   void increaseQuantity(int index) {
-    setState(() => cartItems[index]["Quantity"] += 1);
-    cartService.updateQuantity(cartItems[index]["ProductId"], cartItems[index]["Quantity"]);
+    setState(() {
+      //todo check stock
+      cartItems[index]["Quantity"] += 1;
+    });
+    cartService.updateQuantity(
+        cartItems[index]["ProductId"], cartItems[index]["Quantity"]);
   }
 
   void decreaseQuantity(int index) {
     if (cartItems[index]["Quantity"] > 1) {
       setState(() => cartItems[index]["Quantity"] -= 1);
-      cartService.updateQuantity(cartItems[index]["ProductId"], cartItems[index]["Quantity"]);
+      cartService.updateQuantity(
+          cartItems[index]["ProductId"], cartItems[index]["Quantity"]);
     } else {
       removeFromCart(index);
     }
@@ -68,7 +73,8 @@ class _CartScreenState extends State<CartTap> {
                   ),
                 )
               : Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
                   child: Column(
                     children: [
                       Row(
@@ -136,50 +142,62 @@ class _CartScreenState extends State<CartTap> {
                                       fit: BoxFit.cover,
                                     ),
                                   ),
-                                  SizedBox(width: 20),
+                                  const SizedBox(width: 20),
                                   Expanded(
                                     child: Column(
-                                      crossAxisAlignment:  CrossAxisAlignment.start,
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
                                       children: [
                                         Text(
                                           item["ProductName"],
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                               fontSize: 15,
                                               fontWeight: FontWeight.bold),
                                           overflow: TextOverflow.ellipsis,
                                         ),
-                                        SizedBox(height: 5),
+                                        const SizedBox(height: 5),
                                         Row(
-                                          mainAxisAlignment:MainAxisAlignment.spaceBetween,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
                                           children: [
                                             Text(
                                               "\$${getTotalPrice(index).toStringAsFixed(2)}",
-                                              style: TextStyle(
+                                              style: const TextStyle(
                                                   fontSize: 15,
                                                   fontWeight: FontWeight.bold),
                                             ),
                                             Row(
                                               children: [
                                                 GestureDetector(
-                                                  onTap: () => decreaseQuantity(index),
-                                                  child: Icon(Icons.remove, color: Colors.teal),
+                                                  onTap: () =>
+                                                      decreaseQuantity(index),
+                                                  child: const Icon(
+                                                      Icons.remove,
+                                                      color: Colors.teal),
                                                 ),
                                                 Text(
                                                   "${item["Quantity"]}",
-                                                  style: TextStyle(color: Colors.teal, fontSize: 18),
+                                                  style: const TextStyle(
+                                                      color: Colors.teal,
+                                                      fontSize: 18),
                                                 ),
                                                 GestureDetector(
-                                                  onTap: () => increaseQuantity(index),
-                                                  child: Icon(Icons.add, color: Colors.teal),
+                                                  onTap: () =>
+                                                      increaseQuantity(index),
+                                                  child: const Icon(Icons.add,
+                                                      color: Colors.teal),
                                                 ),
                                               ],
                                             ),
                                             GestureDetector(
-                                              onTap: () => removeFromCart(index),
-                                              child: Icon(Icons.delete, color: Colors.red),
+                                              onTap: () =>
+                                                  removeFromCart(index),
+                                              child: const Icon(Icons.delete,
+                                                  color: Colors.red),
                                             ),
-                                            ],
+                                          ],
                                         ),
                                       ],
                                     ),
@@ -196,4 +214,3 @@ class _CartScreenState extends State<CartTap> {
     );
   }
 }
-

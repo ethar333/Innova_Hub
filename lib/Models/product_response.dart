@@ -50,8 +50,8 @@ class ProductResponse{
   String description;
   String authorName;
   String productImage;
-  List<String> productImages;
-  double price;
+  List<String> productImages; 
+  num price;  
   bool isAvailable;
   int stock;
   int productId;
