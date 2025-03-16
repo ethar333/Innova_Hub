@@ -1,25 +1,25 @@
-
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:innovahub_app/core/Constants/Colors_Constant.dart';
 import 'package:innovahub_app/home/cart_Tap.dart';
+import 'package:innovahub_app/home/controller/owner_home_layout/owner_home_layout_cubit.dart';
+import 'package:innovahub_app/home/controller/user_home_layout_cubit/user_home_layout_cubit.dart';
 import 'package:innovahub_app/home/favourite_Tap.dart';
 import 'package:innovahub_app/home/home_Tap_User.dart';
+import 'package:innovahub_app/home/model/user_home_layout.dart';
 import 'package:innovahub_app/home/search_Tap.dart';
 import 'package:innovahub_app/profiles/profile_tap_User.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+class UserHomeScreen extends StatefulWidget {
+  const UserHomeScreen({super.key});
 
-  static const String routeName = 'home_screen';    // routeName of this screen:
+  static const String routeName = 'home_screen'; // routeName of this screen:
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<UserHomeScreen> createState() => _UserHomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
-
-   int select = 0;
-
+class _UserHomeScreenState extends State<UserHomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,72 +43,38 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ],
       ),
-
-      bottomNavigationBar: Theme(
-        data: Theme.of(context).copyWith(canvasColor: Colors.white),
-        child: BottomNavigationBar(
-          items:const [
-            BottomNavigationBarItem(
-              icon: Icon(
-                Icons.home_filled,
-              ),
-              label: "Home",
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(
-                Icons.favorite_border_outlined,
-              ),
-              label: "Wishlist",
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(
-                Icons.shopping_cart_outlined,
-              ),
-              label: "Cart",
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(
-                Icons.search_outlined,
-              ),
-              label: "Search",
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(
-                Icons.person_outline,
-              ),
-              label: "Profile",
-            ),
-          ],
-          currentIndex: select,
-          onTap: (index) {
-            select = index;
-            setState(() {});
-          },
-          selectedItemColor: Colors.blue,
-          unselectedItemColor: Colors.black,
-          selectedLabelStyle: const TextStyle(
-            fontSize: 16,
-          ),
-        ),
+      body: BlocBuilder<UserHomeLayoutCubit, UserHomeLayoutState>(
+        builder: (context, state) {
+          return PageView.builder(
+            controller: UserHomeLayoutCubit.get(context).pageController,
+            onPageChanged: (value) {
+              UserHomeLayoutCubit.get(context).changePage(value);
+            },
+            itemBuilder: (context, index) {
+              return UserHomeLayout.screens[index];
+            },
+          );
+        },
       ),
-
-      body: tabs[select],
-
-
-
-      
+      bottomNavigationBar:
+          BlocBuilder<UserHomeLayoutCubit, UserHomeLayoutState>(
+        builder: (context, state) {
+          return BottomNavigationBar(
+            items: UserHomeLayout.bottomNavBarItems,
+            currentIndex: UserHomeLayoutCubit.get(context).currentIndex,
+            onTap: (index) {
+              UserHomeLayoutCubit.get(context).changePage(index);
+            },
+            selectedItemColor: Colors.blue,
+            unselectedItemColor: Colors.black,
+            selectedLabelStyle: const TextStyle(
+              fontSize: 16,
+            ),
+          );
+        },
+      ),
     );
   }
-
-
-   List<Widget> tabs = [
-    const HomeScreenUser(),
-    const FavouriteTab(),
-    CartTap(),
-    const SearchTap(),
-    const ProfileUser(),
-
-   ];
 }
 
 

@@ -10,7 +10,7 @@ import 'package:innovahub_app/Custom_Widgets/Text_Field_Widget.dart';
 import 'package:innovahub_app/core/services/cache_services.dart';
 import 'package:innovahub_app/home/home_Tap_Investor.dart';
 import 'package:innovahub_app/home/home_Tap_owner.dart';
-import 'package:innovahub_app/home/home_screen.dart';
+import 'package:innovahub_app/home/user_home_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   static const String routname = 'login_screen';
@@ -27,22 +27,6 @@ class _LoginScreenState extends State<LoginScreen> {
   bool isObscurepassword = true;
   final _formKey = GlobalKey<FormState>(); // key of form Widget:
   String? resetPassword;
-  //String? roleName;
-
-  /*void didChangeDependencies() {
-    super.didChangeDependencies();
-
-    // Retrieve the password passed as an argument
-    // TextEditingController? resetPassword = ModalRoute.of(context)?.settings.arguments as TextEditingController?;
-
-    final String? resetPasswordArg = ModalRoute.of(context)?.settings.arguments as String?;
-
-    // If the password is not null, set it in the controller
-    if (resetPasswordArg != null) {
-      resetPassword = resetPasswordArg; // Set the resetPassword value
-      passsword.text = resetPasswordArg; // Assign the password value to the TextEditingController
-    }
-  }*/
 
   void _showDialog(BuildContext context, String message,
       {VoidCallback? onClose}) {
@@ -82,34 +66,29 @@ class _LoginScreenState extends State<LoginScreen> {
     return BlocConsumer<AuthCubit, AuthStates>(
       listener: (context, state) {
         if (state is LoginSuccessState) {
-           // store data in cache:
+          // store data in cache:
           CacheService.setData(key: "token", value: state.token);
           CacheService.setData(key: "roleName", value: state.roleName);
           CacheService.setData(key: "userId", value: state.userId);
 
-          String? roleName = state.roleName;           // to store roleName:
+          String? roleName = state.roleName; // to store roleName:
 
           _showDialog(context, state.message, onClose: () {
-
             Future.microtask(() {
               // Navigate based on roleName:
               if (roleName == "Customer") {
-                
-                Navigator.pushReplacementNamed(context, HomeScreen.routeName);
-
+                Navigator.pushReplacementNamed(
+                    context, UserHomeScreen.routeName);
               } else if (roleName == "Investor") {
-                
-                Navigator.pushReplacementNamed(context, HomeScreenInvestor.routeName);
-
+                Navigator.pushReplacementNamed(
+                    context, HomeScreenInvestor.routeName);
               } else if (roleName == "BusinessOwner") {
-
-                Navigator.pushReplacementNamed( context, HomeScreenOwner.routeName);
-
+                Navigator.pushReplacementNamed(
+                    context, HomeScreenOwner.routeName);
               } else {
                 _showDialog(
-                  context, "Unknown Role: $roleName"); // دور غير معروف
+                    context, "Unknown Role: $roleName"); // دور غير معروف
               }
-
             });
           });
 
@@ -119,7 +98,6 @@ class _LoginScreenState extends State<LoginScreen> {
           _showDialog(context, state.message);
         }
       },
-      
       builder: (context, state) {
         return Scaffold(
           appBar: AppBar(
@@ -280,10 +258,8 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                           InkWell(
                             onTap: () {
-                              Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => RegisterScreen()));
+                              Navigator.pushNamed(
+                                  context, RegisterScreen.routeName);
                             },
                             child: const Text(
                               'Sign Up',

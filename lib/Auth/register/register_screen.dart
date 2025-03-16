@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -9,10 +8,9 @@ import 'package:innovahub_app/Custom_Widgets/Text_Field_Widget.dart';
 import 'package:innovahub_app/core/Constants/Colors_Constant.dart';
 import 'package:innovahub_app/home/home_Tap_Investor.dart';
 import 'package:innovahub_app/home/home_Tap_owner.dart';
-import 'package:innovahub_app/home/home_screen.dart';
+import 'package:innovahub_app/home/user_home_screen.dart';
 
 class RegisterScreen extends StatefulWidget {
-  
   static const String routeName = 'register_screen';
 
   const RegisterScreen({super.key}); // routeName of this screen:
@@ -54,8 +52,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        content: Text(message,
-           style: const TextStyle(
+        content: Text(
+          message,
+          style: const TextStyle(
             color: Constant.mainColor,
             fontWeight: FontWeight.bold,
           ),
@@ -83,46 +82,37 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<AuthCubit, AuthStates>(
+    return BlocConsumer<AuthCubit, AuthStates>(listener: (context, state) {
+      print("Current state: $state");
 
-      listener: (context, state) {
-          print("Current state: $state");
-
-          if (state is RegisterSuccessState) {
-
-          // Role-based navigation:
-          if (selectedRoleId == "e492b23e-3447-4a0b-91ed-f969a27e6c86") {
-            // BusinessOwner
-            Navigator.pushNamed(context, HomeScreenOwner.routeName );
-
-          } else if (selectedRoleId == "b75a438c-e393-44ae-aeff-003cb41f9c74") {
-            // Investor
-            Navigator.pushNamed(context, HomeScreenInvestor.routeName );
-
-          } else if (selectedRoleId == "500656a0-da3a-46e7-8038-c393108fb513") {
-            // Customer
-            Navigator.pushNamed(context, HomeScreen.routeName);
-
-          } /*else {
+      if (state is RegisterSuccessState) {
+        // Role-based navigation:
+        if (selectedRoleId == "92355aa9-5cc9-4614-8c3c-5c4742118771") {
+          // BusinessOwner
+          Navigator.pushNamed(context, HomeScreenOwner.routeName);
+        } else if (selectedRoleId == "cd16cdf7-d30f-4687-9bee-8ccf594004be") {
+          // Investor
+          Navigator.pushNamed(context, HomeScreenInvestor.routeName);
+        } else if (selectedRoleId == "500656a0-da3a-46e7-8038-c393108fb513") {
+          // Customer
+          Navigator.pushNamed(context, UserHomeScreen.routeName);
+        } /*else {
             // Default or error handling (optional)
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(content: Text('Invalid role selected')),
             );
           }*/
-           _showDialog(context, state.messagesuccess, onClose: () {
-            /*Future.microtask(() {
+        _showDialog(context, state.messagesuccess, onClose: () {
+          /*Future.microtask(() {
               Navigator.pushReplacementNamed(context, HomeScreen.routeName);
             });*/
-          });
-          
-        } else if (state is RegisterErrorStata) {
-          print("Registration failed, staying on the same page.");
+        });
+      } else if (state is RegisterErrorStata) {
+        print("Registration failed, staying on the same page.");
 
-          _showDialog(context, state.message);
-        
-        }
-    
-     }, builder: (context, state) {
+        _showDialog(context, state.message);
+      }
+    }, builder: (context, state) {
       return Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.transparent,
@@ -260,11 +250,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         ),
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(20),
-                          borderSide: const BorderSide(color: Constant.greyColor2),
+                          borderSide:
+                              const BorderSide(color: Constant.greyColor2),
                         ),
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
-                          borderSide: const BorderSide(color: Constant.greyColor2),
+                          borderSide:
+                              const BorderSide(color: Constant.greyColor2),
                         ),
 
                         suffixIcon: IconButton(
@@ -395,7 +387,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           selectedRoleId = value;
                         });
                       },
-                      validator: (value) => value == null ? 'Please select a role' : null,
+                      validator: (value) =>
+                          value == null ? 'Please select a role' : null,
                     ),
                   ),
 
@@ -403,7 +396,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   SizedBox(
                     width: double.infinity,
                     child: ElevatedButton(
-                      onPressed: () async{
+                      onPressed: () async {
                         //validateForm();
                         if (_formKey.currentState!.validate()) {
                           // Call the register method from the AuthCubit
@@ -495,4 +488,3 @@ class _RegisterScreenState extends State<RegisterScreen> {
     }
   }*/
 }
-

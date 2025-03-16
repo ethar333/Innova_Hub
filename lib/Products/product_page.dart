@@ -1,10 +1,12 @@
-
 import 'package:flutter/material.dart';
+import 'package:innovahub_app/Custom_Widgets/quick_alert.dart';
 import 'package:innovahub_app/Models/product_response.dart';
 import 'package:innovahub_app/Products/buy_page.dart';
 import 'package:innovahub_app/Products/cart_page.dart';
+import 'package:innovahub_app/core/Api/cart_services.dart';
 import 'package:innovahub_app/core/Api/comment_service.dart';
 import 'package:innovahub_app/core/Constants/Colors_Constant.dart';
+import 'package:quickalert/models/quickalert_type.dart';
 
 class ProductPage extends StatefulWidget {
   const ProductPage({super.key});
@@ -22,7 +24,8 @@ class _ProductPageState extends State<ProductPage> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    productcomment =ModalRoute.of(context)!.settings.arguments as ProductResponse;
+    productcomment =
+        ModalRoute.of(context)!.settings.arguments as ProductResponse;
   }
 
   void addComment() async {
@@ -79,53 +82,6 @@ class _ProductPageState extends State<ProductPage> {
             ),
           ),
         ],
-      ),
-      bottomNavigationBar: Theme(
-        data: Theme.of(context).copyWith(canvasColor: Colors.white),
-        child: BottomNavigationBar(
-          items: const [
-            BottomNavigationBarItem(
-              icon: Icon(
-                Icons.home_filled,
-              ),
-              label: "Home",
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(
-                Icons.favorite_border_outlined,
-              ),
-              label: "Wishlist",
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(
-                Icons.shopping_cart_outlined,
-              ),
-              label: "Cart",
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(
-                Icons.search_outlined,
-              ),
-              label: "Search",
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(
-                Icons.person_outline,
-              ),
-              label: "Profile",
-            ),
-          ],
-          currentIndex: select,
-          onTap: (index) {
-            select = index;
-            setState(() {});
-          },
-          selectedItemColor: Colors.blue,
-          unselectedItemColor: Colors.black,
-          selectedLabelStyle: const TextStyle(
-            fontSize: 16,
-          ),
-        ),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -388,7 +344,19 @@ class _ProductPageState extends State<ProductPage> {
                   Expanded(
                     child: OutlinedButton(
                       onPressed: () {
-                        Navigator.pushNamed(context, CartPage.routeName);
+                        addToCart(arguments.productId, 1).then((value) {
+                          if (value) {
+                            quickAlert(
+                                context: context,
+                                title: "Added to cart successfully",
+                                type: QuickAlertType.success);
+                          } else {
+                            quickAlert(
+                                context: context,
+                                title: "Error adding to cart",
+                                type: QuickAlertType.error);
+                          }
+                        });
                       },
                       style: ElevatedButton.styleFrom(
                           side: const BorderSide(
@@ -492,9 +460,8 @@ class _ProductPageState extends State<ProductPage> {
                 child: Text(
                   output.text.isNotEmpty ? output.text : "No Comments yet !",
                   style: const TextStyle(
-                    fontWeight: FontWeight.w500 ,
+                    fontWeight: FontWeight.w500,
                     color: Constant.greyColor4,
-                    
                   ),
                 ),
               ),
