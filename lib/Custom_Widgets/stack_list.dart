@@ -1,14 +1,15 @@
-
 import 'package:flutter/material.dart';
+import 'package:innovahub_app/Custom_Widgets/quick_alert.dart';
 import 'package:innovahub_app/core/Api/cart_services.dart';
 import 'package:innovahub_app/core/Constants/Colors_Constant.dart';
 import 'package:innovahub_app/Models/product_response.dart';
+import 'package:quickalert/models/quickalert_type.dart';
 
 // ignore: camel_case_types, must_be_immutable
 class stacklist extends StatelessWidget {
   stacklist({super.key, required this.product});
 
-   ProductResponse product;  // object from model to represent data:
+  ProductResponse product; // object from model to represent data:
 
   //final CartService cartService = CartService(); // object:
   @override
@@ -70,32 +71,26 @@ class stacklist extends StatelessWidget {
                 const SizedBox(
                   width: 15,
                 ),
-                
-                GestureDetector(
-                    onTap: () async {
-                      bool success = await addToCart(product.productId, 1);
 
-                      if (success) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            backgroundColor: Colors.teal,
-                            content: Text("${product.name}  added to cart 🛒"),
-                            duration: const Duration(seconds: 2),
-                          ),
-                        );
+                GestureDetector(
+                  onTap: () {
+                    addToCart(product.productId, 1).then((value) {
+                      if (value) {
+                        quickAlert(
+                            context: context,
+                            title: "Added to cart successfully",
+                            type: QuickAlertType.success);
                       } else {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            backgroundColor: Colors.red,
-                            content: Text("Faild to add to cart"),
-                            duration: Duration(seconds: 2),
-                          ),
-                        );
+                        quickAlert(
+                            context: context,
+                            title: "Error adding to cart",
+                            type: QuickAlertType.error);
                       }
-                    },
-                    child: const Icon(Icons.shopping_cart, color: Colors.black),
-                  ),
-                  
+                    }); // call the method to add to cart
+                  },
+                  child: const Icon(Icons.shopping_cart, color: Colors.black),
+                ),
+
                 //(child: Icon(Icons.shopping_cart)),
 
                 const SizedBox(

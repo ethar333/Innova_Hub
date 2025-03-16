@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:innovahub_app/core/Constants/Colors_Constant.dart';
 import 'package:innovahub_app/home/add_Tap_owner.dart';
 import 'package:innovahub_app/home/Deals/deal_tap_owner.dart';
-import 'package:innovahub_app/home/cubit/owner_home_layout_cubit.dart';
+import 'package:innovahub_app/home/controller/owner_home_layout/owner_home_layout_cubit.dart';
 import 'package:innovahub_app/home/home_owner.dart';
 import 'package:innovahub_app/home/model/owner_home_layout_model.dart';
 import 'package:innovahub_app/home/search_Tap.dart';

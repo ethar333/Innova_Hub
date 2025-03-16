@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:innovahub_app/Auth/Auth_Cubit/Auth_cubit.dart';
@@ -6,11 +5,12 @@ import 'package:innovahub_app/Auth/register/register_screen.dart';
 import 'package:innovahub_app/Products/payment_page.dart';
 import 'package:innovahub_app/home/Deals/adding_deal_owner.dart';
 import 'package:innovahub_app/home/Deals/owner_product.dart';
-import 'package:innovahub_app/home/cubit/owner_home_layout_cubit.dart';
+import 'package:innovahub_app/home/controller/owner_home_layout/owner_home_layout_cubit.dart';
+import 'package:innovahub_app/home/controller/user_home_layout_cubit/user_home_layout_cubit.dart';
 import 'package:innovahub_app/home/home_Tap_Categories.dart';
 import 'package:innovahub_app/home/home_Tap_Investor.dart';
 import 'package:innovahub_app/home/home_Tap_owner.dart';
-import 'package:innovahub_app/home/home_screen.dart';
+import 'package:innovahub_app/home/user_home_screen.dart';
 import 'package:innovahub_app/home/register_page.dart';
 import 'package:innovahub_app/profiles/privacy_owner_investor.dart';
 import 'package:innovahub_app/profiles/privacy_user.dart';
@@ -40,7 +40,10 @@ abstract class AppRouter {
             ),
         ForgetPasswordScreen.routname: (contect) => ForgetPasswordScreen(),
         resetpassword.routname: (_) => const resetpassword(),
-        HomeScreen.routeName: (_) => const HomeScreen(),
+        UserHomeScreen.routeName: (_) => BlocProvider(
+              create: (context) => UserHomeLayoutCubit(),
+              child: const UserHomeScreen(),
+            ),
         HomeScreenOwner.routeName: (_) => BlocProvider(
               create: (context) => OwnerHomeLayoutCubit(),
               child: const HomeScreenOwner(),
@@ -59,6 +62,6 @@ abstract class AppRouter {
         BuyPage.routeName: (_) => const BuyPage(),
         CheckoutAddress.routeName: (_) => const CheckoutAddress(),
         OwnerPublish.routeName: (_) => const OwnerPublish(),
-        PaymentPage.routeName : (_) => const PaymentPage(),
+        PaymentPage.routeName: (_) => const PaymentPage(),
       };
 }

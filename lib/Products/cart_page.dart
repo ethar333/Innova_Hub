@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:innovahub_app/Custom_Widgets/cart_item_widget.dart';
 import 'package:innovahub_app/core/Constants/Colors_Constant.dart';
@@ -41,53 +40,6 @@ class _CartPageState extends State<CartPage> {
             ),
           ),
         ],
-      ),
-       bottomNavigationBar: Theme(
-        data: Theme.of(context).copyWith(canvasColor: Colors.white),
-        child: BottomNavigationBar(
-          items: const [
-            BottomNavigationBarItem(
-              icon: Icon(
-                Icons.home_filled,
-              ),
-              label: "Home",
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(
-                Icons.favorite_border_outlined,
-              ),
-              label: "Wishlist",
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(
-                Icons.shopping_cart_outlined,
-              ),
-              label: "Cart",
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(
-                Icons.search_outlined,
-              ),
-              label: "Search",
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(
-                Icons.person_outline,
-              ),
-              label: "Profile",
-            ),
-          ],
-          currentIndex: select,
-          onTap: (index) {
-            select = index;
-            setState(() {});
-          },
-          selectedItemColor: Colors.blue,
-          unselectedItemColor: Colors.black,
-          selectedLabelStyle: const TextStyle(
-            fontSize: 16,
-          ),
-        ),
       ),
       body: Column(
         children: [
@@ -132,15 +84,12 @@ class _CartPageState extends State<CartPage> {
               ],
             ),
           ),
-
           if (quantity > 0) CartItemWidget(),
-
           const Spacer(),
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: ElevatedButton(
               onPressed: () {},
-
               style: ElevatedButton.styleFrom(
                 backgroundColor: Constant.mainColor,
                 shape: RoundedRectangleBorder(
@@ -148,7 +97,7 @@ class _CartPageState extends State<CartPage> {
                 minimumSize: const Size(220, 50),
               ),
               child: const Text('Checkout',
-              style: TextStyle(fontSize: 18, color: Constant.whiteColor)),
+                  style: TextStyle(fontSize: 18, color: Constant.whiteColor)),
             ),
           ),
         ],
@@ -156,5 +105,3 @@ class _CartPageState extends State<CartPage> {
     );
   }
 }
-
-
