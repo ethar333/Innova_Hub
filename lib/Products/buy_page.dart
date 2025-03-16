@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:innovahub_app/Custom_Widgets/shipping%20_address_container.dart';
 import 'package:innovahub_app/Products/checkout_address.dart';
 import 'package:innovahub_app/core/Constants/Colors_Constant.dart';
+import 'package:innovahub_app/payment/view/payment_view.dart';
 
 class BuyPage extends StatefulWidget {
   const BuyPage({super.key});
@@ -43,64 +44,17 @@ class _BuyPageState extends State<BuyPage> {
           ),
         ],
       ),
-      bottomNavigationBar: Theme(
-        data: Theme.of(context).copyWith(canvasColor: Colors.white),
-        child: BottomNavigationBar(
-          items: const [
-            BottomNavigationBarItem(
-              icon: Icon(
-                Icons.home_filled,
-              ),
-              label: "Home",
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(
-                Icons.favorite_border_outlined,
-              ),
-              label: "Wishlist",
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(
-                Icons.shopping_cart_outlined,
-              ),
-              label: "Cart",
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(
-                Icons.search_outlined,
-              ),
-              label: "Search",
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(
-                Icons.person_outline,
-              ),
-              label: "Profile",
-            ),
-          ],
-          currentIndex: select,
-          onTap: (index) {
-            select = index;
-            setState(() {});
-          },
-          selectedItemColor: Colors.blue,
-          unselectedItemColor: Colors.black,
-          selectedLabelStyle: const TextStyle(
-            fontSize: 16,
-          ),
-        ),
-      ),
       body: Column(
         children: [
-         InkWell(
-          onTap: () {
-            Navigator.pushNamed(context, CheckoutAddress.routeName);
-          },
-          child: const ShippingAddressContainer()),
+          InkWell(
+              onTap: () {
+                Navigator.pushNamed(context, CheckoutAddress.routeName);
+              },
+              child: const ShippingAddressContainer()),
           const SizedBox(height: 15),
           Container(
             height: 250,
-           // width: double.infinity,
+            // width: double.infinity,
             margin: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
             padding: const EdgeInsets.all(8.0),
             decoration: BoxDecoration(
@@ -173,14 +127,16 @@ class _BuyPageState extends State<BuyPage> {
                                       fontWeight: FontWeight.w500)),
                               const SizedBox(height: 14),
                               Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   const Text('\$28.00',
                                       style: TextStyle(
                                           fontSize: 16,
                                           fontWeight: FontWeight.bold,
                                           color: Colors.black87)),
-                                const SizedBox(width: 4), // إضافة مسافة قبل الأيقونة
+                                  const SizedBox(
+                                      width: 4), // إضافة مسافة قبل الأيقونة
                                   Container(
                                     height: 40,
                                     decoration: BoxDecoration(
@@ -219,7 +175,8 @@ class _BuyPageState extends State<BuyPage> {
                                       ],
                                     ),
                                   ),
-                                const SizedBox(width: 3), // إضافة مسافة قبل الأيقونة
+                                  const SizedBox(
+                                      width: 3), // إضافة مسافة قبل الأيقونة
                                   Expanded(
                                     child: Container(
                                       height: 40,
@@ -232,7 +189,8 @@ class _BuyPageState extends State<BuyPage> {
                                         borderRadius: BorderRadius.circular(10),
                                       ),
                                       child: IconButton(
-                                        icon: const FaIcon(FontAwesomeIcons.trash,
+                                        icon: const FaIcon(
+                                            FontAwesomeIcons.trash,
                                             color: Constant.redColor),
                                         onPressed: () {
                                           setState(() {
@@ -254,25 +212,30 @@ class _BuyPageState extends State<BuyPage> {
               ),
             ),
           ),
-           const Spacer(),
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: ElevatedButton(
-              onPressed: () {},
-
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Constant.mainColor,
-                shape: RoundedRectangleBorder(
-                 borderRadius: BorderRadius.circular(15)),
-                 minimumSize: const Size(220, 50),
-              ),
-              child: const Text('Buy Now ',
-              style: TextStyle(fontSize: 18, color: Constant.whiteColor)),
-            ),
-          ),
         ],
+      ),
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: ElevatedButton(
+          onPressed: () {
+            // todo get api 
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const PaymetExcuteWebView(
+                          url: "https://www.google.com",
+                        )));
+          },
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Constant.mainColor,
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+            minimumSize: const Size(220, 50),
+          ),
+          child: const Text('Buy Now ',
+              style: TextStyle(fontSize: 18, color: Constant.whiteColor)),
+        ),
       ),
     );
   }
 }
-
