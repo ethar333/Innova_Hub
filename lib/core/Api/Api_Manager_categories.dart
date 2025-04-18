@@ -24,8 +24,7 @@ class ApiManagerCategories {
       // that mean server response with data:
 
       var bodyString = response.body; // data => of Type String:
-      List<dynamic> json =
-          jsonDecode(bodyString); // convert String to json (parsing):
+      List<dynamic> json = jsonDecode(bodyString); // convert String to json (parsing):
 
       return json
           .map((json) => CategoryItemResponse.fromJson(json))

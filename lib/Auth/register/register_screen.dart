@@ -87,10 +87,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
       if (state is RegisterSuccessState) {
         // Role-based navigation:
-        if (selectedRoleId == "92355aa9-5cc9-4614-8c3c-5c4742118771") {
+        if (selectedRoleId == "e492b23e-3447-4a0b-91ed-f969a27e6c86") {
           // BusinessOwner
           Navigator.pushNamed(context, HomeScreenOwner.routeName);
-        } else if (selectedRoleId == "cd16cdf7-d30f-4687-9bee-8ccf594004be") {
+        } else if (selectedRoleId == "b75a438c-e393-44ae-aeff-003cb41f9c74") {
           // Investor
           Navigator.pushNamed(context, HomeScreenInvestor.routeName);
         } else if (selectedRoleId == "500656a0-da3a-46e7-8038-c393108fb513") {

@@ -8,7 +8,7 @@ import 'package:innovahub_app/profiles/profile_tap_User.dart';
 abstract class UserHomeLayout {
   static List<Widget> screens = [
     const HomeScreenUser(),
-    const FavouriteTab(),
+     FavouriteTab(),
     const CartTap(),
     const SearchTap(),
     const ProfileUser(),

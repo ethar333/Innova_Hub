@@ -1,44 +1,118 @@
+
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:innovahub_app/Custom_Widgets/shipping%20_address_container.dart';
 import 'package:innovahub_app/Products/checkout_address.dart';
+import 'package:innovahub_app/core/Api/Api_delivery_method.dart';
 import 'package:innovahub_app/core/Constants/Colors_Constant.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/http.dart' as http;
+import 'package:url_launcher/url_launcher.dart';
 
 class PaymentPage extends StatefulWidget {
   const PaymentPage({super.key});
 
-  static const String routeName = 'payment_page'; // route name:
+  static const String routeName = 'payment_page';   // route name:
 
   @override
   State<PaymentPage> createState() => _BuyPageState();
 }
 
 class _BuyPageState extends State<PaymentPage> {
-  String? _selectedMethod;
-  int select = 0;
+   int select = 0;
   int quantity = 1;
-  final List<Map<String, String>> deliveryMethods = [
-    {
-      'method': 'Cash on Delivery',
-      'duration': '(1 to 3 days)',
-      'price': '',
-    },
-    {
-      'method': 'Standard Shipping',
-      'duration': '(1 to 5 days)',
-      'price': '\$10',
-    },
-    {
-      'method': 'Express Shipping',
-      'duration': '(1 to 12 days)',
-      'price': '\$50',
-    },
-    {
-      'method': 'Free Shipping',
-      'duration': '(1 to 2 weeks)',
-      'price': '\$0',
-    },
-  ];
+  List<DeliveryMethod> deliveryMethods = [];
+  DeliveryMethod? selectedMethod;
+  bool isLoading = true;
+  String? userComment = "No comment provided";
+  
+  @override
+  void initState() {
+    super.initState();
+    fetchDeliveryMethods();
+    fetchComment();
+  }
 
+  Future<void> fetchComment() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      userComment = prefs.getString("userComment") ?? "No comment provided";
+    });
+  }
+
+  Future<void> fetchDeliveryMethods() async {
+    try {
+      List<DeliveryMethod> methods =
+          await DeliveryService.fetchDeliveryMethods();
+      setState(() {
+        deliveryMethods = methods;
+        if (deliveryMethods.isNotEmpty) {
+          selectedMethod = deliveryMethods.first;
+        }
+        isLoading = false;
+      });
+    } catch (e) {
+      print('Error fetching delivery methods: $e');
+      setState(() {
+        isLoading = false;
+      });
+    }
+  }
+
+  Future<void> confirmOrder({
+    required int deliveryMethodId,
+    required String userComment,
+  }) async {
+    final String apiUrl ="https://innova-hub.premiumasp.net/api/order/Confirm-Order";
+
+    try {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      String? token = prefs.getString("token");
+
+      if (token == null) {
+        print("Error: No token found. Please log in again.");
+        return;
+      }
+
+      final response = await http.post(
+        Uri.parse(apiUrl),
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $token',
+        },
+        body: jsonEncode({
+          "DeliveryMethodId": deliveryMethodId,
+          "UserComment": userComment,
+        }),
+      );
+
+      print("Status Code: ${response.statusCode}");
+      print("Response Body: ${response.body}");
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        final responseData = jsonDecode(response.body);
+        print("Order confirmed successfully!");
+
+        if (responseData.containsKey("RedirectToCheckoutUrl")) {
+          await launchCheckoutUrl(responseData["RedirectToCheckoutUrl"]);
+        }
+      } else {
+        var responseBody = jsonDecode(response.body);
+        print(
+            "Failed to confirm order: ${responseBody['message'] ?? 'Unknown error'}");
+      }
+    } catch (e) {
+      print("Error confirming order: $e");
+    }
+  }
+
+  Future<void> launchCheckoutUrl(String url) async {
+    final Uri uri = Uri.parse(url);
+    if (!await launchUrl(uri, mode: LaunchMode.externalApplication)) {
+      print('❌ Could not launch $url');
+    }
+  }
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -283,10 +357,9 @@ class _BuyPageState extends State<PaymentPage> {
               ),
             ),
             Container(
-              height: 265,
+              height: 350,
               width: double.infinity,
-              margin:
-                  const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+              margin: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
               padding: const EdgeInsets.all(8.0),
               decoration: BoxDecoration(
                 color: Colors.white,
@@ -309,19 +382,33 @@ class _BuyPageState extends State<PaymentPage> {
                     ),
                   ),
                   const SizedBox(height: 10),
-                  ...deliveryMethods.map((method) {
-                    return CustomRadioOption(
-                      method: method['method']!,
-                      duration: method['duration']!,
-                      price: method['price']!,
-                    );
-                  }).toList(),
+                  isLoading
+                ? const CircularProgressIndicator()
+                : deliveryMethods.isNotEmpty
+                    ? Column(
+                        children: deliveryMethods.map((method) {
+                          return RadioListTile<DeliveryMethod>(
+                            title:
+                                Text("${method.shortName} - \$${method.cost}"),
+                            subtitle: Text(method.description),
+                            value: method,
+                            groupValue: selectedMethod,
+                            onChanged: (value) {
+                              setState(() {
+                                selectedMethod = value;
+                              });
+                            },
+                          );
+                        }).toList(),
+                      )
+                    : const Text("No delivery methods available."),
                 ],
               ),
             ),
             const SizedBox(
               height: 15,
             ),
+           
             Container(
               height: 230,
               width: double.infinity,
@@ -366,6 +453,32 @@ class _BuyPageState extends State<PaymentPage> {
                 ),
               ),
             ),
+           const SizedBox(height: 20,),
+            ElevatedButton(
+                  onPressed: () async {
+                    if (selectedMethod == null) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                            content: Text("Please select a delivery method!")),
+                      );
+                      return;
+                    }
+                
+                    await confirmOrder(
+                      deliveryMethodId: selectedMethod!.id,
+                      userComment: userComment!,
+                    );
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Constant.mainColor,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15)),
+                    minimumSize: const Size(220, 50),
+                  ),
+                  child: const Text('Buy Now',
+                      style: TextStyle(fontSize: 18, color: Constant.whiteColor)),
+                ),
+
             const SizedBox(height: 20,),
 
             /* const Spacer(),
@@ -390,7 +503,7 @@ class _BuyPageState extends State<PaymentPage> {
     );
   }
 
-  Widget CustomRadioOption({
+  /*Widget CustomRadioOption({
     required String method,
     required String duration,
     required String price,
@@ -430,5 +543,5 @@ class _BuyPageState extends State<PaymentPage> {
         ),
       ),
     );
-  }
+  }*/
 }

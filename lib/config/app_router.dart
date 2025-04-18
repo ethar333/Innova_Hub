@@ -37,6 +37,7 @@ abstract class AppRouter {
         LoginScreen.routname: (_) => BlocProvider(
               create: (context) => AuthCubit(),
               child: const LoginScreen(),
+              
             ),
         ForgetPasswordScreen.routname: (contect) => ForgetPasswordScreen(),
         resetpassword.routname: (_) => const resetpassword(),
