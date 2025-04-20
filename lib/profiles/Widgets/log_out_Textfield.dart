@@ -1,6 +1,6 @@
-
 import 'package:flutter/material.dart';
 import 'package:innovahub_app/core/Constants/Colors_Constant.dart';
+import 'package:innovahub_app/core/services/cache_services.dart';
 
 class LogoutTextField extends StatelessWidget {
   const LogoutTextField({super.key});
@@ -21,10 +21,14 @@ class LogoutTextField extends StatelessWidget {
               Icon(Icons.login_outlined, color: Constant.whiteColor),
               SizedBox(width: 8),
               Text("Log Out",
-              style: TextStyle(fontSize: 16, color: Constant.whiteColor)),
+                  style: TextStyle(fontSize: 16, color: Constant.whiteColor)),
             ],
           ),
-          onTap: () {},
+          onTap: () {
+            CacheService.clear();
+            Navigator.pushNamedAndRemoveUntil(
+                context, '/login', (route) => false);
+          },
         ),
       ),
     );

@@ -2,6 +2,8 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:innovahub_app/home/home_Tap_User.dart';
+import 'package:innovahub_app/home/model/user_home_layout.dart';
+import 'package:innovahub_app/home/user_home_screen.dart';
 import 'package:quickalert/quickalert.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
@@ -41,14 +43,21 @@ class _PaymetExcuteWebViewState extends State<PaymetExcuteWebView> {
                   seconds: 2,
                 ),
               );
+              // Navigator.pushNamedAndRemoveUntil(
+              //         context, HomeScreenUser.routeName, (_) => false)
+              //     .then((value) {
 
-              Navigator.pushAndRemoveUntil(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const HomeScreenUser()),
-                  (_) => false);
+              // });
             } else if (url.contains("payment-failed")) {
               Navigator.pop(context);
+              QuickAlert.show(
+                context: context,
+                text: "Payment Failed",
+                type: QuickAlertType.error,
+                autoCloseDuration: const Duration(
+                  seconds: 2,
+                ),
+              );
             }
           },
           onHttpError: (HttpResponseError error) {},
@@ -62,7 +71,6 @@ class _PaymetExcuteWebViewState extends State<PaymetExcuteWebView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
       body: WebViewWidget(controller: controller),
     );
   }

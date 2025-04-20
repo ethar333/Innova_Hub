@@ -27,6 +27,7 @@ import 'package:innovahub_app/Auth/login/reset_password.dart';
 
 abstract class AppRouter {
   static const String initRoute = RegisterScreen.routeName;
+static final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
   static Map<String, Widget Function(BuildContext)> routes() => {
         TrainingPage.routeName: (_) => TrainingPage(),
         SplashScreen.routeName: (_) => const SplashScreen(),
