@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:innovahub_app/config/app_router.dart';
@@ -27,6 +26,7 @@ class MyApp extends StatelessWidget {
         return MaterialApp(
           debugShowCheckedModeBanner: false,
           routes: AppRouter.routes(),
+          navigatorKey: AppRouter.navigatorKey,
           initialRoute: AppRouter.initRoute,
         );
       },

@@ -1,31 +1,33 @@
-
 import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'package:innovahub_app/payment/view/payment_view.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:url_launcher/url_launcher.dart';
+
 import 'package:innovahub_app/Custom_Widgets/shipping%20_address_container.dart';
 import 'package:innovahub_app/Products/checkout_address.dart';
 import 'package:innovahub_app/core/Api/Api_delivery_method.dart';
 import 'package:innovahub_app/core/Constants/Colors_Constant.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:http/http.dart' as http;
-import 'package:url_launcher/url_launcher.dart';
 
 class PaymentPage extends StatefulWidget {
   const PaymentPage({super.key});
 
-  static const String routeName = 'payment_page';   // route name:
+  static const String routeName = 'payment_page'; // route name:
 
   @override
   State<PaymentPage> createState() => _BuyPageState();
 }
 
 class _BuyPageState extends State<PaymentPage> {
-   int select = 0;
+  int select = 0;
   int quantity = 1;
   List<DeliveryMethod> deliveryMethods = [];
   DeliveryMethod? selectedMethod;
   bool isLoading = true;
   String? userComment = "No comment provided";
-  
+
   @override
   void initState() {
     super.initState();
@@ -63,7 +65,8 @@ class _BuyPageState extends State<PaymentPage> {
     required int deliveryMethodId,
     required String userComment,
   }) async {
-    final String apiUrl ="https://innova-hub.premiumasp.net/api/order/Confirm-Order";
+    const String apiUrl =
+        "https://innova-hub.premiumasp.net/api/order/Confirm-Order";
 
     try {
       SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -107,12 +110,15 @@ class _BuyPageState extends State<PaymentPage> {
   }
 
   Future<void> launchCheckoutUrl(String url) async {
-    final Uri uri = Uri.parse(url);
-    if (!await launchUrl(uri, mode: LaunchMode.externalApplication)) {
-      print( 'Could not launch $url');
-    }
+    Navigator.push(context, MaterialPageRoute(builder: (context) {
+      return PaymetExcuteWebView(url: url);
+    }));
+    // final Uri uri = Uri.parse(url);
+    // if (!await launchUrl(uri)) {
+    //   print('❌ Could not launch $url');
+    // }
   }
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -138,53 +144,6 @@ class _BuyPageState extends State<PaymentPage> {
             ),
           ),
         ],
-      ),
-      bottomNavigationBar: Theme(
-        data: Theme.of(context).copyWith(canvasColor: Colors.white),
-        child: BottomNavigationBar(
-          items: const [
-            BottomNavigationBarItem(
-              icon: Icon(
-                Icons.home_filled,
-              ),
-              label: "Home",
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(
-                Icons.favorite_border_outlined,
-              ),
-              label: "Wishlist",
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(
-                Icons.shopping_cart_outlined,
-              ),
-              label: "Cart",
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(
-                Icons.search_outlined,
-              ),
-              label: "Search",
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(
-                Icons.person_outline,
-              ),
-              label: "Profile",
-            ),
-          ],
-          currentIndex: select,
-          onTap: (index) {
-            select = index;
-            setState(() {});
-          },
-          selectedItemColor: Colors.blue,
-          unselectedItemColor: Colors.black,
-          selectedLabelStyle: const TextStyle(
-            fontSize: 16,
-          ),
-        ),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -359,7 +318,8 @@ class _BuyPageState extends State<PaymentPage> {
             Container(
               height: 350,
               width: double.infinity,
-              margin: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+              margin:
+                  const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
               padding: const EdgeInsets.all(8.0),
               decoration: BoxDecoration(
                 color: Colors.white,
@@ -383,32 +343,31 @@ class _BuyPageState extends State<PaymentPage> {
                   ),
                   const SizedBox(height: 10),
                   isLoading
-                ? const CircularProgressIndicator()
-                : deliveryMethods.isNotEmpty
-                    ? Column(
-                        children: deliveryMethods.map((method) {
-                          return RadioListTile<DeliveryMethod>(
-                            title:
-                                Text("${method.shortName} - \$${method.cost}"),
-                            subtitle: Text(method.description),
-                            value: method,
-                            groupValue: selectedMethod,
-                            onChanged: (value) {
-                              setState(() {
-                                selectedMethod = value;
-                              });
-                            },
-                          );
-                        }).toList(),
-                      )
-                    : const Text("No delivery methods available."),
+                      ? const CircularProgressIndicator()
+                      : deliveryMethods.isNotEmpty
+                          ? Column(
+                              children: deliveryMethods.map((method) {
+                                return RadioListTile<DeliveryMethod>(
+                                  title: Text(
+                                      "${method.shortName} - \$${method.cost}"),
+                                  subtitle: Text(method.description),
+                                  value: method,
+                                  groupValue: selectedMethod,
+                                  onChanged: (value) {
+                                    setState(() {
+                                      selectedMethod = value;
+                                    });
+                                  },
+                                );
+                              }).toList(),
+                            )
+                          : const Text("No delivery methods available."),
                 ],
               ),
             ),
             const SizedBox(
               height: 15,
             ),
-           
             Container(
               height: 230,
               width: double.infinity,
@@ -430,7 +389,9 @@ class _BuyPageState extends State<PaymentPage> {
                           fontSize: 16,
                           fontWeight: FontWeight.w500),
                     ),
-                    const SizedBox( height: 10,),
+                    const SizedBox(
+                      height: 10,
+                    ),
                     Container(
                       height: 140,
                       width: double.infinity,
@@ -438,11 +399,11 @@ class _BuyPageState extends State<PaymentPage> {
                       decoration: BoxDecoration(
                         color: Constant.whiteColor,
                         borderRadius: BorderRadius.circular(20),
-                        border:Border.all(color: Constant.greyColor4),
+                        border: Border.all(color: Constant.greyColor4),
                       ),
                       child: const Text(
                         "Add your comment...",
-                        style:  TextStyle(
+                        style: TextStyle(
                           fontWeight: FontWeight.w500,
                           color: Constant.greyColor4,
                           fontSize: 15,
@@ -453,33 +414,36 @@ class _BuyPageState extends State<PaymentPage> {
                 ),
               ),
             ),
-           const SizedBox(height: 20,),
+            const SizedBox(
+              height: 20,
+            ),
             ElevatedButton(
-                  onPressed: () async {
-                    if (selectedMethod == null) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                            content: Text("Please select a delivery method!")),
-                      );
-                      return;
-                    }
-                
-                    await confirmOrder(
-                      deliveryMethodId: selectedMethod!.id,
-                      userComment: userComment!,
-                    );
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Constant.mainColor,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15)),
-                    minimumSize: const Size(220, 50),
-                  ),
-                  child: const Text('Buy Now',
-                      style: TextStyle(fontSize: 18, color: Constant.whiteColor)),
-                ),
+              onPressed: () async {
+                if (selectedMethod == null) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                        content: Text("Please select a delivery method!")),
+                  );
+                  return;
+                }
 
-            const SizedBox(height: 20,),
+                await confirmOrder(
+                  deliveryMethodId: selectedMethod!.id,
+                  userComment: userComment!,
+                );
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Constant.mainColor,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15)),
+                minimumSize: const Size(220, 50),
+              ),
+              child: const Text('Buy Now',
+                  style: TextStyle(fontSize: 18, color: Constant.whiteColor)),
+            ),
+            const SizedBox(
+              height: 20,
+            ),
 
             /* const Spacer(),
             Padding(
