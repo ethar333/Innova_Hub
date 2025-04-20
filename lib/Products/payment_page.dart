@@ -109,7 +109,7 @@ class _BuyPageState extends State<PaymentPage> {
   Future<void> launchCheckoutUrl(String url) async {
     final Uri uri = Uri.parse(url);
     if (!await launchUrl(uri, mode: LaunchMode.externalApplication)) {
-      print('❌ Could not launch $url');
+      print( 'Could not launch $url');
     }
   }
   
