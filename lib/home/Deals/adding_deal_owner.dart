@@ -5,6 +5,8 @@ import 'package:image_picker/image_picker.dart';
 import 'package:innovahub_app/core/Api/Api_Manager_deals.dart';
 import 'package:innovahub_app/Models/Deals/Deal_Model.dart';
 import 'package:innovahub_app/core/Constants/Colors_Constant.dart';
+import 'package:quickalert/models/quickalert_type.dart';
+import 'package:quickalert/widgets/quickalert_dialog.dart';
 
  class PublishDealScreen extends StatefulWidget {
   const PublishDealScreen({super.key});
@@ -60,11 +62,28 @@ class _PublishDealScreenState extends State<PublishDealScreen> {
 
   String result = await ApiManagerDeals.addDeal(deal, images);
 
-  ScaffoldMessenger.of(context).showSnackBar(
+  /*ScaffoldMessenger.of(context).showSnackBar(
     SnackBar(content: Text(result)),
-  );
+  );*/
+   if (result.toLowerCase().contains("success")) {
+    QuickAlert.show(
+      context: context,
+      type: QuickAlertType.success,
+      text: 'Deal published successfully!',
+      confirmBtnText: 'OK',
+      onConfirmBtnTap: () {
+        Navigator.pop(context);        // to close alert:
+        Navigator.pop(context);       // to close this screen:
+      },
+    );
+  } else {
+    QuickAlert.show(
+      context: context,
+      type: QuickAlertType.error,
+      text: result,
+    );
+  }
 }
-
 
   @override
   Widget build(BuildContext context) {
@@ -105,7 +124,7 @@ class _PublishDealScreenState extends State<PublishDealScreen> {
                   child: ElevatedButton(
                     onPressed: () {
                       publishDeal();      // call Function to publish deal:
-
+                      //Navigator.pop(context);
                     },
 
                     style: ElevatedButton.styleFrom(

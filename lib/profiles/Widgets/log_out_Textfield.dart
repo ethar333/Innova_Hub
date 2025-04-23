@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:innovahub_app/core/Constants/Colors_Constant.dart';
 import 'package:innovahub_app/core/services/cache_services.dart';
@@ -15,20 +16,26 @@ class LogoutTextField extends StatelessWidget {
           borderRadius: BorderRadius.circular(10),
         ),
         child: ListTile(
+            /*onTap: () async {
+            await CacheService.clear(); // امسحي البيانات المحفوظة
+            Navigator.pushNamedAndRemoveUntil(
+              context,
+              '/login',
+              (route) => false, // يمسح كل الراوتس القديمة
+            );
+          },*/
+
           title: const Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Icon(Icons.login_outlined, color: Constant.whiteColor),
               SizedBox(width: 8),
+          
               Text("Log Out",
-                  style: TextStyle(fontSize: 16, color: Constant.whiteColor)),
+              style: TextStyle(fontSize: 16, color: Constant.whiteColor)),
             ],
           ),
-          onTap: () {
-            CacheService.clear();
-            Navigator.pushNamedAndRemoveUntil(
-                context, '/login', (route) => false);
-          },
+         
         ),
       ),
     );

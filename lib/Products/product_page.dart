@@ -1,7 +1,7 @@
+
 import 'package:flutter/material.dart';
 import 'package:innovahub_app/Custom_Widgets/quick_alert.dart';
 import 'package:innovahub_app/Models/product_response.dart';
-import 'package:innovahub_app/Products/buy_page.dart';
 import 'package:innovahub_app/Products/payment_page.dart';
 import 'package:innovahub_app/core/Api/cart_services.dart';
 import 'package:innovahub_app/core/Api/comment_service.dart';
@@ -387,7 +387,7 @@ class _ProductPageState extends State<ProductPage> {
               ),
             ),
             const SizedBox(height: 20),
-            Padding(
+            /*Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -457,9 +457,9 @@ class _ProductPageState extends State<ProductPage> {
                   ),
                 ],
               ),
-            ),
+            ),*/
             const SizedBox(height: 20),
-            Container(
+           /* Container(
               height: 160,
               width: double.infinity,
               margin: const EdgeInsets.symmetric(horizontal: 16),
@@ -477,7 +477,7 @@ class _ProductPageState extends State<ProductPage> {
                   ),
                 ),
               ),
-            ),
+            ),*/
             const SizedBox(height: 20),
           ],
         ),
@@ -485,3 +485,5 @@ class _ProductPageState extends State<ProductPage> {
     );
   }
 }
+
+

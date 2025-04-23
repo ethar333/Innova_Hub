@@ -5,12 +5,19 @@ import 'package:flutter/material.dart';
 import 'package:innovahub_app/core/Constants/Colors_Constant.dart';
 
 class DataTextField extends StatelessWidget {
-   DataTextField({super.key,required this.hint});
-  
-  String hint;
+  final String hint;
+  final TextEditingController controller;
+
+  const DataTextField({
+    super.key,
+    required this.hint,
+    required this.controller,
+  });
+
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      controller: controller, // هذا هو السطر اللي كان يعطيك الخطأ
       decoration: InputDecoration(
         hintText: hint,
         hintStyle: const TextStyle(

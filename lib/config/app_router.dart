@@ -9,7 +9,9 @@ import 'package:innovahub_app/home/controller/owner_home_layout/owner_home_layou
 import 'package:innovahub_app/home/controller/user_home_layout_cubit/user_home_layout_cubit.dart';
 import 'package:innovahub_app/home/home_Tap_Categories.dart';
 import 'package:innovahub_app/home/home_Tap_Investor.dart';
+import 'package:innovahub_app/home/home_Tap_User.dart';
 import 'package:innovahub_app/home/home_Tap_owner.dart';
+import 'package:innovahub_app/home/profile_Tap_customer.dart';
 import 'package:innovahub_app/home/user_home_screen.dart';
 import 'package:innovahub_app/home/register_page.dart';
 import 'package:innovahub_app/profiles/privacy_owner_investor.dart';
@@ -51,6 +53,8 @@ static final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>(
               child: const HomeScreenOwner(),
             ),
         // AddingDealOwner.routeName : (_) => AddingDealOwner(),
+        HomeScreenUser.routeName:(_) => HomeScreenUser(),
+       // PrivacySecurityPage.routeName:(_) => PrivacySecurityPage(),
         HomeScreenInvestor.routeName: (_) => const HomeScreenInvestor(),
         HomeScreenCategories.routeName: (_) => const HomeScreenCategories(),
         ProfileInvestor.routeName: (_) => const ProfileInvestor(),

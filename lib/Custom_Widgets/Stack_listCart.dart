@@ -3,14 +3,22 @@ import 'package:innovahub_app/Custom_Widgets/quick_alert.dart';
 import 'package:innovahub_app/core/Api/cart_services.dart';
 import 'package:innovahub_app/core/Constants/Colors_Constant.dart';
 import 'package:innovahub_app/Models/product_response.dart';
+import 'package:innovahub_app/home/widget/favorite_icon_widget.dart';
 import 'package:quickalert/models/quickalert_type.dart';
 
 // Carpets products:
 // ignore: camel_case_types, must_be_immutable
-class stacklistcart extends StatelessWidget {
+class stacklistcart extends StatefulWidget {
   stacklistcart({super.key, required this.product});
 
   ProductResponse product; // object from model to represent data:
+
+  @override
+  State<stacklistcart> createState() => _stacklistcartState();
+}
+
+// ignore: camel_case_types
+class _stacklistcartState extends State<stacklistcart> {
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +27,7 @@ class stacklistcart extends StatelessWidget {
         Container(
           margin: const EdgeInsets.only(left: 10),
           height: 330,
-          width: 240,
+          width: 260,
           decoration: BoxDecoration(
             color: Constant.whiteColor,
             borderRadius: BorderRadius.circular(20),
@@ -30,7 +38,7 @@ class stacklistcart extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(top: 15),
               child: Image.network(
-                product.productImage,
+                widget.product.productImage,
                 fit: BoxFit.cover,
                 height: 160,
                 width: 160,
@@ -42,7 +50,7 @@ class stacklistcart extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    product.name,
+                    widget.product.name,
                     style: const TextStyle(
                       fontSize: 14,
                     ),
@@ -52,14 +60,14 @@ class stacklistcart extends StatelessWidget {
                     children: [
                       const Text("Made by ",
                           style: TextStyle(fontSize: 13, color: Colors.black)),
-                      Text(product.authorName,
+                      Text(widget.product.authorName,
                           style: const TextStyle(
                               fontSize: 13, color: Constant.blueColor)),
                     ],
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    "\$${product.price.toStringAsFixed(2)}",
+                    "\$${widget.product.price.toStringAsFixed(2)}",
                     style: const TextStyle(
                         fontWeight: FontWeight.w500,
                         color: Constant.blackColorDark),
@@ -67,11 +75,11 @@ class stacklistcart extends StatelessWidget {
                   const SizedBox(height: 10),
                   Row(
                     children: [
-                      const Icon(Icons.favorite_border_outlined),
+                      FavoriteIconButton(product: widget.product),
                       const SizedBox(width: 15),
-                      InkWell(
+                       InkWell(
                         onTap: () {
-                          addToCart(product.productId, 1).then((value) {
+                          addToCart(widget.product.productId, 1).then((value) {
                             if (value) {
                               quickAlert(
                                   context: context,
@@ -87,6 +95,7 @@ class stacklistcart extends StatelessWidget {
                         },
                         child: const Icon(Icons.shopping_cart),
                       ),
+
                       const SizedBox(width: 40),
                       const CircleAvatar(
                         radius: 8,

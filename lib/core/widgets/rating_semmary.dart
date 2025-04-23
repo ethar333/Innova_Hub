@@ -1,3 +1,4 @@
+
 /// Libary to display a summary of ratings.
 ///
 /// This library is used to display statistics about ratings.

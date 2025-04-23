@@ -1,81 +1,24 @@
-
 import 'package:flutter/material.dart';
 import 'package:innovahub_app/Custom_Widgets/quick_alert.dart';
-import 'package:innovahub_app/core/Api/Api_Manager_favourite.dart';
 import 'package:innovahub_app/core/Api/cart_services.dart';
 import 'package:innovahub_app/core/Constants/Colors_Constant.dart';
 import 'package:innovahub_app/Models/product_response.dart';
+import 'package:innovahub_app/home/widget/favorite_icon_widget.dart';
 import 'package:quickalert/models/quickalert_type.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
-
-
+// ignore: camel_case_types
 class stacklist extends StatefulWidget {
   final ProductResponse product;
 
   const stacklist({super.key, required this.product});
 
   @override
+  // ignore: library_private_types_in_public_api
   _StackListState createState() => _StackListState();
 }
 
 class _StackListState extends State<stacklist> {
-  bool isFavorite = false;
-  final WishlistService wishlistService = WishlistService();
-  String token = '';
-
-  @override
-  void initState() {
-    super.initState();
-    _loadToken();
-    _checkIfFavorite();
-  }
-
-  Future<void> _loadToken() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    setState(() {
-      token = prefs.getString('token') ?? '';
-    });
-  }
-
-  Future<void> _checkIfFavorite() async {
-    List<Map<String, dynamic>> wishlist = await wishlistService.fetchWishlist();
-    setState(() {
-      isFavorite = wishlist.any((item) => item["ProductID"] == widget.product.productId);
-    });
-  }
-
-  Future<void> _toggleFavorite() async {
-    bool success =
-        await wishlistService.addProductToWishlist(widget.product.productId);
-
-    if (success) {
-      setState(() {
-        isFavorite = !isFavorite;
-      });
-
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          backgroundColor: isFavorite ? Colors.teal : Colors.red,
-          content: Text(
-            isFavorite
-                ? "${widget.product.name} added to favorites"
-                : "${widget.product.name} removed from favorites",
-          ),
-          duration: const Duration(seconds: 2),
-        ),
-      );
-    } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          backgroundColor: Colors.teal,
-          content: Text("Failed to update wishlist"),
-          duration: Duration(seconds: 2),
-        ),
-      );
-    }
-  }
-
+  
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -121,20 +64,31 @@ class _StackListState extends State<stacklist> {
               const SizedBox(height: 10),
               Row(
                 children: [
-                  GestureDetector(
-                    onTap: _toggleFavorite,
-                    child: Icon(
-                      isFavorite ? Icons.favorite : Icons.favorite_border,
-                      color: isFavorite ? Colors.red : Colors.black,
-                    ),
-                  ),
+                  FavoriteIconButton(product: widget.product),
                   const SizedBox(width: 15),
-                  GestureDetector(
+                  InkWell(
+                    onTap: () {
+                      addToCart(widget.product.productId, 1).then((value) {
+                        if (value) {
+                          quickAlert(
+                              context: context,
+                              title: "Added to cart successfully",
+                              type: QuickAlertType.success);
+                        } else {
+                          quickAlert(
+                              context: context,
+                              title: "Error adding to cart",
+                              type: QuickAlertType.error);
+                        }
+                      });
+                    },
+                    child: const Icon(Icons.shopping_cart),
+                  ),
+                  /*GestureDetector(
                     onTap: () async {
-                      bool success =
-                          await addToCart(widget.product.productId, 1);ScaffoldMessenger.of(context).showSnackBar(
+                      bool success = await addToCart(widget.product.productId, 1);ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
-                          backgroundColor: success ? Colors.teal : Colors.red,
+                          backgroundColor: success ? Constant.mainColor : Colors.red,
                           content: Text(success
                               ? "${widget.product.name} added to cart 🛒"
                               : "Failed to add to cart"),
@@ -143,7 +97,8 @@ class _StackListState extends State<stacklist> {
                       );
                     },
                     child: const Icon(Icons.shopping_cart, color: Colors.black),
-                  ),
+                  ),*/
+
                   const SizedBox(width: 50),
                   const CircleAvatar(
                     radius: 8,
@@ -177,157 +132,3 @@ class _StackListState extends State<stacklist> {
   }
 }
 
-
-
-
-
-
-
-
-
-// ignore: camel_case_types, must_be_immutable
-/*class stacklist extends StatelessWidget {
-  stacklist({super.key, required this.product});
-
-  ProductResponse product; // object from model to represent data:
-
-  //final CartService cartService = CartService(); // object:
-  @override
-  Widget build(BuildContext context) {
-    return Stack(children: [
-      Container(
-        margin: const EdgeInsets.only(left: 10),
-        height: 340,
-        width: 230,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(25),
-          color: Colors.white,
-        ),
-      ),
-      Positioned(
-        left: 35,
-        child: Image.network(
-          product.productImage,
-          fit: BoxFit.contain,
-          height: 180,
-          width: 180,
-        ),
-      ),
-      Positioned(
-        bottom: 10,
-        left: 25,
-        child: Column(
-          //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              product.name,
-              style: const TextStyle(fontSize: 13),
-            ),
-            const SizedBox(
-              height: 8,
-            ),
-            Row(
-              children: [
-                const Text("Made by ",
-                    style: TextStyle(
-                        fontSize: 13, color: Constant.blackColorDark)),
-                Text(product.authorName,
-                    style: const TextStyle(
-                        fontSize: 13, color: Constant.blueColor)),
-              ],
-            ),
-            const SizedBox(
-              height: 8,
-            ),
-            Text("\$${product.price.toStringAsFixed(2)}"),
-            const SizedBox(
-              height: 10,
-            ),
-            Row(
-              children: [
-                const Icon(Icons.favorite_border_outlined),
-
-                const SizedBox(
-                  width: 15,
-                ),
-
-                GestureDetector(
-                  onTap: () {
-                    addToCart(product.productId, 1).then((value) {
-                      if (value) {
-                        quickAlert(
-                            context: context,
-                            title: "Added to cart successfully",
-                            type: QuickAlertType.success);
-                      } else {
-                        quickAlert(
-                            context: context,
-                            title: "Error adding to cart",
-                            type: QuickAlertType.error);
-                      }
-                    }); // call the method to add to cart
-                  },
-                  child: const Icon(Icons.shopping_cart, color: Colors.black),
-                ),
-
-                //(child: Icon(Icons.shopping_cart)),
-
-                const SizedBox(
-                  width: 50,
-                ),
-                const CircleAvatar(
-                  radius: 8,
-                  backgroundColor: Colors.green,
-                  child: Icon(
-                    Icons.check,
-                    color: Constant.whiteColor,
-                    size: 14,
-                  ),
-                ),
-                const SizedBox(
-                  width: 5,
-                ),
-                const Text(
-                  " In stock",
-                  style:
-                      TextStyle(fontSize: 13, color: Constant.blackColorDark),
-                ),
-              ],
-            ),
-            const SizedBox(
-              height: 8,
-            ),
-            const Row(
-              children: [
-                Icon(
-                  Icons.star,
-                  color: Colors.yellow,
-                ),
-                Icon(
-                  Icons.star,
-                  color: Colors.yellow,
-                ),
-                Icon(
-                  Icons.star,
-                  color: Colors.yellow,
-                ),
-                Icon(
-                  Icons.star,
-                  color: Colors.yellow,
-                ),
-                SizedBox(
-                  width: 8,
-                ),
-                Text("56890"),
-              ],
-            ),
-            const SizedBox(
-              height: 15,
-            )
-          ],
-        ),
-      )
-    ]);
-  }
-}*/

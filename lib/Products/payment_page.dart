@@ -2,10 +2,9 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:innovahub_app/home/user_home_screen.dart';
 import 'package:innovahub_app/payment/view/payment_view.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:url_launcher/url_launcher.dart';
-
 import 'package:innovahub_app/Custom_Widgets/shipping%20_address_container.dart';
 import 'package:innovahub_app/Products/checkout_address.dart';
 import 'package:innovahub_app/core/Api/Api_delivery_method.dart';
@@ -109,15 +108,41 @@ class _BuyPageState extends State<PaymentPage> {
     }
   }
 
-  Future<void> launchCheckoutUrl(String url) async {
+Future<void> launchCheckoutUrl(String url) async {
+  final result = await Navigator.push(
+    context,
+    MaterialPageRoute(builder: (context) {
+      return PaymetExcuteWebView(url: url);
+    }),
+  );
+
+  if (result == "success") {
+    // Navigate to Home after payment success
+    Navigator.pushNamedAndRemoveUntil(
+      context,
+      UserHomeScreen.routeName, 
+      (route) => false,
+    );
+  } else if (result == "failed") {
+    // في حالة فشل الدفع، يمكنك عرض رسالة فشل
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text("Payment failed, please try again.")),
+    );
+  }
+}
+
+
+
+  /*Future<void> launchCheckoutUrl(String url) async {
     Navigator.push(context, MaterialPageRoute(builder: (context) {
       return PaymetExcuteWebView(url: url);
+      
     }));
     // final Uri uri = Uri.parse(url);
     // if (!await launchUrl(uri)) {
     //   print('❌ Could not launch $url');
     // }
-  }
+  }*/
 
   @override
   Widget build(BuildContext context) {
@@ -422,7 +447,7 @@ class _BuyPageState extends State<PaymentPage> {
                 if (selectedMethod == null) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(
-                        content: Text("Please select a delivery method!")),
+                    content: Text("Please select a delivery method!")),
                   );
                   return;
                 }
@@ -466,46 +491,6 @@ class _BuyPageState extends State<PaymentPage> {
       ),
     );
   }
-
-  /*Widget CustomRadioOption({
-    required String method,
-    required String duration,
-    required String price,
-  }) {
-    return InkWell(
-      onTap: () {
-        setState(() {
-          _selectedMethod = method;
-        });
-      },
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 1, horizontal: 8),
-        child: Row(
-          children: [
-            Radio<String>(
-              value: method,
-              groupValue: _selectedMethod,
-              activeColor: Constant.mainColor,
-              onChanged: (String? value) {
-                setState(() {
-                  _selectedMethod = value;
-                });
-              },
-            ),
-            Text(
-              '$method $duration',
-              style: const TextStyle(
-                  color: Constant.blackColorDark,
-                  fontSize: 16,
-                  fontWeight: FontWeight.w400),
-            ),
-            Text(
-              price,
-              style: const TextStyle(fontSize: 16),
-            ),
-          ],
-        ),
-      ),
-    );
-  }*/
 }
+
+

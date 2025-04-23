@@ -59,7 +59,7 @@ class _FavouriteTabState extends State<FavouriteTab> {
       });
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          backgroundColor: Colors.red,
+          backgroundColor: Colors.teal,
           content: Text("Item removed from wishlist"),
           duration: Duration(seconds: 2),
         ),
