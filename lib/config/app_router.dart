@@ -11,7 +11,6 @@ import 'package:innovahub_app/home/home_Tap_Categories.dart';
 import 'package:innovahub_app/home/home_Tap_Investor.dart';
 import 'package:innovahub_app/home/home_Tap_User.dart';
 import 'package:innovahub_app/home/home_Tap_owner.dart';
-import 'package:innovahub_app/home/profile_Tap_customer.dart';
 import 'package:innovahub_app/home/user_home_screen.dart';
 import 'package:innovahub_app/home/register_page.dart';
 import 'package:innovahub_app/profiles/privacy_owner_investor.dart';
@@ -65,7 +64,7 @@ static final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>(
         ProductPage.routeName: (_) => const ProductPage(),
         //CartTap.routeName : (_) => CartTap(),
         CartPage.routeName: (_) => const CartPage(),
-        BuyPage.routeName: (_) => const BuyPage(),
+        //BuyPage.routeName: (_) => const BuyPage(),
         CheckoutAddress.routeName: (_) => const CheckoutAddress(),
         OwnerPublish.routeName: (_) => const OwnerPublish(),
         PaymentPage.routeName: (_) => const PaymentPage(),

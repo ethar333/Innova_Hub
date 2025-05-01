@@ -22,6 +22,8 @@ class _HomeScreenInvestorState extends State<HomeScreenInvestor> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Constant.whiteColor,
+        elevation: 0,
         title: const Text(
           'Innova',
           style: TextStyle(

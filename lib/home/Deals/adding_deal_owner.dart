@@ -69,7 +69,7 @@ class _PublishDealScreenState extends State<PublishDealScreen> {
     QuickAlert.show(
       context: context,
       type: QuickAlertType.success,
-      text: 'Deal published successfully!',
+    text: 'Thank’s For your Deal\nWait for Admin Approval',
       confirmBtnText: 'OK',
       onConfirmBtnTap: () {
         Navigator.pop(context);        // to close alert:

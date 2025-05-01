@@ -2,6 +2,7 @@
 /// Libary to display a summary of ratings.
 ///
 /// This library is used to display statistics about ratings.
+
 library rating_summary;
 
 import 'package:flutter/material.dart';
@@ -93,7 +94,7 @@ class RatingSummary extends StatelessWidget {
     this.color = Colors.amber,
     this.backgroundColor = const Color(0xFFEEEEEE),
     this.space = 20,
-    this.thickness = 10,
+    this.thickness = 15,
     this.starColor = Colors.amber,
     this.alignment = CrossAxisAlignment.center,
   }) : super(key: key);
@@ -225,18 +226,18 @@ class RatingSummary extends StatelessWidget {
           const SizedBox(width: 30),
           Flexible(
             child: Column(
-              crossAxisAlignment: alignment,
+              crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(average.toStringAsFixed(1), style: averageStyle),
-                RatingBarIndicator(
+                /*RatingBarIndicator(
                   rating: average,
                   itemSize: 28,
                   unratedColor: backgroundColor,
                   itemBuilder: (context, index) {
                     return Icon(Icons.star, color: starColor);
                   },
-                ),
+                ),*/
                 const SizedBox(height: 10),
                 Text(
                   "$counter $label",

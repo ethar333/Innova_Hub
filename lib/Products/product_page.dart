@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:innovahub_app/Custom_Widgets/quick_alert.dart';
 import 'package:innovahub_app/Models/product_response.dart';
@@ -6,6 +5,7 @@ import 'package:innovahub_app/Products/payment_page.dart';
 import 'package:innovahub_app/core/Api/cart_services.dart';
 import 'package:innovahub_app/core/Api/comment_service.dart';
 import 'package:innovahub_app/core/Constants/Colors_Constant.dart';
+import 'package:innovahub_app/core/widgets/rating_semmary.dart';
 import 'package:quickalert/models/quickalert_type.dart';
 
 class ProductPage extends StatefulWidget {
@@ -24,7 +24,8 @@ class _ProductPageState extends State<ProductPage> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    productcomment = ModalRoute.of(context)!.settings.arguments as ProductResponse;
+    productcomment =
+        ModalRoute.of(context)!.settings.arguments as ProductResponse;
   }
 
   void addComment() async {
@@ -333,25 +334,10 @@ class _ProductPageState extends State<ProductPage> {
                 ],
               ),
             ),
-            Padding(
+            /* Padding(
               padding: const EdgeInsets.all(10),
               child: Row(
                 children: [
-                  Expanded(
-                    child: ElevatedButton(
-                      onPressed: () {
-                        Navigator.pushNamed(context, PaymentPage.routeName);
-                      },
-                      style: ElevatedButton.styleFrom(
-                          backgroundColor: Constant.mainColor,
-                          minimumSize: const Size(1, 60)),
-                      child: const Text(
-                        "Buy Now",
-                        style:
-                            TextStyle(color: Constant.whiteColor, fontSize: 18),
-                      ),
-                    ),
-                  ),
                   const SizedBox(width: 10),
                   Expanded(
                     child: OutlinedButton(
@@ -371,119 +357,306 @@ class _ProductPageState extends State<ProductPage> {
                         });
                       },
                       style: ElevatedButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15),
+                          ),
                           side: const BorderSide(
                               color: Constant.greyColor2,
                               width: 1), // لون وسمك الحدود
                           backgroundColor: Constant.whiteColor,
                           minimumSize: const Size(1, 60)),
-                      child: const Text(
-                        "Add to cart",
-                        style: TextStyle(
-                            color: Constant.black2Color, fontSize: 18),
+                      child: const Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.shopping_cart_outlined,
+                            color: Constant.mainColor,
+                            size: 24,
+                          ),
+                           SizedBox(width: 8),
+                           Text(
+                            "Add to cart",
+                            style: TextStyle(
+                                color: Constant.black2Color, fontSize: 18),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),*/
+            const SizedBox(height: 15),
+            const Divider(
+              color: Constant.greyColor2,
+              indent: 18,
+              endIndent: 18,
+            ),
+            Container(
+              color: Colors.white,
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    'Product Ratings & Reviews',
+                    style: TextStyle(
+                      color: Constant.mainColor,
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+
+                  // Rating Summary
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      // Left side - overall rating
+                      Column(
+                        children: [
+                          const Text(
+                            '3.0',
+                            style: TextStyle(
+                              fontSize: 36,
+                              fontWeight: FontWeight.bold,
+                              color: Constant.black2Color,
+                            ),
+                          ),
+                          Text(
+                            'Based on 127 Ratings',
+                            style: TextStyle(
+                              fontSize: 12,
+                              color: Colors.grey[600],
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(width: 24),
+
+                      // Right side - rating bars
+                      Expanded(
+                        child: Column(
+                          children: [
+                            _buildRatingBar(5, 0.55, Colors.green),
+                            _buildRatingBar(4, 0.25, Colors.lightGreen),
+                            _buildRatingBar(3, 0.15, Colors.amber),
+                            _buildRatingBar(2, 0.33, Colors.orange),
+                            _buildRatingBar(1, 0.30, Colors.deepOrange),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+
+                  const SizedBox(height: 16),
+                  const Divider(),
+                  const Padding(
+                    padding: EdgeInsets.symmetric(vertical: 8.0),
+                    child: Text(
+                      'There are 50 reviews in this product',
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: Constant.greyColor4,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ),
+                  const Divider(),
+
+                  // Reviews List
+                  _buildReviewItem(),
+                  const Divider(),
+                  _buildReviewItem(),
+                  const Divider(),
+                  _buildReviewItem(),
+                ],
+              ),
+            ),
+            const SizedBox(height: 50),
+            Padding(
+              padding: const EdgeInsets.all(10),
+              child: Row(
+                children: [
+                  const SizedBox(width: 10),
+                  Expanded(
+                    child: OutlinedButton(
+                      onPressed: () {
+                        addToCart(arguments.productId, quantity).then((value) {
+                          if (value) {
+                            quickAlert(
+                                context: context,
+                                title: "Added to cart successfully",
+                                type: QuickAlertType.success);
+                          } else {
+                            quickAlert(
+                                context: context,
+                                title: "Error adding to cart",
+                                type: QuickAlertType.error);
+                          }
+                        });
+                      },
+                      style: ElevatedButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                        /*  side: const BorderSide(
+                              color: Constant.greyColor2, width: 1),*/
+                          backgroundColor: Constant.mainColor,
+                          minimumSize: const Size(1, 60)),
+                          child: const Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                          /*Icon(
+                            Icons.shopping_cart_outlined,
+                            color: Constant.mainColor,
+                            size: 24,
+                          ),*/
+                          SizedBox(width: 8),
+                          Text(
+                            "Add to cart",
+                            style: TextStyle(
+                                color: Constant.whiteColor, fontSize: 18),
+                          ),
+                        ],
                       ),
                     ),
                   ),
                 ],
               ),
             ),
-            const SizedBox(height: 20),
-            /*Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
-                    "Comments",
-                    style: TextStyle(
-                        color: Constant.blackColorDark,
-                        fontWeight: FontWeight.w500,
-                        fontSize: 16),
-                  ),
-                  const SizedBox(height: 10),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: TextField(
-                          controller: input,
-                          decoration: InputDecoration(
-                            fillColor: Constant.whiteColor,
-                            hintText: "What do you think?",
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(25),
-                              borderSide:
-                                  const BorderSide(color: Constant.greyColor2),
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(20),
-                              borderSide:
-                                  const BorderSide(color: Constant.greyColor2),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(20),
-                              borderSide: const BorderSide(
-                                color: Constant.greyColor2,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(width: 10),
-                      ElevatedButton(
-                        onPressed: () {
-                          addComment(); // Function to add comment:
-                        },
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: Constant.mainColor,
-                            minimumSize: const Size(1, 50)),
-                        child: const Row(
-                          children: [
-                            Text(
-                              "Add",
-                              style: TextStyle(
-                                  color: Constant.whiteColor, fontSize: 18),
-                            ),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            Icon(
-                              Icons.send,
-                              color: Constant.whiteColor,
-                              size: 23,
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),*/
-            const SizedBox(height: 20),
-           /* Container(
-              height: 160,
-              width: double.infinity,
-              margin: const EdgeInsets.symmetric(horizontal: 16),
-              padding: const EdgeInsets.all(12),
-              decoration: BoxDecoration(
-                color: Constant.whiteColor,
-                borderRadius: BorderRadius.circular(20),
-              ),
-              child: Center(
-                child: Text(
-                  output.text.isNotEmpty ? output.text : "No Comments yet !",
-                  style: const TextStyle(
-                    fontWeight: FontWeight.w500,
-                    color: Constant.greyColor4,
-                  ),
-                ),
-              ),
-            ),*/
-            const SizedBox(height: 20),
+            const SizedBox(height: 40,),
           ],
         ),
       ),
     );
   }
+
+  Widget _buildRatingBar(int rating, double percentage, Color color) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 2.0),
+      child: Row(
+        children: [
+          SizedBox(
+            width: 10,
+            child: Text(
+              '$rating',
+              style: const TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+          const SizedBox(width: 4),
+          Expanded(
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(2),
+              child: Stack(
+                children: [
+                  Container(
+                    height: 8,
+                    color: Colors.grey[200],
+                  ),
+                  FractionallySizedBox(
+                    widthFactor: percentage,
+                    child: Container(
+                      height: 8,
+                      color: color,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          const SizedBox(width: 4),
+          SizedBox(
+            width: 26,
+            child: Text(
+              '${(percentage * 100).toInt()}%',
+              style: TextStyle(
+                fontSize: 12,
+                color: Colors.grey[600],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildReviewItem() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 12.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              // Avatar
+              Container(
+                padding: EdgeInsets.all(4),
+                width: 30,
+                height: 30,
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  border: Border.all(color: Constant.greyColor4),
+                  shape: BoxShape.circle,
+                  color: Constant.whiteColor,
+                ),
+                child: const Text(
+                  'M',
+                  style: TextStyle(
+                    color: Constant.blackColorDark,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+              const SizedBox(width: 12),
+              // Name
+              const Text(
+                'Mohamed Ahmed',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 8),
+          // Star rating
+          Row(
+            children: List.generate(5, (index) {
+              return Icon(
+                index < 4 ? Icons.star : Icons.star_border,
+                color: Colors.amber,
+                size: 18,
+              );
+            }),
+          ),
+          const SizedBox(height: 8),
+          // Review text
+          const Text(
+            'Very Good Product and Fancy Very Good Product and Fancy',
+            style: TextStyle(fontSize: 14),
+          ),
+          const SizedBox(height: 8),
+          // Helpful button
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 4),
+            decoration: BoxDecoration(
+              color: Constant.whiteColor,
+              border: Border.all(color: Constant.greyColor4),
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: const Text(
+              'Helpful',
+              style: TextStyle(
+                  fontSize: 13,
+                  color: Constant.blackColorDark,
+                  fontWeight: FontWeight.w500),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 }
-
-

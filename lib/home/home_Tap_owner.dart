@@ -18,6 +18,8 @@ class _HomeScreenOwnerState extends State<HomeScreenOwner> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Constant.whiteColor,
+        elevation: 0,
         title: const Text(
           'Innova',
           style: TextStyle(

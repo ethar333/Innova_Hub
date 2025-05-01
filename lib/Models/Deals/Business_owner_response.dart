@@ -1,37 +1,33 @@
+// Model Business owner response:
 
+class BusinessOwnerResponse {
+  String businessownerId;
+  String businessownerName;
+  String businessName;
+  String description;
+  double offerMoney;
+  double offerDeal;
+  String approvedAt;
+  int categoryId;
+  String categoryName;
+  List<String> images;
 
- // Model Business owner response:
-
-
-class BusinessOwnerResponse{
-
-   String businessownerId;
-   String businessownerName;
-   String businessName;
-   String description;
-   double offerMoney;
-   double offerDeal;
-   int categoryId;
-   String categoryName;
-   List<String> images;
-
-   BusinessOwnerResponse({
+  BusinessOwnerResponse({
     required this.businessownerId,
     required this.businessownerName,
     required this.businessName,
     required this.description,
     required this.offerMoney,
     required this.offerDeal,
+    required this.approvedAt,
     required this.images,
     required this.categoryId,
     required this.categoryName,
-   });
+  });
 
- 
-   // from json:
+  // from json:
 
-   factory BusinessOwnerResponse.fromjson(Map<String, dynamic> json){
-
+  factory BusinessOwnerResponse.fromjson(Map<String, dynamic> json) {
     return BusinessOwnerResponse(
       businessownerId: json['BusinessOwnerId'],
       businessownerName: json['BusinessOwnerName'],
@@ -39,18 +35,18 @@ class BusinessOwnerResponse{
       description: json['Description'],
       offerMoney: json['OfferMoney'],
       offerDeal: json['OfferDeal'],
-      images: (json['pictures'] != null && json['pictures'] is List)
-          ? List<String>.from(json['pictures'])
+      images: (json['Pictures'] != null && json['Pictures'] is List)
+          ? List<String>.from(json['Pictures'])
           : [],
-
       categoryId: json['CategoryId'],
       categoryName: json['CategoryName'],
+      approvedAt: json['ApprovedAt'],
     );
-   }
+  }
 
-   // to json:
+  // to json:
 
-    Map<String, dynamic> toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'BusinessOwnerId': businessownerId,
       'BusinessOwnerName': businessownerName,
@@ -63,7 +59,4 @@ class BusinessOwnerResponse{
       'CategoryName': categoryName,
     };
   }
-
-
- }
-
+}

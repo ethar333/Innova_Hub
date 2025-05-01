@@ -18,6 +18,8 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Constant.whiteColor,
+        elevation: 0,
         title: const Text(
           'Innova',
           style: TextStyle(
@@ -54,6 +56,8 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
           BlocBuilder<UserHomeLayoutCubit, UserHomeLayoutState>(
         builder: (context, state) {
           return BottomNavigationBar(
+            backgroundColor: Constant.whiteColor,
+            elevation: 0,
             items: UserHomeLayout.bottomNavBarItems,
             currentIndex: UserHomeLayoutCubit.get(context).currentIndex,
             onTap: (index) {

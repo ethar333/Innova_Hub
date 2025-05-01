@@ -6,7 +6,7 @@ import 'package:innovahub_app/Products/checkout_address.dart';
 import 'package:innovahub_app/core/Constants/Colors_Constant.dart';
 import 'package:innovahub_app/payment/view/payment_view.dart';
 
-class BuyPage extends StatefulWidget {
+/*class BuyPage extends StatefulWidget {
   const BuyPage({super.key});
 
   static const String routeName = 'buy_page'; // route name:
@@ -239,4 +239,4 @@ class _BuyPageState extends State<BuyPage> {
       ),
     );
   }
-}
+}*/

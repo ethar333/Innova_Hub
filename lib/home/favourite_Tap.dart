@@ -1,6 +1,7 @@
-
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:innovahub_app/core/Api/Api_Manager_favourite.dart';
+import 'package:innovahub_app/core/Constants/Colors_Constant.dart';
 
 class FavouriteTab extends StatefulWidget {
   static const String routeName = "FavouriteTab";
@@ -59,8 +60,8 @@ class _FavouriteTabState extends State<FavouriteTab> {
       });
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          backgroundColor: Colors.teal,
-          content: Text("Item removed from wishlist"),
+          backgroundColor: Constant.mainColor,
+          content: Text("Item removed from wishlist",style: TextStyle(color: Constant.whiteColor),),
           duration: Duration(seconds: 2),
         ),
       );
@@ -118,7 +119,8 @@ class _FavouriteTabState extends State<FavouriteTab> {
                             childAspectRatio: 0.75,
                           ),
                           itemCount: wishlistItems.length,
-                          itemBuilder: (context, index) {final item = wishlistItems[index];
+                          itemBuilder: (context, index) {
+                            final item = wishlistItems[index];
                             return Container(
                               padding: const EdgeInsets.all(10),
                               decoration: BoxDecoration(
@@ -152,10 +154,9 @@ class _FavouriteTabState extends State<FavouriteTab> {
                                         fontWeight: FontWeight.bold),
                                     overflow: TextOverflow.ellipsis,
                                   ),
-                                  const SizedBox(height: 5),
+                                  const SizedBox(height: 12),
                                   Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
                                       Text(
                                         "\$${(item["FinalPrice"] as num).toStringAsFixed(2)}",
@@ -163,13 +164,22 @@ class _FavouriteTabState extends State<FavouriteTab> {
                                             fontSize: 14,
                                             fontWeight: FontWeight.w500),
                                       ),
-                                      IconButton(
+                                      GestureDetector(
+                                        onTap: () {
+                                          removeFromWishlist(index);
+                                        },
+                                        child: const FaIcon(
+                                          FontAwesomeIcons.trashCan,
+                                          color: Colors.red,
+                                        ),
+                                      ),
+                                      /*IconButton(
                                         icon: const Icon(Icons.delete,
                                             color: Colors.red),
                                         onPressed: () {
                                           removeFromWishlist(index);
                                         },
-                                      ),
+                                      ),*/
                                     ],
                                   ),
                                 ],
@@ -184,4 +194,3 @@ class _FavouriteTabState extends State<FavouriteTab> {
     );
   }
 }
-

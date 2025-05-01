@@ -17,6 +17,7 @@ class stacklisthandmade extends StatefulWidget {
   State<stacklisthandmade> createState() => _stacklisthandmadeState();
 }
 
+// ignore: camel_case_types
 class _stacklisthandmadeState extends State<stacklisthandmade> {
   @override
   Widget build(BuildContext context) {
@@ -28,7 +29,7 @@ class _stacklisthandmadeState extends State<stacklisthandmade> {
           color: Colors.white,
         ),
         height: 330,
-        width: 200,
+        width: 230,
       ),
       ClipRRect(
         borderRadius: BorderRadius.circular(25),
@@ -36,7 +37,7 @@ class _stacklisthandmadeState extends State<stacklisthandmade> {
           widget.product.productImage,
           fit: BoxFit.cover,
           height: 180,
-          width: 200,
+          width: 230,
         ),
       ),
       Positioned(
